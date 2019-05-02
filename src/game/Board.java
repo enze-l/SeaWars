@@ -4,7 +4,15 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class Board implements MyBoard {
-    public void Board() {
+    private Field[][] board;
+
+    Board() {
+        this.board=new FieldImpl[10][10];
+        for(int fieldsHorizontal=0; fieldsHorizontal<10; fieldsHorizontal++){
+            for (int fieldsVertical=0; fieldsVertical<10; fieldsVertical++){
+                this.board[fieldsHorizontal][fieldsVertical]=new FieldImpl();
+            }
+        }
     }
 
     @Override

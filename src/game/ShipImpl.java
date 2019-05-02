@@ -3,10 +3,10 @@ package game;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class Vessel implements Ship {
+public class ShipImpl implements Ship {
     private static int[] shipsAvaiable;
 
-    Vessel(int length){
+    ShipImpl(int length){
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Vessel implements Ship {
     }
 
     @Override
-    public void setShipStatus(Coordinate coordinate) {
+    public void setHit(Coordinate coordinate) {
 
     }
 

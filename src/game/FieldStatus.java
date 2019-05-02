@@ -5,6 +5,7 @@ package game;
  */
 public enum FieldStatus {
     WATER,
+    SHOTWATER,
     SHIP,
     HIT,
     SUNK

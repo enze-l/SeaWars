@@ -8,7 +8,7 @@ public interface Ship {
 
     int getSize();
 
-    void setShipStatus(Coordinate coordinate);
+    void setHit(Coordinate coordinate);
 
     FieldStatus getShipStatus(Coordinate coordinate);
 }
