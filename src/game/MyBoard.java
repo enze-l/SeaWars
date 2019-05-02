@@ -63,7 +63,7 @@ public interface MyBoard {
      * @param coordinate Coordinates of the field of which the status is requested
      * @return The Status of the Field
      */
-    FieldStatus getFieldStatus(Coordinate coordinate);
+    FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException;
 
     /**
      * displays the Board

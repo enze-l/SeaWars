@@ -15,12 +15,14 @@ public class MyBoardTest {
         Coordinate coordinateRightUpper=new CoordinateImpl(10,1);
         Coordinate coordinateLeftLower=new CoordinateImpl(1,10);
         Coordinate coordinateRightLower=new CoordinateImpl(10,10);
-        Assert.assertTrue(
-                board.getFieldStatus(coordinateLeftUpper)==FieldStatus.WATER
-                        && board.getFieldStatus(coordinateRightLower)==FieldStatus.WATER
-                        && board.getFieldStatus(coordinateRightUpper)==FieldStatus.WATER
-                        && board.getFieldStatus(coordinateLeftLower)==FieldStatus.WATER
-        );
+        try {
+            Assert.assertTrue(
+                    board.getFieldStatus(coordinateLeftUpper) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinateRightLower) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinateRightUpper) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinateLeftLower) == FieldStatus.WATER
+            );
+        } catch (FieldException e){}
     }
 
     /**
@@ -88,14 +90,18 @@ public class MyBoardTest {
     public void fieldStatusWater(){
         Board board=new Board();
         Coordinate coordinate=new CoordinateImpl(1,1);
-        Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate));
+        try {
+            Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate));
+        }catch(FieldException e){}
     }
 
     @Test(expected = FieldException.class)
     public void noField(){
         Board board=new Board();
         Coordinate coordinate=new CoordinateImpl(0,0);
-        board.getFieldStatus(coordinate);
+        try {
+            board.getFieldStatus(coordinate);
+        } catch (FieldException e){}
     }
 
     /**
@@ -113,15 +119,17 @@ public class MyBoardTest {
         Coordinate coordinate5=new CoordinateImpl(2,6);
         Coordinate coordinate6=new CoordinateImpl(2,7);
         board.setShip(battleship, Orientation.HORIZONTAL, coordinate1);
-        Assert.assertTrue(
-                board.getFieldStatus(coordinate0)==FieldStatus.WATER
-                        &&board.getFieldStatus(coordinate1)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate2)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate3)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate4)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate5)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate6)== FieldStatus.WATER
-                );
+        try {
+            Assert.assertTrue(
+                    board.getFieldStatus(coordinate0) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate3) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate4) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate5) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate6) == FieldStatus.WATER
+            );
+        } catch(FieldException e){}
     }
 
     /**
@@ -139,15 +147,17 @@ public class MyBoardTest {
         Coordinate coordinate5=new CoordinateImpl(6,2);
         Coordinate coordinate6=new CoordinateImpl(7,2);
         board.setShip(battleship, Orientation.VERTICAL, coordinate1);
-        Assert.assertTrue(
-                board.getFieldStatus(coordinate0)==FieldStatus.WATER
-                        &&board.getFieldStatus(coordinate1)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate2)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate3)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate4)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate5)== FieldStatus.SHIP
-                        &&board.getFieldStatus(coordinate6)== FieldStatus.WATER
-        );
+        try {
+            Assert.assertTrue(
+                    board.getFieldStatus(coordinate0) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate3) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate4) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate5) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate6) == FieldStatus.WATER
+            );
+        }catch (FieldException e){}
     }
 
     /**
@@ -335,7 +345,9 @@ public class MyBoardTest {
         board.setShip(ship,Orientation.HORIZONTAL,coordinate1);
         Coordinate coordinate2=new CoordinateImpl(3,1);
         board.removeShip(coordinate2);
-        Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate1));
+        try {
+            Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate1));
+        }catch (Exception e){}
     }
 
     /**
@@ -348,10 +360,12 @@ public class MyBoardTest {
         Coordinate coordinate1=new CoordinateImpl(1,1);
         board.setShip(ship, Orientation.HORIZONTAL,coordinate1);
         Coordinate coordinate2=new CoordinateImpl(1,2);
-        Assert.assertTrue(
-                board.receiveAttack(coordinate2)==FieldStatus.HIT
-                &&board.getFieldStatus(coordinate2)==FieldStatus.HIT
-        );
+        try {
+            Assert.assertTrue(
+                    board.receiveAttack(coordinate2) == FieldStatus.HIT
+                            && board.getFieldStatus(coordinate2) == FieldStatus.HIT
+            );
+        }catch(FieldException e){}
     }
 
     /**
@@ -366,7 +380,9 @@ public class MyBoardTest {
         Coordinate coordinate2=new CoordinateImpl(2,1);
         board.receiveAttack(coordinate1);
         board.receiveAttack(coordinate2);
-        Assert.assertEquals(board.getFieldStatus(coordinate2), FieldStatus.SUNK);
+        try {
+            Assert.assertEquals(board.getFieldStatus(coordinate2), FieldStatus.SUNK);
+        }catch (FieldException e){}
     }
 
     /**
@@ -379,8 +395,8 @@ public class MyBoardTest {
         Coordinate coordinate1=new CoordinateImpl(1,1);
         Coordinate coordinate2=new CoordinateImpl(2,1);
         board.setShip(ship, Orientation.HORIZONTAL, coordinate1);
-        Assert.assertEquals(FieldStatus.SHIP, board.getFieldStatus(coordinate2));
+        try {
+            Assert.assertEquals(FieldStatus.SHIP, board.getFieldStatus(coordinate2));
+        } catch(Exception e){}
     }
-
-
 }

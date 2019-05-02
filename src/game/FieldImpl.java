@@ -55,6 +55,4 @@ class FieldImpl implements Field{
         }
          else return this.fieldStatus;
     }
-
-
 }
