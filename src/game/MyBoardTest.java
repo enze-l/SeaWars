@@ -181,9 +181,9 @@ public class MyBoardTest {
         Ship battleship =new Battleship();
         Ship cruiser1   =new Cruiser();
         Ship cruiser2   =new Cruiser();
-        Ship submarine1 =new Submarien();
-        Ship submarine2 =new Submarien();
-        Ship submarine3 =new Submarien();
+        Ship submarine1 =new Submarine();
+        Ship submarine2 =new Submarine();
+        Ship submarine3 =new Submarine();
         Ship destroyer1 =new Destroyer();
         Ship destroyer2 =new Destroyer();
         Ship destroyer3 =new Destroyer();
@@ -223,9 +223,9 @@ public class MyBoardTest {
         Ship battleship =new Battleship();
         Ship cruiser1   =new Cruiser();
         Ship cruiser2   =new Cruiser();
-        Ship submarine1 =new Submarien();
-        Ship submarine2 =new Submarien();
-        Ship submarine3 =new Submarien();
+        Ship submarine1 =new Submarine();
+        Ship submarine2 =new Submarine();
+        Ship submarine3 =new Submarine();
         Ship destroyer1 =new Destroyer();
         Ship destroyer2 =new Destroyer();
         Ship destroyer3 =new Destroyer();
@@ -263,7 +263,7 @@ public class MyBoardTest {
     @Test(expected = FieldException.class)
     public void setShipOutside()throws FieldException{
         Board board=new Board();
-        Ship ship=new Submarien();
+        Ship ship=new Submarine();
         Coordinate coordinate=new CoordinateImpl(0,0);
         board.setShip(ship, Orientation.HORIZONTAL, coordinate);
     }
@@ -274,8 +274,8 @@ public class MyBoardTest {
     @Test(expected = FieldException.class)
     public void setShipOnShip()throws FieldException{
         Board board=new Board();
-        Ship ship1=new Submarien();
-        Ship ship2=new Submarien();
+        Ship ship1=new Submarine();
+        Ship ship2=new Submarine();
         Coordinate coordinate1=new CoordinateImpl(1,1);
         Coordinate coordinate2=new CoordinateImpl(1,3);
         board.setShip(ship1, Orientation.HORIZONTAL,coordinate1);
@@ -288,8 +288,8 @@ public class MyBoardTest {
     @Test(expected = FieldException.class)
     public void setShipNextToShip()throws FieldException{
         Board board=new Board();
-        Ship ship1=new Submarien();
-        Ship ship2=new Submarien();
+        Ship ship1=new Submarine();
+        Ship ship2=new Submarine();
         Coordinate coordinate1=new CoordinateImpl(1,1);
         Coordinate coordinate2=new CoordinateImpl(2,3);
         board.setShip(ship1, Orientation.HORIZONTAL,coordinate1);
@@ -302,7 +302,7 @@ public class MyBoardTest {
     @Test(expected = FieldException.class)
     public void setShipOnBoarder()throws FieldException{
         Board board=new Board();
-        Ship ship=new Submarien();
+        Ship ship=new Submarine();
         Coordinate coordinate=new CoordinateImpl(9,1);
         board.setShip(ship, Orientation.HORIZONTAL,coordinate);
     }
@@ -313,7 +313,7 @@ public class MyBoardTest {
     @Test(expected = ShipException.class)
     public void setShipAgain(){
         Board board=new Board();
-        Ship ship=new Submarien();
+        Ship ship=new Submarine();
         Coordinate coordinate1=new CoordinateImpl(1,1);
         Coordinate coordinate2=new CoordinateImpl(3,1);
         try {
@@ -348,7 +348,7 @@ public class MyBoardTest {
     @Test
     public void removeShip(){
         Board board=new Board();
-        Ship ship=new Submarien();
+        Ship ship=new Submarine();
         Coordinate coordinate1=new CoordinateImpl(1,1);
         try {
             board.setShip(ship, Orientation.HORIZONTAL, coordinate1);
