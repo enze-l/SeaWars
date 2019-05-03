@@ -8,5 +8,5 @@ public interface Coordinate {
 
     int getYCoordinate();
 
-    void setCoordinateStatus(int x,char y);
+    boolean equals(Coordinate coordinate);
 }

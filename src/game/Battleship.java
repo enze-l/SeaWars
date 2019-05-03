@@ -1,21 +1,21 @@
 package game;
 
+import java.util.ArrayList;
+
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class ShipImpl implements Ship {
-    private static int[] shipsAvaiable;
+public class Battleship extends Ship {
+    private final int length=5;
+    private ArrayList<Coordinate> shipCoordinates=new ArrayList<>();
 
-    ShipImpl(int length){
+    @Override
+    public void Ship() {
     }
 
     @Override
-    public void Ship(){
-    }
-
-    @Override
-    public int getSize() {
-        return 0;
+    public int getLength() {
+        return length;
     }
 
     @Override

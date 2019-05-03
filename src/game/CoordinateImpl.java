@@ -23,7 +23,11 @@ public class CoordinateImpl implements Coordinate {
     }
 
     @Override
-    public void setCoordinateStatus(int x, char y) {
-
+    public boolean equals(Coordinate coordinate){
+        if (this.xCoordinate==coordinate.getXCoordinate()
+                &&this.yCoordinate==coordinate.getYCoordinate()){
+            return true;
+        }
+        else return false;
     }
 }

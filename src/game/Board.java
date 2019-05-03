@@ -5,6 +5,7 @@ package game;
  */
 public class Board implements MyBoard {
     private Field[][] board;
+    private int[] ships;
     private GameStatus gameStatus;
 
     Board() {
@@ -14,7 +15,10 @@ public class Board implements MyBoard {
                 this.board[fieldsHorizontal][fieldsVertical]=new FieldImpl(new CoordinateImpl(fieldsHorizontal+1, fieldsVertical+1));
             }
         }
+
         this.gameStatus=GameStatus.PREPARATION;
+
+        this.ships=new int[]{1,2,3,4};
     }
 
     @Override
@@ -29,11 +33,12 @@ public class Board implements MyBoard {
 
     @Override
     public int[] shipsAvailable() {
-        return new int[0];
+        return ships;
     }
 
     @Override
-    public void setShip(Ship ship, Orientation orientation, Coordinate coordinate) {
+    public void setShip(Ship ship, Orientation orientation, Coordinate coordinate) throws FieldException{
+
     }
 
     @Override
@@ -46,8 +51,9 @@ public class Board implements MyBoard {
     }
 
     @Override
-    public FieldStatus receiveAttack(Coordinate coordinates) {
-        return null;
+    public FieldStatus receiveAttack(Coordinate coordinate) {
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
+        return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus();
     }
 
     @Override

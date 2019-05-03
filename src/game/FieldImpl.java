@@ -34,7 +34,7 @@ class FieldImpl implements Field{
      * Else, it changes the FieldStatus to "SHOTWATER". This Status doesn't get changed if the Field gets attacked again.
      */
     @Override
-    public void receiveHit() {
+    public  void receiveHit() {
         if(this.ship!=null){
             this.ship.setHit(coordinate);
             this.fieldStatus=this.ship.getShipStatus(coordinate);
