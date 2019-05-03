@@ -1,7 +1,5 @@
 package game;
 
-import java.util.ArrayList;
-
 /**
  * @author s0568823 - Leon Enzenberger
  */

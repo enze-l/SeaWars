@@ -3,7 +3,7 @@ package game;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class ShipSegment {
+class ShipSegment {
     private FieldStatus status;
     private Coordinate coordinate;
 
@@ -12,7 +12,7 @@ public class ShipSegment {
         this.status=FieldStatus.SHIP;
     }
 
-    Coordinate getCoorinate(){
+    Coordinate getCoordinate(){
         return this.coordinate;
     }
 
