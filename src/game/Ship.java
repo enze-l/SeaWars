@@ -7,11 +7,14 @@ public abstract class Ship {
     private ShipSegment[] segments;
 
     /**
-     * Constructor gets individual length of different classes of ships through their respective constructor
+     * Constructor creates as many ship-segments as needed for given length
      * @param length the length of the ship
      */
     Ship(int length){
-        segments =new ShipSegment[length];
+        segments= new ShipSegment[length];
+        for (int segment=0; segment<length; segment++){
+            segments[segment] = new ShipSegment();
+        }
     }
 
     /**
@@ -23,11 +26,27 @@ public abstract class Ship {
     public void setShip(Coordinate coordinate, Orientation orientation){
         for(int segment=0; segment<segments.length; segment++){
             if (orientation==Orientation.HORIZONTAL) {
-                segments[segment] = new ShipSegment(new CoordinateImpl(coordinate.getXCoordinate()+segment, coordinate.getYCoordinate()));
+                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+segment, coordinate.getYCoordinate()));
             }
             if (orientation==Orientation.VERTICAL) {
-                segments[segment] = new ShipSegment(new CoordinateImpl(coordinate.getXCoordinate(), coordinate.getYCoordinate()+segment));
+                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate(), coordinate.getYCoordinate()+segment));
             }
+        }
+    }
+
+    /**
+     * @return anchor point of ship on board
+     */
+    public Coordinate getPosition(){
+        return segments[0].getCoordinate();
+    }
+
+    /**
+     * resets the status of
+     */
+    public void removeShip(){
+        for (ShipSegment segment:segments){
+            segment.removeAssignment();
         }
     }
 

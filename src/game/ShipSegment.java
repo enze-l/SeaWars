@@ -9,12 +9,26 @@ class ShipSegment {
 
     /**
      * a ship-segment contains information about its place on the board, as well as it's status.
-     * Its default status is "Ship".
-     * @param coordinate is the place of the segment on the board
+     * Its default status is "Ship" and it doesn't know where it belongs till it is placed.
      */
-    ShipSegment(Coordinate coordinate){
-        this.coordinate=coordinate;
+    ShipSegment(){
+        this.coordinate=null;
         this.status=FieldStatus.SHIP;
+    }
+
+    /**
+     * The ship-segment gets a place on the board assigned.
+     * @param coordinate the place on the board
+     */
+    void segmentAssignment(Coordinate coordinate){
+        this.coordinate=coordinate;
+    }
+
+    /**
+     * The ship-segment gets its coordinates removed and hence doesn't any longer reside on the board.
+     */
+    void removeAssignment(){
+        this.coordinate=null;
     }
 
     /**

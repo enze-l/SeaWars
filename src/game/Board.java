@@ -5,20 +5,25 @@ package game;
  */
 public class Board implements MyBoard {
     private Field[][] board;
-    private int[] ships;
+    private Ship[] ships;
     private GameStatus gameStatus;
 
     Board() {
-        this.board=new FieldImpl[10][10];
-        for(int fieldsHorizontal=0; fieldsHorizontal<10; fieldsHorizontal++){
-            for (int fieldsVertical=0; fieldsVertical<10; fieldsVertical++){
-                this.board[fieldsHorizontal][fieldsVertical]=new FieldImpl(new CoordinateImpl(fieldsHorizontal+1, fieldsVertical+1));
+        this.board = new FieldImpl[10][10];
+        for (int fieldsHorizontal = 0; fieldsHorizontal < 10; fieldsHorizontal++) {
+            for (int fieldsVertical = 0; fieldsVertical < 10; fieldsVertical++) {
+                this.board[fieldsHorizontal][fieldsVertical] = new FieldImpl(new CoordinateImpl(fieldsHorizontal + 1, fieldsVertical + 1));
             }
         }
 
-        this.gameStatus=GameStatus.PREPARATION;
+        this.gameStatus = GameStatus.PREPARATION;
 
-        this.ships=new int[]{1,2,3,4};
+        this.ships = new Ship[]{
+                new Battleship(),
+                new Cruiser(), new Cruiser(),
+                new Submarine(), new Submarine(), new Submarine(),
+                new Destroyer(), new Destroyer(), new Destroyer(), new Destroyer()
+        };
     }
 
     @Override
@@ -28,16 +33,27 @@ public class Board implements MyBoard {
 
     @Override
     public void setStatus(GameStatus status) {
-        this.gameStatus=status;
+        this.gameStatus = status;
     }
 
     @Override
     public int[] shipsAvailable() {
-        return ships;
+        int[] available=new int[]{0,0,0,0};
+        if (ships[0].getPosition() == null) available[0]++;
+        for (int cruiserPosition=1; cruiserPosition<=2; cruiserPosition++){
+            if (ships[cruiserPosition].getPosition()==null) available[1]++;
+        }
+        for (int submarinePosition=3; submarinePosition<=5; submarinePosition++){
+            if (ships[submarinePosition].getPosition()==null) available[2]++;
+        }
+        for (int destroyerPosition=6; destroyerPosition<=9; destroyerPosition++){
+            if (ships[destroyerPosition].getPosition()==null) available[3]++;
+        }
+        return available;
     }
 
     @Override
-    public void setShip(Ship ship, Orientation orientation, Coordinate coordinate) throws FieldException{
+    public void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException{
 
     }
 

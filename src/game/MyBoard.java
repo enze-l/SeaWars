@@ -22,12 +22,12 @@ public interface MyBoard {
      * Player positions ship on board
      * @throws FieldException if it is attempted to set a ship on non-existent Field or other Ship
      * @throws ShipException if ths ship has already been set
-     * @param ship type of ship (defines length of ship)
+     * @param shipType type of ship (defines length of ship)
      * @param orientation shows in witch direction the ship is positioned
      * @param coordinate gives the coordinates of the upper left corner of the ship on the board.
      *                    the ship swivels around this point depending on the orientation
      */
-    void setShip(Ship ship, Orientation orientation, Coordinate coordinate) throws FieldException;
+    void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException;
 
     /**
      * removes ship that was already placed
