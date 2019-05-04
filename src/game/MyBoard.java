@@ -27,7 +27,7 @@ public interface MyBoard {
      * @param coordinate gives the coordinates of the upper left corner of the ship on the board.
      *                    the ship swivels around this point depending on the orientation
      */
-    void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException;
+    void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException, ShipException;
 
     /**
      * removes ship that was already placed

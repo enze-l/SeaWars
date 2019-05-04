@@ -53,8 +53,11 @@ public class Board implements MyBoard {
     }
 
     @Override
-    public void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException{
+    public void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException, ShipException{
+        switch (shipType){
+            case BATTLESHIP:
 
+        }
     }
 
     @Override
