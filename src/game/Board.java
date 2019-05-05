@@ -10,9 +10,9 @@ public class Board implements MyBoard {
 
     Board() {
         this.board = new FieldImpl[10][10];
-        for (int fieldsHorizontal = 0; fieldsHorizontal < 10; fieldsHorizontal++) {
-            for (int fieldsVertical = 0; fieldsVertical < 10; fieldsVertical++) {
-                this.board[fieldsHorizontal][fieldsVertical] = new FieldImpl(new CoordinateImpl(fieldsHorizontal + 1, fieldsVertical + 1));
+        for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
+            for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
+                this.board[fieldsHorizontal-1][fieldsVertical-1] = new FieldImpl(new CoordinateImpl(fieldsHorizontal, fieldsVertical));
             }
         }
 

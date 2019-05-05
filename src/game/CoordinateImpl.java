@@ -8,8 +8,8 @@ public class CoordinateImpl implements Coordinate {
     private final int yCoordinate;
 
     CoordinateImpl(int x, int y){
-        this.xCoordinate=x;
-        this.yCoordinate=y;
+        this.xCoordinate=x-1;
+        this.yCoordinate=y-1;
     }
 
     @Override
