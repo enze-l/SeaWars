@@ -27,7 +27,7 @@ public interface MyBoard {
      * @param coordinate gives the coordinates of the upper left corner of the ship on the board.
      *                    the ship swivels around this point depending on the orientation
      */
-    void setShip(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException, ShipException;
+    void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException;
 
     /**
      * removes ship that was already placed
@@ -45,13 +45,6 @@ public interface MyBoard {
     int[] shipsAvailable();
 
     /**
-     * @return array with x and y coordinates
-     */
-    //not really sure how to test this method because its only job is to request an user input that isn't defined jet
-    //and in my opinion, should be handled via the communication class
-    Coordinate sendAttack();
-
-    /**
      * @throws FieldException if Coordinate doesn't correspond to an actual field
      * @return Opponent Move is recieved and Result of shot is given back
      * @param coordinate array with the x and y coordinate of shot
@@ -64,10 +57,4 @@ public interface MyBoard {
      * @return The Status of the Field
      */
     FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException;
-
-    /**
-     * displays the Board
-     */
-    //not shure how to test it. could be done by using this Method in virtually all test methods
-    void displayBoard();
 }
