@@ -32,23 +32,29 @@ public class Board implements MyBoard {
     }
 
     @Override
-    public void setStatus(GameStatus status) {
+    public void setStatus(GameStatus status) throws StatusException {
+        if (status==null) throw new StatusException();
         this.gameStatus = status;
     }
 
     @Override
     public int[] shipsAvailable() {
         int[] available=new int[]{0,0,0,0};
+
         if (ships[0].getPosition() == null) available[0]++;
+
         for (int cruiserPosition=1; cruiserPosition<=2; cruiserPosition++){
             if (ships[cruiserPosition].getPosition()==null) available[1]++;
         }
+
         for (int submarinePosition=3; submarinePosition<=5; submarinePosition++){
             if (ships[submarinePosition].getPosition()==null) available[2]++;
         }
+
         for (int destroyerPosition=6; destroyerPosition<=9; destroyerPosition++){
             if (ships[destroyerPosition].getPosition()==null) available[3]++;
         }
+
         return available;
     }
 
@@ -68,10 +74,33 @@ public class Board implements MyBoard {
                 }
             }
         }
+        if (shipsAvailable()[shipType.ordinal()]==0)throw new ShipException("Es wurden bereits alle Schiffe dieser Klasse platziert!");
     }
 
     @Override
-    public void removeShip(Coordinate coordinates) {
+    public void removeShip(Coordinate coordinate) throws FieldException, ShipException{
+        if (!coordinate.validCoordinate()){
+            throw new FieldException("Es gibt kein Spielfeld mit diesen Koordinaten");
+        }
+        if(board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus()==FieldStatus.WATER){
+            throw new ShipException("An dieser Stelle liegt kein Schiff!");
+        }
+        Coordinate shipAnchor=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getPosition();
+        int shipLength=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getLength();
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
+        board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()].removeShip();
+        Orientation orientation;
+        if (board[shipAnchor.getXCoordinate()+1][shipAnchor.getYCoordinate()].getStatus()==FieldStatus.SHIP){
+            orientation=Orientation.HORIZONTAL;
+        } else {orientation=Orientation.VERTICAL;}
+        for(int shipSegment=1; shipSegment<shipLength; shipSegment++){
+            if (orientation==Orientation.HORIZONTAL){
+                board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+shipSegment].removeShip();
+            }
+            if (orientation==Orientation.VERTICAL){
+                board[shipAnchor.getXCoordinate()+shipSegment][shipAnchor.getYCoordinate()].removeShip();
+            }
+        }
     }
 
     @Override
@@ -88,10 +117,21 @@ public class Board implements MyBoard {
                 ||coordinate.getYCoordinate()>10){
             throw new FieldException("Feld ausserhalb des Spielfeldes");
         }
-
-        return this.board[coordinate.getXCoordinate()-1][coordinate.getYCoordinate()-1].getStatus();
+        return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus();
     }
 
+    /**
+     * checks if a given type of ship could be placed on the board.
+     * it does that by checking if the given coordinates are on the board,
+     * a ship is already set on one ore more fields in the place of the new ship
+     * and if the ship would touch another ship.
+     * @param shipType defines length of the ship
+     * @param orientation the direction in which the ship is pointing
+     * @param coordinate the anchor-point of the ship
+     * @return if the placement of the ship is possible
+     * @throws FieldException if one or more fields on which the ship should be placed are outside of the board
+     * @throws ShipException if the ship would be on top of another ship or touch another one
+     */
     private boolean shipPlacementPossible(ShipType shipType, Orientation orientation, Coordinate coordinate) throws FieldException, ShipException{
         for (int shipSegment = 0; shipSegment < ShipLength.getLength(shipType); shipSegment++) {
             switch (orientation) {
@@ -100,7 +140,7 @@ public class Board implements MyBoard {
                         throw new FieldException("Das Schiff kann nicht ausserhalb des Spielfelds platziert werden!");
                     }
                     if (board[coordinate.getXCoordinate() + shipSegment][coordinate.getYCoordinate()].getStatus() != FieldStatus.WATER) {
-                        throw new FieldException("An dieser Stelle liegt bereits ein Schiff!");
+                        throw new ShipException("An dieser Stelle liegt bereits ein Schiff!");
                     }
                     break;
                 case VERTICAL:
@@ -108,15 +148,23 @@ public class Board implements MyBoard {
                         throw new FieldException("Das Schiff kann nicht ausserhalb des Spielfelds platziert werden!");
                     }
                     if (board[coordinate.getXCoordinate()][coordinate.getYCoordinate() + shipSegment].getStatus() != FieldStatus.WATER) {
-                        throw new FieldException("An dieser Stelle liegt bereits ein Schiff!");
+                        throw new ShipException("An dieser Stelle liegt bereits ein Schiff!");
                     }
                     break;
             }
         }
-        return !shipNearby(shipType, orientation, coordinate);
+        return noShipNearby(shipType, orientation, coordinate);
     }
 
-    private boolean shipNearby(ShipType shipType, Orientation orientation, Coordinate coordinate) throws ShipException {
+    /**
+     * Method for detecting if one ship would be to close to another one if placed.
+     * @param shipType needed for detecting the length of the ship
+     * @param orientation needed for knowing in which direction the surrounding fields are spread
+     * @param coordinate anchor-point around which the ship is rotated
+     * @return if ship is to close to another
+     * @throws ShipException
+     */
+    private boolean noShipNearby(ShipType shipType, Orientation orientation, Coordinate coordinate) throws ShipException {
         for (int shipOutline = -1; shipOutline < ShipLength.getLength(shipType) + 1; shipOutline++) {
             switch (orientation) {
                 case HORIZONTAL:
@@ -154,18 +202,26 @@ public class Board implements MyBoard {
      * @return if the coordinate is possible
      */
     private boolean onBoard(Coordinate coordinate){
-        return coordinate.getXCoordinate() >= 1
-                && coordinate.getXCoordinate() <= 10
-                && coordinate.getYCoordinate() >= 1
-                && coordinate.getYCoordinate() <= 10;
+        return coordinate.getXCoordinate() >= 0
+                && coordinate.getXCoordinate() <= 9
+                && coordinate.getYCoordinate() >= 0
+                && coordinate.getYCoordinate() <= 9;
     }
 
-    private int availableShipFromType(ShipType shipType) throws ShipException{
-        for (int shipCounter=0; shipCounter<ships.length; shipCounter++){
-            if (ships[0].getLength()==ShipLength.getLength(shipType)){
-                return shipCounter;
+    /**
+     * goes through the list of ships and evaluates if one of the chosen class is available. if it is the case, it
+     * returns the position of the ship within the ship-array
+     * @param shipType class of ship that is searched for
+     * @return position of ship in ship-array
+     */
+    private int availableShipFromType(ShipType shipType){
+        int shipCounter;
+        for (shipCounter=0; shipCounter<ships.length-1; shipCounter++){
+            if (ShipLength.getLength(shipType)==ships[shipCounter].getLength()
+                    &&ships[shipCounter].getShipStatus()==null){
+                break;
             }
         }
-        throw new ShipException("Es sind bereits alle Schiffe dieser Klasse platziert!");
+        return shipCounter;
     }
 }

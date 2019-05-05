@@ -7,6 +7,11 @@ public class CoordinateImpl implements Coordinate {
     private final int xCoordinate;
     private final int yCoordinate;
 
+    /**
+     * subtracts "1" of the given parameters to match the data-representation of the board
+     * @param x the x-coordinate of the coordinate
+     * @param y the y-coordinate of the coordinate
+     */
     CoordinateImpl(int x, int y){
         this.xCoordinate=x-1;
         this.yCoordinate=y-1;
@@ -29,5 +34,13 @@ public class CoordinateImpl implements Coordinate {
             return true;
         }
         else return false;
+    }
+
+    @Override
+    public boolean validCoordinate(){
+        return this.xCoordinate>=0
+                &&this.xCoordinate<10
+                &&this.yCoordinate>=0
+                &&this.yCoordinate<10;
     }
 }

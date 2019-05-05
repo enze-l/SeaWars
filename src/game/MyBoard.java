@@ -16,7 +16,7 @@ public interface MyBoard {
      * Sets the status of the Field
      * @throws StatusException if an null Status is attempted to be set
      */
-    void setStatus(GameStatus status);
+    void setStatus(GameStatus status) throws StatusException;
 
     /**
      * Player positions ship on board
@@ -35,7 +35,7 @@ public interface MyBoard {
      * @throws FieldException if an attempt is made to remove an ship outside of the board
      * @param coordinates array with x and y coordinates of field on Board
      */
-    void removeShip(Coordinate coordinates);
+    void removeShip(Coordinate coordinates) throws FieldException, ShipException;
 
     /**
      * longest (lenght 5) comes first and least long (length 2) last. At Start of game the amount of ships should be

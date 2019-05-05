@@ -19,6 +19,11 @@ class FieldImpl implements Field{
         this.fieldStatus=FieldStatus.WATER;
     }
 
+    @Override
+    public Ship getShip() {
+        return ship;
+    }
+
     /**
      * Method to assign a ship to the field
      * @param ship the type of ship that gets positioned (partly) on the field
@@ -26,6 +31,12 @@ class FieldImpl implements Field{
     @Override
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+
+    @Override
+    public void removeShip(){
+        this.ship=null;
     }
 
     /**
@@ -36,10 +47,10 @@ class FieldImpl implements Field{
     @Override
     public  void receiveHit() {
         if(this.ship!=null){
-            this.ship.setHit(coordinate);
+            this.ship.setHit(this.coordinate);
             this.fieldStatus=this.ship.getShipStatus(coordinate);
         }
-        else this.fieldStatus=FieldStatus.SHOTWATER;
+        else if (this.fieldStatus==FieldStatus.WATER) this.fieldStatus=FieldStatus.SHOTWATER;
     }
 
     /**
@@ -50,9 +61,6 @@ class FieldImpl implements Field{
      */
     @Override
     public FieldStatus getStatus() {
-        if(this.ship!=null){
-            return this.ship.getShipStatus(coordinate);
-        }
-         else return this.fieldStatus;
+        return this.fieldStatus;
     }
 }

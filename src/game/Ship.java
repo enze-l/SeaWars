@@ -105,5 +105,13 @@ public abstract class Ship {
         }
         return fieldStatus;
     }
+
+    /**
+     * only used in the preparation stage of the game. In this time the only two stats are "Water" or "Ship"
+     * @return status of the first part of the ship
+     */
+    FieldStatus getShipStatus(){
+        return segments[0].getStatus();
+    }
 }
 

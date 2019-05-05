@@ -38,7 +38,7 @@ public class MyBoardTest {
      * checks if a null Status can be set for the Board. It should be not possible, hence the exception
      */
     @Test(expected = StatusException.class)
-    public void setNullStatus(){
+    public void setNullStatus() throws StatusException{
         Board board=new Board();
         board.setStatus(null);
     }
@@ -49,7 +49,9 @@ public class MyBoardTest {
     @Test
     public void getReadyStatus(){
         Board board = new Board();
-        board.setStatus(GameStatus.READY);
+        try {
+            board.setStatus(GameStatus.READY);
+        }catch (StatusException e){}
         Assert.assertEquals(GameStatus.READY, board.getStatus());
     }
 
@@ -59,7 +61,9 @@ public class MyBoardTest {
     @Test
     public void getAttackStatus(){
         Board board = new Board();
-        board.setStatus(GameStatus.ATTACK);
+        try{
+            board.setStatus(GameStatus.ATTACK);
+        }catch (StatusException e){}
         Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
     }
 
@@ -69,7 +73,9 @@ public class MyBoardTest {
     @Test
     public void getReceiveStatus(){
         Board board = new Board();
-        board.setStatus(GameStatus.RECEIVE);
+        try{
+            board.setStatus(GameStatus.RECEIVE);
+        }catch (StatusException e){}
         Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
     }
 
@@ -79,7 +85,9 @@ public class MyBoardTest {
     @Test
     public void getOverStatus(){
         Board board = new Board();
-        board.setStatus(GameStatus.OVER);
+        try{
+            board.setStatus(GameStatus.OVER);
+        }catch (StatusException e){}
         Assert.assertEquals(GameStatus.OVER, board.getStatus());
     }
 
@@ -108,13 +116,13 @@ public class MyBoardTest {
     @Test
     public void setShipHorizontal(){
         Board board=new Board();
-        Coordinate coordinate0=new CoordinateImpl(2,1);
+        Coordinate coordinate0=new CoordinateImpl(1,2);
         Coordinate coordinate1=new CoordinateImpl(2,2);
-        Coordinate coordinate2=new CoordinateImpl(2,3);
-        Coordinate coordinate3=new CoordinateImpl(2,4);
-        Coordinate coordinate4=new CoordinateImpl(2,5);
-        Coordinate coordinate5=new CoordinateImpl(2,6);
-        Coordinate coordinate6=new CoordinateImpl(2,7);
+        Coordinate coordinate2=new CoordinateImpl(3,2);
+        Coordinate coordinate3=new CoordinateImpl(4,2);
+        Coordinate coordinate4=new CoordinateImpl(5,2);
+        Coordinate coordinate5=new CoordinateImpl(6,2);
+        Coordinate coordinate6=new CoordinateImpl(7,2);
         try {
             board.setShip(ShipType.BATTLESHIP, coordinate1, Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
@@ -137,13 +145,13 @@ public class MyBoardTest {
     @Test
     public void setShipVertically(){
         Board board=new Board();
-        Coordinate coordinate0=new CoordinateImpl(1,2);
+        Coordinate coordinate0=new CoordinateImpl(2,1);
         Coordinate coordinate1=new CoordinateImpl(2,2);
-        Coordinate coordinate2=new CoordinateImpl(3,2);
-        Coordinate coordinate3=new CoordinateImpl(4,2);
-        Coordinate coordinate4=new CoordinateImpl(5,2);
-        Coordinate coordinate5=new CoordinateImpl(6,2);
-        Coordinate coordinate6=new CoordinateImpl(7,2);
+        Coordinate coordinate2=new CoordinateImpl(2,3);
+        Coordinate coordinate3=new CoordinateImpl(2,4);
+        Coordinate coordinate4=new CoordinateImpl(2,5);
+        Coordinate coordinate5=new CoordinateImpl(2,6);
+        Coordinate coordinate6=new CoordinateImpl(2,7);
         try {
             board.setShip(ShipType.BATTLESHIP, coordinate1, Orientation.VERTICAL);
         } catch (SeaWarException e){}
@@ -167,7 +175,8 @@ public class MyBoardTest {
     public void allShipsAvailable(){
         Board board=new Board();
         int[] expected={1,2,3,4};
-        Assert.assertArrayEquals(expected, board.shipsAvailable());
+        int[] actual=board.shipsAvailable();
+        Assert.assertArrayEquals(expected, actual);
     }
 
     /**
@@ -189,14 +198,16 @@ public class MyBoardTest {
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8,9), Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
         int[] expected={0,0,0,0};
-        Assert.assertArrayEquals(expected, board.shipsAvailable());
+        int[] actual=board.shipsAvailable();
+        Assert.assertArrayEquals(expected, actual);
+        //
     }
 
     /**
      * Tests if Exception is thrown in the case of trying to set too much ships on the board
      */
     @Test(expected = ShipException.class)
-    public void tooMuchShips(){
+    public void tooMuchShips() throws ShipException{
         Board board=new Board();
         try {
             board.setShip(ShipType.BATTLESHIP, new CoordinateImpl(1,1), Orientation.HORIZONTAL);
@@ -210,7 +221,7 @@ public class MyBoardTest {
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8,7), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8,9), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(4,9), Orientation.HORIZONTAL);
-        }catch (SeaWarException e){}
+        }catch (FieldException e){}
     }
 
     /**
@@ -228,15 +239,15 @@ public class MyBoardTest {
     /**
      * checks if Ship can be set on another ship
      */
-    @Test(expected = FieldException.class)
-    public void setShipOnShip()throws FieldException{
+    @Test(expected = ShipException.class)
+    public void setShipOnShip()throws ShipException{
         Board board=new Board();
-        Coordinate coordinate1=new CoordinateImpl(1,1);
-        Coordinate coordinate2=new CoordinateImpl(1,3);
+        Coordinate coordinate1=new CoordinateImpl(2,2);
+        Coordinate coordinate2=new CoordinateImpl(4,2);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
-        }catch (ShipException e){}
+        }catch (FieldException e){}
     }
 
     /**
@@ -269,20 +280,24 @@ public class MyBoardTest {
      * test if ship can be removed in case there is none
      */
     @Test(expected = ShipException.class)
-    public void removeNoShip(){
+    public void removeNoShip() throws ShipException{
         Board board=new Board();
         Coordinate coordinate=new CoordinateImpl(1,1);
-        board.removeShip(coordinate);
+        try {
+            board.removeShip(coordinate);
+        }catch (FieldException e){}
     }
 
     /**
      * test if ship can be removed in case there is none
      */
     @Test(expected = FieldException.class)
-    public void removeShipOutsideBoard(){
+    public void removeShipOutsideBoard()throws FieldException{
         Board board=new Board();
         Coordinate coordinate=new CoordinateImpl(0,0);
-        board.removeShip(coordinate);
+        try {
+            board.removeShip(coordinate);
+        }catch (ShipException e){}
     }
 
     /**
@@ -291,15 +306,15 @@ public class MyBoardTest {
     @Test
     public void removeShip(){
         Board board=new Board();
-        Coordinate coordinate1=new CoordinateImpl(1,1);
+        Coordinate coordinate1=new CoordinateImpl(1,2);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
-        }catch (SeaWarException e){}
-        Coordinate coordinate2=new CoordinateImpl(3,1);
-        board.removeShip(coordinate2);
+        } catch (SeaWarException e) { }
+        Coordinate coordinate2 = new CoordinateImpl(3, 2);
         try {
+            board.removeShip(coordinate2);
             Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate1));
-        }catch (Exception e){}
+        } catch (SeaWarException e) { }
     }
 
     /**
@@ -308,17 +323,12 @@ public class MyBoardTest {
     @Test
     public void registerHit(){
         Board board=new Board();
-        Coordinate coordinate1=new CoordinateImpl(1,1);
+        Coordinate coordinate1=new CoordinateImpl(2,2);
+        Coordinate coordinate2=new CoordinateImpl(3,2);
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
-        Coordinate coordinate2=new CoordinateImpl(1,2);
-        try {
-            Assert.assertTrue(
-                    board.receiveAttack(coordinate2) == FieldStatus.HIT
-                            && board.getFieldStatus(coordinate2) == FieldStatus.HIT
-            );
-        }catch(FieldException e){}
+        Assert.assertSame(board.receiveAttack(coordinate2), FieldStatus.HIT);
     }
 
     /**
