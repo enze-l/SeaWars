@@ -217,8 +217,7 @@ public class Board implements MyBoard {
     private int availableShipFromType(ShipType shipType){
         int shipCounter;
         for (shipCounter=0; shipCounter<ships.length-1; shipCounter++){
-            if (ShipLength.getLength(shipType)==ships[shipCounter].getLength()
-                    &&ships[shipCounter].getShipStatus()==null){
+            if (ShipLength.getLength(shipType)==ships[shipCounter].getLength()){
                 break;
             }
         }

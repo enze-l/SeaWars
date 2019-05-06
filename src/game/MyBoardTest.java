@@ -143,7 +143,7 @@ public class MyBoardTest {
      *checks if ship gets set at the right location and is turned horizontal
      */
     @Test
-    public void setShipVertically(){
+    public void setBattleshipVertically(){
         Board board=new Board();
         Coordinate coordinate0=new CoordinateImpl(2,1);
         Coordinate coordinate1=new CoordinateImpl(2,2);
@@ -164,6 +164,26 @@ public class MyBoardTest {
                             && board.getFieldStatus(coordinate4) == FieldStatus.SHIP
                             && board.getFieldStatus(coordinate5) == FieldStatus.SHIP
                             && board.getFieldStatus(coordinate6) == FieldStatus.WATER
+            );
+        }catch (FieldException e){}
+    }
+
+    @Test
+    public void setDestroyerVertically(){
+        Board board=new Board();
+        Coordinate coordinate0=new CoordinateImpl(2,1);
+        Coordinate coordinate1=new CoordinateImpl(2,2);
+        Coordinate coordinate2=new CoordinateImpl(2,3);
+        Coordinate coordinate3=new CoordinateImpl(2,4);
+        try {
+            board.setShip(ShipType.DESTROYER, coordinate1, Orientation.VERTICAL);
+        } catch (SeaWarException e){}
+        try {
+            Assert.assertTrue(
+                    board.getFieldStatus(coordinate0) == FieldStatus.WATER
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate3) == FieldStatus.WATER
             );
         }catch (FieldException e){}
     }
@@ -277,6 +297,25 @@ public class MyBoardTest {
     }
 
     /**
+     * test if ship can be set near the boarder of the field
+     */
+    @Test
+    public void setShipNearBoarder(){
+        Board board=new Board();
+        Coordinate coordinate=new CoordinateImpl(9,1);
+        try {
+            board.setShip(ShipType.DESTROYER, coordinate, Orientation.HORIZONTAL);
+        }catch (SeaWarException e){}
+        try {
+            Assert.assertTrue(
+                    board.getFieldStatus(new CoordinateImpl(8,1)) == FieldStatus.WATER
+                            && board.getFieldStatus(new CoordinateImpl(9,1)) == FieldStatus.SHIP
+                            && board.getFieldStatus(new CoordinateImpl(10,1)) == FieldStatus.SHIP
+                            && board.getFieldStatus(new CoordinateImpl(10,2)) == FieldStatus.WATER
+            );
+        }catch (FieldException e){}
+    }
+    /**
      * test if ship can be removed in case there is none
      */
     @Test(expected = ShipException.class)
@@ -328,7 +367,7 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
-        Assert.assertSame(board.receiveAttack(coordinate2), FieldStatus.HIT);
+        Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2)) ;
     }
 
     /**

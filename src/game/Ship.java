@@ -67,9 +67,9 @@ public abstract class Ship {
      */
     void setHit(Coordinate coordinate){
         boolean sunk=false;
-        for (ShipSegment shipSegment : segments) {
-            if (shipSegment.getCoordinate().equals(coordinate)) {
-                shipSegment.setHit();
+        for (int segment=0; segment<segments.length; segment++) {
+            if (segments[segment].getCoordinate().equals(coordinate)) {
+                segments[segment].setHit();
             }
         }
 
