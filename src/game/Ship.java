@@ -67,9 +67,9 @@ public abstract class Ship {
      */
     void setHit(Coordinate coordinate){
         boolean sunk=false;
-        for (int segment=0; segment<segments.length; segment++) {
-            if (segments[segment].getCoordinate().equals(coordinate)) {
-                segments[segment].setHit();
+        for (ShipSegment value : segments) {
+            if (value.getCoordinate().equals(coordinate)) {
+                value.setHit();
             }
         }
 
@@ -104,14 +104,6 @@ public abstract class Ship {
             }
         }
         return fieldStatus;
-    }
-
-    /**
-     * only used in the preparation stage of the game. In this time the only two stats are "Water" or "Ship"
-     * @return status of the first part of the ship
-     */
-    FieldStatus getShipStatus(){
-        return segments[0].getStatus();
     }
 }
 

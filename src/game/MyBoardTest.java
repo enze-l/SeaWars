@@ -273,15 +273,15 @@ public class MyBoardTest {
     /**
      * checks if ship can be set directly next to another ship
      */
-    @Test(expected = FieldException.class)
-    public void setShipNextToShip()throws FieldException{
+    @Test(expected = ShipException.class)
+    public void setShipNextToShip()throws ShipException{
         Board board=new Board();
         Coordinate coordinate1=new CoordinateImpl(1,1);
         Coordinate coordinate2=new CoordinateImpl(2,3);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
-        }catch (ShipException e){}
+        }catch (FieldException e){}
     }
 
     /**

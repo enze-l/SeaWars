@@ -29,11 +29,8 @@ public class CoordinateImpl implements Coordinate {
 
     @Override
     public boolean equals(Coordinate coordinate){
-        if (this.xCoordinate==coordinate.getXCoordinate()
-                &&this.yCoordinate==coordinate.getYCoordinate()){
-            return true;
-        }
-        else return false;
+        return this.xCoordinate == coordinate.getXCoordinate()
+                && this.yCoordinate == coordinate.getYCoordinate();
     }
 
     @Override
