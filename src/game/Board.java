@@ -83,7 +83,7 @@ public class Board implements MyBoard {
         if (!coordinate.validCoordinate()){
             throw new FieldException("Es gibt kein Spielfeld mit diesen Koordinaten");
         }
-        if(board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus()==FieldStatus.WATER){
+        if(board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus()==FieldStatus.WATER){
             throw new ShipException("An dieser Stelle liegt kein Schiff!");
         }
         Coordinate shipAnchor=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getPosition();
@@ -91,7 +91,7 @@ public class Board implements MyBoard {
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
         board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()].removeShip();
         Orientation orientation;
-        if (board[shipAnchor.getXCoordinate()+1][shipAnchor.getYCoordinate()].getStatus()==FieldStatus.SHIP){
+        if (board[shipAnchor.getXCoordinate()+1][shipAnchor.getYCoordinate()].getFieldStatus()==FieldStatus.SHIP){
             orientation=Orientation.HORIZONTAL;
         } else {orientation=Orientation.VERTICAL;}
         for(int shipSegment=1; shipSegment<shipLength; shipSegment++){
@@ -107,7 +107,7 @@ public class Board implements MyBoard {
     @Override
     public FieldStatus receiveAttack(Coordinate coordinate) {
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
-        return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus();
+        return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Board implements MyBoard {
                 ||coordinate.getYCoordinate()>10){
             throw new FieldException("Feld ausserhalb des Spielfeldes");
         }
-        return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getStatus();
+        return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 
     /**
@@ -157,7 +157,7 @@ public class Board implements MyBoard {
                     break;
             }
             try {
-                if (getFieldStatus(new CoordinateImpl(x + 1, y + 1)) != FieldStatus.WATER){
+                if (getFieldStatus(new CoordinateImpl(x + 1, y + 1)) == FieldStatus.SHIP){
                     return false;
                 }
             } catch (FieldException e) {}
@@ -188,16 +188,21 @@ public class Board implements MyBoard {
                     break;
             }
             try {
-                if (
-                    //compares the field before the ship with bad-case SHIP
-                        shipLengthOutline == -1 && board[x][y].getStatus() == FieldStatus.SHIP
-                    //compares the field at the end of the ship with bad-case SHIP
-                        || shipLengthOutline == ShipLength.getLength(shipType)
-                        && board[x][y].getStatus() == FieldStatus.SHIP
-                     //compares the fields sideways of the ship with bad-case SHIP
-                        || shipLengthOutline >= 0 && shipLengthOutline < ShipLength.getLength(shipType)
-                        && (board[x + xOffset][y + yOffset].getStatus() == FieldStatus.SHIP
-                        || board[x - xOffset][y - yOffset].getStatus() == FieldStatus.SHIP)) {
+                if (//compares the field before the ship with bad-case SHIP
+                        shipLengthOutline == -1 && board[x][y].getFieldStatus() == FieldStatus.SHIP)
+                    return false;
+            } catch (ArrayIndexOutOfBoundsException e) { }
+            try {
+                if (//compares the field after the ship with bad-case SHIP
+                        shipLengthOutline == ShipLength.getLength(shipType)
+                                && board[x][y].getFieldStatus() == FieldStatus.SHIP)
+                    return false;
+            } catch (ArrayIndexOutOfBoundsException e) { }
+            try {
+                if (//compares the fields sideways of the ship with bad-case SHIP
+                        shipLengthOutline >= 0 && shipLengthOutline < ShipLength.getLength(shipType)
+                                && (board[x + xOffset][y + yOffset].getFieldStatus() == FieldStatus.SHIP
+                                || board[x - xOffset][y - yOffset].getFieldStatus() == FieldStatus.SHIP)) {
                     return false;
                 }
             } catch (ArrayIndexOutOfBoundsException e) { }
@@ -236,13 +241,14 @@ public class Board implements MyBoard {
      * @param shipType class of ship that is searched for
      * @return position of ship in ship-array
      */
-    private int availableShipFromType(ShipType shipType){
+    private int availableShipFromType(ShipType shipType) throws ShipException {
         int shipCounter;
-        for (shipCounter=0; shipCounter<ships.length-1; shipCounter++){
-            if (ShipLength.getLength(shipType)==ships[shipCounter].getLength()){
-                break;
+        for (shipCounter = 0; shipCounter < ships.length; shipCounter++) {
+            if (ShipLength.getLength(shipType) == ships[shipCounter].getLength()
+                    && ships[shipCounter].getPosition() == null) {
+                return shipCounter;
             }
         }
-        return shipCounter;
+        throw new ShipException("Es wurden bereits alle Schiffe dieses Typs gesetzt!");
     }
 }

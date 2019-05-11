@@ -114,7 +114,7 @@ public class MyBoardTest {
      *checks if ship gets set at the right location and is turned horizontal
      */
     @Test
-    public void setShipHorizontal(){
+    public void setBattleshipHorizontal(){
         Board board=new Board();
         Coordinate coordinate0=new CoordinateImpl(1,2);
         Coordinate coordinate1=new CoordinateImpl(2,2);
@@ -276,8 +276,8 @@ public class MyBoardTest {
     @Test(expected = ShipException.class)
     public void setShipNextToShip()throws ShipException{
         Board board=new Board();
-        Coordinate coordinate1=new CoordinateImpl(1,1);
-        Coordinate coordinate2=new CoordinateImpl(2,3);
+        Coordinate coordinate1=new CoordinateImpl(2,2);
+        Coordinate coordinate2=new CoordinateImpl(3,3);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);

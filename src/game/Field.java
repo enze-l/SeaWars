@@ -29,5 +29,5 @@ public interface Field {
     /**
      * @return status of the field
      */
-    FieldStatus getStatus();
+    FieldStatus getFieldStatus();
 }

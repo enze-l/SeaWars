@@ -31,12 +31,14 @@ class FieldImpl implements Field{
     @Override
     public void setShip(Ship ship) {
         this.ship = ship;
+        this.fieldStatus=FieldStatus.SHIP;
     }
 
 
     @Override
     public void removeShip(){
         this.ship=null;
+        this.fieldStatus=FieldStatus.WATER;
     }
 
     /**
@@ -48,7 +50,7 @@ class FieldImpl implements Field{
     public  void receiveHit() {
         if(this.ship!=null){
             this.ship.setHit(this.coordinate);
-            this.fieldStatus=this.ship.getShipStatus(coordinate);
+            this.fieldStatus=this.ship.getShipStatus(this.coordinate);
         }
         else if (this.fieldStatus==FieldStatus.WATER) this.fieldStatus=FieldStatus.SHOTWATER;
     }
@@ -60,7 +62,7 @@ class FieldImpl implements Field{
      * @return status of the field
      */
     @Override
-    public FieldStatus getStatus() {
+    public FieldStatus getFieldStatus() {
         return this.fieldStatus;
     }
 }

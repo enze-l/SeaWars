@@ -23,13 +23,13 @@ public abstract class Ship {
      * @param coordinate upper left segment of the ship (anchor-point)
      * @param orientation the direction in witch the ship is pointed
      */
-    public void setShip(Coordinate coordinate, Orientation orientation){
+    void setShip(Coordinate coordinate, Orientation orientation){
         for(int segment=0; segment<segments.length; segment++){
             if (orientation==Orientation.HORIZONTAL) {
-                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+segment, coordinate.getYCoordinate()));
+                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+segment+1, coordinate.getYCoordinate()+1));
             }
             if (orientation==Orientation.VERTICAL) {
-                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate(), coordinate.getYCoordinate()+segment));
+                segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+1, coordinate.getYCoordinate()+segment+1));
             }
         }
     }
@@ -37,14 +37,14 @@ public abstract class Ship {
     /**
      * @return anchor point of ship on board
      */
-    public Coordinate getPosition(){
+    Coordinate getPosition(){
         return segments[0].getCoordinate();
     }
 
     /**
      * resets the status of
      */
-    public void removeShip(){
+    void removeShip(){
         for (ShipSegment segment:segments){
             segment.removeAssignment();
         }
@@ -54,7 +54,7 @@ public abstract class Ship {
      * Getter-method for the length of the ship
      * @return length of ship
      */
-    public int getLength(){
+    int getLength(){
         return segments.length;
     }
 
@@ -67,25 +67,25 @@ public abstract class Ship {
      */
     void setHit(Coordinate coordinate){
         boolean sunk=false;
-        for (ShipSegment value : segments) {
-            if (value.getCoordinate().equals(coordinate)) {
-                value.setHit();
+        for (ShipSegment segment : segments) {
+            if (segment.getCoordinate().equals(coordinate)) {
+                segment.setHit();
             }
         }
 
-        for (ShipSegment shipSegment: segments){
-            if (shipSegment.getStatus()==FieldStatus.HIT){
+        for (ShipSegment segment: segments){
+            if (segment.getStatus()==FieldStatus.HIT){
                 sunk=true;
             }
-            else if (shipSegment.getStatus()==FieldStatus.SHIP){
+            else if (segment.getStatus()==FieldStatus.SHIP){
                 sunk=false;
                 break;
             }
         }
 
         if (sunk){
-            for (ShipSegment shipSegment: segments){
-                shipSegment.setSunk();
+            for (ShipSegment segment: segments){
+                segment.setSunk();
             }
         }
     }
