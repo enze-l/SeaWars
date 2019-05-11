@@ -19,6 +19,10 @@ class FieldImpl implements Field{
         this.fieldStatus=FieldStatus.WATER;
     }
 
+    /**
+     * getter-method for ship
+     * @return the ship saved in the field
+     */
     @Override
     public Ship getShip() {
         return ship;
@@ -34,7 +38,9 @@ class FieldImpl implements Field{
         this.fieldStatus=FieldStatus.SHIP;
     }
 
-
+    /**
+     * removes ship from field
+     */
     @Override
     public void removeShip(){
         this.ship=null;

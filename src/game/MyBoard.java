@@ -10,7 +10,7 @@ public interface MyBoard {
      * @return returns the Status of the Field
      * @throws StatusException when no Status has been set
      */
-    GameStatus getStatus();
+    GameStatus getStatus() throws StatusException;
 
     /**
      * Sets the status of the Field
@@ -49,7 +49,7 @@ public interface MyBoard {
      * @return Opponent Move is recieved and Result of shot is given back
      * @param coordinate array with the x and y coordinate of shot
      */
-    FieldStatus receiveAttack(Coordinate coordinate);
+    FieldStatus receiveAttack(Coordinate coordinate) throws FieldException;
 
     /**
      * @throws FieldException if no Field with the given coordinates exists

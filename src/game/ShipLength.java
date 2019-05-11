@@ -3,6 +3,10 @@ package game;
 /**
  * @author s0568823 - Leon Enzenberger
  */
+
+/**
+ * different lengths that correspond to the different ship classes
+ */
 class ShipLength {
     static int getLength(ShipType type) {
         int length = 0;

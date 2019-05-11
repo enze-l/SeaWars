@@ -31,7 +31,9 @@ public class MyBoardTest {
     @Test
     public void getStartStatus(){
         Board board = new Board();
-        Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
+        try {
+            Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
+        }catch (StatusException e){}
     }
 
     /**
@@ -52,7 +54,9 @@ public class MyBoardTest {
         try {
             board.setStatus(GameStatus.READY);
         }catch (StatusException e){}
-        Assert.assertEquals(GameStatus.READY, board.getStatus());
+        try {
+            Assert.assertEquals(GameStatus.READY, board.getStatus());
+        }catch (StatusException e){}
     }
 
     /**
@@ -64,7 +68,9 @@ public class MyBoardTest {
         try{
             board.setStatus(GameStatus.ATTACK);
         }catch (StatusException e){}
-        Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
+        try {
+            Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
+        }catch (StatusException e){}
     }
 
     /**
@@ -76,7 +82,9 @@ public class MyBoardTest {
         try{
             board.setStatus(GameStatus.RECEIVE);
         }catch (StatusException e){}
-        Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
+        try {
+            Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
+        }catch (StatusException e){}
     }
 
     /**
@@ -88,7 +96,9 @@ public class MyBoardTest {
         try{
             board.setStatus(GameStatus.OVER);
         }catch (StatusException e){}
-        Assert.assertEquals(GameStatus.OVER, board.getStatus());
+        try {
+            Assert.assertEquals(GameStatus.OVER, board.getStatus());
+        }catch (StatusException e){}
     }
 
     /**
@@ -367,7 +377,9 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
-        Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2)) ;
+        try {
+            Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
+        }catch (FieldException e){}
     }
 
     /**
@@ -381,8 +393,10 @@ public class MyBoardTest {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         }catch (SeaWarException e){}
         Coordinate coordinate2=new CoordinateImpl(2,1);
-        board.receiveAttack(coordinate1);
-        board.receiveAttack(coordinate2);
+        try {
+            board.receiveAttack(coordinate1);
+            board.receiveAttack(coordinate2);
+        }catch (FieldException e){}
         try {
             Assert.assertEquals(board.getFieldStatus(coordinate2), FieldStatus.SUNK);
         }catch (FieldException e){}

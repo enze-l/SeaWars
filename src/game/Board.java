@@ -8,6 +8,13 @@ public class Board implements MyBoard {
     private Ship[] ships;
     private GameStatus gameStatus;
 
+    /**
+     * A board has the size 10*10 an gets equally as many fields with the corresponding coordinates.
+     * If a board is created, its gameStatus is automatically set to preparation because it still needs to get ships
+     * placed on it.
+     * The ships that can be placed on it are automatically created and placed in an array. They don't have any
+     * coordinates assigned to them.
+     */
     Board() {
         this.board = new FieldImpl[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
@@ -26,17 +33,34 @@ public class Board implements MyBoard {
         };
     }
 
+    /**
+     * getter method for the phase of the game in which the board is currently within the game
+     * @return gameStatus of the board
+     */
     @Override
-    public GameStatus getStatus() {
+    public GameStatus getStatus() throws StatusException {
+        if (this.gameStatus==null){
+            throw new StatusException("No Status has been set jet!");
+        }
         return this.gameStatus;
     }
 
+    /**
+     * Method for setting the boards status in the game phase
+     * @param status that should be set
+     * @throws StatusException if a "null"-status is attempted to be set
+     */
     @Override
     public void setStatus(GameStatus status) throws StatusException {
         if (status==null) throw new StatusException();
         this.gameStatus = status;
     }
 
+    /**
+     * Returns an array with a field for each type of ship an the corresponding number of ships of this type, that are
+     * still available
+     * @return number of ships of each type, that are available
+     */
     @Override
     public int[] shipsAvailable() {
         int[] available=new int[]{0,0,0,0};
@@ -58,6 +82,15 @@ public class Board implements MyBoard {
         return available;
     }
 
+    /**
+     * method for setting a ship on the board
+     * @param shipType type of ship (defines length of ship)
+     * @param coordinate gives the coordinates of the upper left corner of the ship on the board.
+     * @param orientation shows in witch direction the ship is positioned
+     * @throws FieldException in case the coordinate is not on the field
+     * @throws ShipException if there is no ship of this type available any more or the ship is attempted to be
+     * positioned onto or directly next to another ship.
+     */
     @Override
     public void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException {
         if (shipsAvailable()[shipType.ordinal()]==0)throw new ShipException("Es wurden bereits alle Schiffe dieser Klasse platziert!");
@@ -78,6 +111,12 @@ public class Board implements MyBoard {
 
     }
 
+    /**
+     * Method for removing a ship from a field with the given coordinate
+     * @param coordinate coordinate where part of the ship resides
+     * @throws FieldException if the coordinate given does not exist on the board
+     * @throws ShipException if there is no ship at the given coordinate
+     */
     @Override
     public void removeShip(Coordinate coordinate) throws FieldException, ShipException{
         if (!coordinate.validCoordinate()){
@@ -104,12 +143,24 @@ public class Board implements MyBoard {
         }
     }
 
+    /**
+     * Methode for receiving a hit. Gives back the result
+     * @param coordinate array with the x and y coordinate of shot
+     * @return result of ship (hitwater, hit, sunk)
+     */
     @Override
-    public FieldStatus receiveAttack(Coordinate coordinate) {
+    public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
+        if (!coordinate.validCoordinate())throw new FieldException("Es gibt kein Feld mit diesen Koordinaten!");
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 
+    /**
+     * Returns status of the field with the given coordinates
+     * @param coordinate Coordinates of the field of which the status is requested
+     * @return status of the field
+     * @throws FieldException if there is no field with the given coordinates
+     */
     @Override
     public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
         if (coordinate.getXCoordinate()<1
@@ -143,6 +194,13 @@ public class Board implements MyBoard {
         return true;
     }
 
+    /**
+     * Checks if there would be another ship in the way of a new one
+     * @param shipType defines length of the ship that is attempted to be placed
+     * @param orientation the direction the ship is pointing
+     * @param coordinate the anchor-point of the ship
+     * @return if there is a ship
+     */
     private boolean noShipHere(ShipType shipType, Orientation orientation, Coordinate coordinate) {
         for (int shipSegment = 0; shipSegment < ShipLength.getLength(shipType); shipSegment++) {
             int x = 0, y = 0;
