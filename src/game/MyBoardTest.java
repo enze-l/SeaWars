@@ -229,8 +229,12 @@ public class MyBoardTest {
         }catch (SeaWarException e){}
         int[] expected={0,0,0,0};
         int[] actual=board.shipsAvailable();
-        Assert.assertArrayEquals(expected, actual);
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputBoard(board.getFields(), board.getStatus());
+        }catch (StatusException e){}
         //
+        Assert.assertArrayEquals(expected, actual);
     }
 
     /**
@@ -380,6 +384,11 @@ public class MyBoardTest {
         try {
             Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
         }catch (FieldException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputBoard(board.getFields(), board.getStatus());
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -397,9 +406,30 @@ public class MyBoardTest {
             board.receiveAttack(coordinate1);
             board.receiveAttack(coordinate2);
         }catch (FieldException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputBoard(board.getFields(), board.getStatus());
+        }catch (StatusException e){}
+        //
         try {
             Assert.assertEquals(board.getFieldStatus(coordinate2), FieldStatus.SUNK);
         }catch (FieldException e){}
+    }
+
+    /**
+     * tests if a shot in water is registered as one
+     */
+    @Test
+    public void registerHitWater() {
+        MyBoard board = new Board();
+        try {
+            Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
+        } catch (FieldException e) { }
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputBoard(board.getFields(), board.getStatus());
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -430,6 +460,13 @@ public class MyBoardTest {
                 }
             }
         }
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputBoard(board.getFields(), board.getStatus());
+        }catch (StatusException e){}
+        //
         Assert.assertTrue(allWater);
     }
+
+
 }

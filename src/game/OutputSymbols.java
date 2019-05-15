@@ -8,16 +8,16 @@ public class OutputSymbols {
         char fieldSymbol=' ';
         switch (fieldStatus){
             case WATER:
-                fieldSymbol = '░';
+                fieldSymbol = '≈';
                 break;
             case SHOTWATER:
-                fieldSymbol = '◦';
+                fieldSymbol = '○';
                 break;
             case SHIP:
                 fieldSymbol = '■';
                 break;
             case HIT:
-                fieldSymbol = '◙';
+                fieldSymbol = '●';
                 break;
             case SUNK:
                 fieldSymbol = '□';
