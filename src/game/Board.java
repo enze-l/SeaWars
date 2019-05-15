@@ -173,6 +173,21 @@ public class Board implements MyBoard {
     }
 
     /**
+     * Returns an two dimensional array containing the field-status of each field
+     * @return field-status for each field
+     */
+    @Override
+    public FieldStatus[][] getFields() {
+        FieldStatus[][] fields=new FieldStatus[this.board.length][this.board[0].length];
+        for (int column=0; column<this.board.length; column++ ){
+            for(int row=0; row<this.board[0].length; row++){
+                fields[column][row]=this.board[column][row].getFieldStatus();
+            }
+        }
+        return fields;
+    }
+
+    /**
      * checks if a given type of ship could be placed on the board.
      * it does that by checking if the given coordinates are on the board,
      * a ship is already set on one ore more fields in the place of the new ship

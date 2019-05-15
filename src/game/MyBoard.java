@@ -46,7 +46,7 @@ public interface MyBoard {
 
     /**
      * @throws FieldException if Coordinate doesn't correspond to an actual field
-     * @return Opponent Move is recieved and Result of shot is given back
+     * @return Opponent Move is received and Result of shot is given back
      * @param coordinate array with the x and y coordinate of shot
      */
     FieldStatus receiveAttack(Coordinate coordinate) throws FieldException;
@@ -57,4 +57,10 @@ public interface MyBoard {
      * @return The Status of the Field
      */
     FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException;
+
+    /**
+     * Returns an two dimensional array containing the field-status of each field
+     * @return field-status for each field
+     */
+    FieldStatus[][] getFields();
 }
