@@ -8,7 +8,7 @@ public class OutputSymbols {
         char fieldSymbol=' ';
         switch (fieldStatus){
             case WATER:
-                fieldSymbol = '≈';
+                fieldSymbol = '~';
                 break;
             case SHOTWATER:
                 fieldSymbol = '○';
