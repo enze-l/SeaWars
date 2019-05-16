@@ -4,14 +4,16 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputSymbols {
+    public static boolean even=false;
     /**
      * Assigns every field-status a symbol
+     *
      * @param fieldStatus status of which the corresponding symbols is asked for
      * @return corresponding representation as a char
      */
-    static char getSymbol(FieldStatus fieldStatus){
-        char fieldSymbol=' ';
-        switch (fieldStatus){
+    static char getSymbol(FieldStatus fieldStatus) {
+        char fieldSymbol = ' ';
+        switch (fieldStatus) {
             case WATER:
                 fieldSymbol = '~';
                 break;
@@ -33,49 +35,118 @@ public class OutputSymbols {
 
     /**
      * Assigns every vertical coordinate the corresponding representation as an letter
+     *
      * @param number of which the corresponding letter is asked for
      * @return char that corresponds with the given number
      */
-    static char getAlphabet(int number){
-        char letter='x';
-        switch (number){
+    static char getAlphabet(int number) {
+        char letter = 'x';
+        switch (number) {
             case 1:
-                letter='A';
+                letter = 'A';
                 break;
             case 2:
-                letter='B';
+                letter = 'B';
                 break;
             case 3:
-                letter='C';
+                letter = 'C';
                 break;
             case 4:
-                letter='D';
+                letter = 'D';
                 break;
             case 5:
-                letter='E';
+                letter = 'E';
                 break;
             case 6:
-                letter='F';
+                letter = 'F';
                 break;
             case 7:
-                letter='G';
+                letter = 'G';
                 break;
             case 8:
-                letter='H';
+                letter = 'H';
                 break;
             case 9:
-                letter='I';
+                letter = 'I';
                 break;
             case 10:
-                letter='J';
+                letter = 'J';
                 break;
         }
         return letter;
     }
 
-    /**
-    public static char fieldBoarder(BoarderPiece piece, GameStatus status){
-
+    public static char fieldBoarder(BoarderPiece piece, GameStatus status) {
+        char symbol = 'x';
+        switch (status) {
+            case ATTACK:
+            case READY:
+                switch (piece) {
+                    case VERTICAL:
+                        symbol = '║';
+                        break;
+                    case HORRIZONTAL:
+                        symbol = '═';
+                        break;
+                    case UPPER_LEFT:
+                        symbol = '╔';
+                        break;
+                    case UPPER_RIGHT:
+                        symbol = '╗';
+                        break;
+                    case LOWER_LEFT:
+                        symbol = '╚';
+                        break;
+                    case LOWER_RIGHT:
+                        symbol = '╝';
+                        break;
+                }
+                break;
+            case RECEIVE:
+                switch (piece) {
+                    case VERTICAL:
+                        symbol = '│';
+                        break;
+                    case HORRIZONTAL:
+                        symbol = '─';
+                        break;
+                    case UPPER_LEFT:
+                        symbol = '┌';
+                        break;
+                    case UPPER_RIGHT:
+                        symbol = '┐';
+                        break;
+                    case LOWER_LEFT:
+                        symbol = '└';
+                        break;
+                    case LOWER_RIGHT:
+                        symbol = '┘';
+                        break;
+                }
+                break;
+            case OVER:
+            case PREPARATION:
+                switch (piece) {
+                    case VERTICAL:
+                        symbol = '─';
+                        break;
+                    case HORRIZONTAL:
+                        if(even) {
+                            symbol = 'ǀ';
+                            even=false;
+                        }
+                        else{
+                            symbol=' ';
+                            even=true;
+                        }
+                        break;
+                    default:
+                        symbol = ' ';
+                        break;
+                }
+                break;
+        }
+        return symbol;
     }
-     */
+
 }

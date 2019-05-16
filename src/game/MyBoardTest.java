@@ -34,6 +34,11 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
         }catch (StatusException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -57,6 +62,11 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.READY, board.getStatus());
         }catch (StatusException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -71,6 +81,11 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
         }catch (StatusException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -85,6 +100,11 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
         }catch (StatusException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -99,6 +119,11 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.OVER, board.getStatus());
         }catch (StatusException e){}
+        //just temporarily for output-test
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
+        //
     }
 
     /**
@@ -230,7 +255,9 @@ public class MyBoardTest {
         int[] expected={0,0,0,0};
         int[] actual=board.shipsAvailable();
         //just temporarily for output-test
-        OutputImpl.outputMyBoard(board);
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
         //
         Assert.assertArrayEquals(expected, actual);
     }
@@ -383,7 +410,9 @@ public class MyBoardTest {
             Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
         }catch (FieldException e){}
         //just temporarily for output-test
+        try {
             OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
         //
     }
 
@@ -408,7 +437,9 @@ public class MyBoardTest {
                     && board.getFieldStatus(coordinate1)==FieldStatus.SUNK);
         }catch (FieldException e){}
         //just temporarily for output-test
-        OutputImpl.outputMyBoard(board);
+        try {
+            OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
         //
     }
 
@@ -422,7 +453,9 @@ public class MyBoardTest {
             Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
         } catch (FieldException e) { }
         //just temporarily for output-test
+        try {
             OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
         //
     }
 
@@ -455,7 +488,9 @@ public class MyBoardTest {
             }
         }
         //just temporarily for output-test
+        try {
             OutputImpl.outputMyBoard(board);
+        }catch (StatusException e){}
         //
         Assert.assertTrue(allWater);
     }
