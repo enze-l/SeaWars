@@ -4,7 +4,8 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputSymbols {
-    public static boolean even=false;
+    public static boolean even = false;
+
     /**
      * Assigns every field-status a symbol
      *
@@ -131,13 +132,12 @@ public class OutputSymbols {
                         symbol = '─';
                         break;
                     case HORRIZONTAL:
-                        if(even) {
+                        if (even) {
                             symbol = 'ǀ';
-                            even=false;
-                        }
-                        else{
-                            symbol=' ';
-                            even=true;
+                            even = false;
+                        } else {
+                            symbol = ' ';
+                            even = true;
                         }
                         break;
                     default:

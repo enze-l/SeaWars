@@ -12,6 +12,7 @@ public interface Field {
 
     /**
      * assignees a ship to a coordinate
+     *
      * @param ship the ship which should be saved in the field
      */
     void setShip(Ship ship);
