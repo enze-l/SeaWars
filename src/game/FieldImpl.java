@@ -69,6 +69,9 @@ class FieldImpl implements Field{
      */
     @Override
     public FieldStatus getFieldStatus() {
-        return this.fieldStatus;
+        if (this.ship!=null){
+            return this.ship.getShipStatus(this.coordinate);
+        }
+         else return this.fieldStatus;
     }
 }

@@ -127,8 +127,6 @@ public class Board implements MyBoard {
         }
         Coordinate shipAnchor=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getPosition();
         int shipLength=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getLength();
-        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
-        board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()].removeShip();
         Orientation orientation;
         if (board[shipAnchor.getXCoordinate()+1][shipAnchor.getYCoordinate()].getFieldStatus()==FieldStatus.SHIP){
             orientation=Orientation.HORIZONTAL;

@@ -230,9 +230,7 @@ public class MyBoardTest {
         int[] expected={0,0,0,0};
         int[] actual=board.shipsAvailable();
         //just temporarily for output-test
-        try {
-            OutputImpl.outputBoard(board.getFields(), board.getStatus());
-        }catch (StatusException e){}
+        OutputImpl.outputMyBoard(board);
         //
         Assert.assertArrayEquals(expected, actual);
     }
@@ -385,9 +383,7 @@ public class MyBoardTest {
             Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
         }catch (FieldException e){}
         //just temporarily for output-test
-        try {
-            OutputImpl.outputBoard(board.getFields(), board.getStatus());
-        }catch (StatusException e){}
+            OutputImpl.outputMyBoard(board);
         //
     }
 
@@ -406,14 +402,14 @@ public class MyBoardTest {
             board.receiveAttack(coordinate1);
             board.receiveAttack(coordinate2);
         }catch (FieldException e){}
-        //just temporarily for output-test
         try {
-            OutputImpl.outputBoard(board.getFields(), board.getStatus());
-        }catch (StatusException e){}
-        //
-        try {
-            Assert.assertEquals(board.getFieldStatus(coordinate2), FieldStatus.SUNK);
+            Assert.assertTrue(board.getFieldStatus(coordinate2)==FieldStatus.SUNK
+                    && board.getFieldStatus(coordinate2)==FieldStatus.SUNK
+                    && board.getFieldStatus(coordinate1)==FieldStatus.SUNK);
         }catch (FieldException e){}
+        //just temporarily for output-test
+        OutputImpl.outputMyBoard(board);
+        //
     }
 
     /**
@@ -426,9 +422,7 @@ public class MyBoardTest {
             Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
         } catch (FieldException e) { }
         //just temporarily for output-test
-        try {
-            OutputImpl.outputBoard(board.getFields(), board.getStatus());
-        }catch (StatusException e){}
+            OutputImpl.outputMyBoard(board);
         //
     }
 
@@ -461,12 +455,8 @@ public class MyBoardTest {
             }
         }
         //just temporarily for output-test
-        try {
-            OutputImpl.outputBoard(board.getFields(), board.getStatus());
-        }catch (StatusException e){}
+            OutputImpl.outputMyBoard(board);
         //
         Assert.assertTrue(allWater);
     }
-
-
 }

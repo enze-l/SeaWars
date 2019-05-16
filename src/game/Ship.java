@@ -66,13 +66,15 @@ public abstract class Ship {
      * @param coordinate the coordinate that is getting attacked
      */
     void setHit(Coordinate coordinate){
-        boolean sunk=false;
+        //search for segment and set hit if its found
         for (ShipSegment segment : segments) {
             if (segment.getCoordinate().equals(coordinate)) {
                 segment.setHit();
             }
         }
 
+        //searches through all segments of the ships. It they are all hit, all are set to sunk
+        boolean sunk=false;
         for (ShipSegment segment: segments){
             if (segment.getStatus()==FieldStatus.HIT){
                 sunk=true;
@@ -82,7 +84,6 @@ public abstract class Ship {
                 break;
             }
         }
-
         if (sunk){
             for (ShipSegment segment: segments){
                 segment.setSunk();
