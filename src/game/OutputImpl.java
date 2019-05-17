@@ -4,76 +4,81 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputImpl {
-    static int STANDARD_HALF_SIZE=28;
+    private static int STANDARD_HALF_SIZE=28;
 
     public static void output(MyBoard board) throws StatusException {
+        StringBuilder output=new StringBuilder();
         System.out.printf("%n%n%n%n%n");
-        outputShips(board);
-        outputMyBoard(board.getFields(), board.getStatus());
-        outputCommandsAvailable(board.getStatus());
+        output.append(outputShips(board));
+        output.append(outputMyBoard(board.getFields(), board.getStatus()));
+        output.append(outputCommandsAvailable(board.getStatus()));
+        System.out.println(output.toString());
     }
 
     /**
      * Displays given Board in the console-view
      */
-    public static void outputMyBoard(FieldStatus[][] fields, GameStatus gameStatus) throws StatusException {
+    private static String outputMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
+        StringBuilder ownSide=new StringBuilder();
         //output numbers over board
-        System.out.print("   ");
+        ownSide.append("   ");
         for (int number = 1; number <= fields.length; number++) {
-            System.out.print(" " + number);
+            ownSide.append(" ").append(number);
         }
-        System.out.println("    │");
+        ownSide.append("    │").append(System.lineSeparator());
         //output field-boarder over the board
-        System.out.print("  ");
-        System.out.print(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
+        ownSide.append("  ");
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
         for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            System.out.print(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
+            ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        System.out.println(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus) + "   │");
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus))
+                .append("   │").append(System.lineSeparator());
 
         //output letters and fields in a row at a time
         for (int row = 0; row < fields.length; row++) {
-            System.out.print(OutputSymbols.getAlphabet(row + 1) + " "
+            ownSide.append(OutputSymbols.getAlphabet(row + 1) + " "
                     + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
             for (int column = 0; column < fields[row].length; column++) {
-                System.out.print(" " + OutputSymbols.getSymbol(fields[column][row]));
+                ownSide.append(" " + OutputSymbols.getSymbol(fields[column][row]));
             }
-            System.out.println(" " + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus)
-                    + " " + OutputSymbols.getAlphabet(row + 1) + " │");
+            ownSide.append(" " + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus)
+                    + " " + OutputSymbols.getAlphabet(row + 1) + " │").append(System.lineSeparator());
         }
         //output field-boarder below the board
-        System.out.print("  ");
-        System.out.print(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_LEFT, gameStatus));
+        ownSide.append("  ");
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_LEFT, gameStatus));
         for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            System.out.print(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
+            ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        System.out.println(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus) + "   │");
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus) + "   │")
+                .append(System.lineSeparator());
         //output numbers below board
-        System.out.print("   ");
+        ownSide.append("   ");
         for (int number = 1; number <= fields.length; number++) {
-            System.out.print(" " + number);
+            ownSide.append(" " + number);
         }
-        System.out.println("    │");
-        System.out.println("────────────────────────────┴────────────────────────────");
+        ownSide.append("    │").append(System.lineSeparator())
+                .append("────────────────────────────┴────────────────────────────")
+                .append(System.lineSeparator());
+        return ownSide.toString();
     }
 
-    public static void outputShips(MyBoard board) {
-        StringBuilder ships=new StringBuilder();
-        ships.append(toLeft("─ Player ──────────────")+'N'+toRight("────────────── Enemy ─"));
-        ships.append(System.lineSeparator());
-        ships.append(toLeft("B " + toStringBattleship(board))+'↑');
-        ships.append(System.lineSeparator());
-        ships.append(toLeft("C "+toStringCruiser(board),-4)+"W ←   → E");
-        ships.append(System.lineSeparator());
-        ships.append(toLeft("S "+toStringSubmarine(board))+"↓");
-        ships.append(System.lineSeparator());
-        ships.append(toLeft("D "+toStringDestroyer(board))+"S");
-        ships.append(System.lineSeparator());
-        ships.append(tDivider());
-        ships.append(System.lineSeparator());
-        System.out.print(ships.toString());
+    private static String outputShips(MyBoard board) {
+        return toLeft("─ Player ──────────────") + 'N' + toRight("────────────── Enemy ─") +
+                System.lineSeparator() +
+                toLeft("B " + toStringBattleship(board)) + '↑' +
+                System.lineSeparator() +
+                toLeft("C " + toStringCruiser(board), -4) + "W ←   → E" +
+                System.lineSeparator() +
+                toLeft("S " + toStringSubmarine(board)) + "↓" +
+                System.lineSeparator() +
+                toLeft("D " + toStringDestroyer(board)) + "S" +
+                System.lineSeparator() +
+                tDivider() +
+                System.lineSeparator();
         /*
           ↑      ▲      ˄
         ←   →  ◄   ►  ˂   ˃
@@ -84,123 +89,99 @@ public class OutputImpl {
     /**
      * Displays the commands that are available at the moment
      */
-    public static void outputCommandsAvailable(GameStatus gameStatus) {
+    private static String outputCommandsAvailable(GameStatus gameStatus) {
         StringBuilder commands=new StringBuilder();
         switch (gameStatus){
             case PREPARATION:
-                commands.append("≡ legend");
-                commands.append(System.lineSeparator());
-                commands.append("˅ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)");
-                commands.append(System.lineSeparator());
-                commands.append("˄ remove (A-J) (1-10)");
-                commands.append(System.lineSeparator());
-                commands.append("► ready");
-                commands.append(System.lineSeparator());
+                commands.append("≡ legend")
+                        .append(System.lineSeparator())
+                        .append("˅ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)")
+                        .append(System.lineSeparator())
+                        .append("˄ remove (A-J) (1-10)")
+                        .append(System.lineSeparator())
+                        .append("► ready")
+                        .append(System.lineSeparator());
                 break;
             case READY:
-                commands.append("≡ legend");
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
-                commands.append("◄ revoke");
-                commands.append(System.lineSeparator());
+                commands.append("≡ legend")
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator())
+                        .append("◄ revoke")
+                        .append(System.lineSeparator());
                 break;
             case ATTACK:
-                commands.append("≡ legend");
-                commands.append(System.lineSeparator());
-                commands.append("☼ shoot (A-J) (1-10)");
-                commands.append(System.lineSeparator());
-                commands.append("◦ last shots");
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
+                commands.append("≡ legend")
+                        .append(System.lineSeparator())
+                        .append("☼ shoot (A-J) (1-10)")
+                        .append(System.lineSeparator())
+                        .append("◦ last shots")
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator());
                 break;
             case RECEIVE:
-                commands.append("≡ legend");
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
-                commands.append("◦ last shots");
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
+                commands.append("≡ legend")
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator())
+                        .append("◦ last shots")
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator());
                 break;
             case OVER:
-                commands.append("≡ legend");
-                commands.append(System.lineSeparator());
-                commands.append(System.lineSeparator());
-                commands.append("◦ last shots");
-                commands.append(System.lineSeparator());
-                commands.append("→ continue");
-                commands.append(System.lineSeparator());
+                commands.append("≡ legend")
+                        .append(System.lineSeparator())
+                        .append(System.lineSeparator())
+                        .append("◦ last shots")
+                        .append(System.lineSeparator())
+                        .append("→ continue")
+                        .append(System.lineSeparator());
                 break;
         }
-        System.out.print(commands.toString());
+       return commands.toString();
     }
 
     private static String standartDivider(){
         StringBuilder divider=new StringBuilder();
-        for (int whitespace=STANDARD_HALF_SIZE; whitespace>0; whitespace--){
-            divider.append("─");
-        }
+        divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"─"+divider.toString();
     }
 
     private static String xDivider(){
         StringBuilder divider=new StringBuilder();
-        for (int whitespace=STANDARD_HALF_SIZE; whitespace>0; whitespace--){
-            divider.append("─");
-        }
+        divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"┼"+divider.toString();
     }
 
     private static String tDivider(){
         StringBuilder divider=new StringBuilder();
-        for (int whitespace=STANDARD_HALF_SIZE; whitespace>0; whitespace--){
-            divider.append("─");
-        }
+        divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"┬"+divider.toString();
     }
 
     private static String toLeft(String inputString){
-        StringBuilder outputString=new StringBuilder();
-        outputString.append(inputString);
-        for (int whitespace=STANDARD_HALF_SIZE-inputString.length(); whitespace>0; whitespace--){
-            outputString.append(" ");
-        }
-        return outputString.toString();
+        return inputString +
+                " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length()));
     }
 
     private static String toLeft(String inputString, int plusWhitespace){
-        StringBuilder outputString=new StringBuilder();
-        outputString.append(inputString);
-        for (int whitespace=STANDARD_HALF_SIZE-inputString.length()+plusWhitespace; whitespace>0; whitespace--){
-            outputString.append(" ");
-        }
-        return outputString.toString();
+        return inputString +
+                " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length() + plusWhitespace));
     }
 
     private static String toRight(String inputString){
-        StringBuilder outputString=new StringBuilder();
-        for (int whitespace=STANDARD_HALF_SIZE-inputString.length(); whitespace>0; whitespace--){
-            outputString.append(" ");
-        }
-        outputString.append(inputString);
-        return outputString.toString();
+        return " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length())) +
+                inputString;
     }
 
     private static String toRight(String inputString, int plusWhitespace){
-        StringBuilder outputString=new StringBuilder();
-        for (int whitespace=STANDARD_HALF_SIZE-inputString.length()+plusWhitespace; whitespace>0; whitespace--){
-            outputString.append(" ");
-        }
-        outputString.append(inputString);
-        return outputString.toString();
+        return " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length() + plusWhitespace)) +
+                inputString;
     }
 
 
     private static String toMiddle(String inputString){
         StringBuilder half=new StringBuilder();
-        for (int whitespace=(STANDARD_HALF_SIZE-inputString.length())/2; whitespace>0; whitespace--){
-            half.append(" ");
-        }
+        half.append(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
         return half.toString()+inputString+half.toString();
     }
 
