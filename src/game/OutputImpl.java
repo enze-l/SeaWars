@@ -61,7 +61,7 @@ public class OutputImpl {
 
     public static void outputShips(MyBoard board) {
         StringBuilder ships=new StringBuilder();
-        ships.append(toLeft("─ Player ──────────────")+'N'+toRight("────────────── Enemy ─",-1));
+        ships.append(toLeft("─ Player ──────────────")+'N'+toRight("────────────── Enemy ─"));
         ships.append(System.lineSeparator());
         ships.append(toLeft("B " + toStringBattleship(board))+'↑');
         ships.append(System.lineSeparator());
@@ -88,47 +88,47 @@ public class OutputImpl {
         StringBuilder commands=new StringBuilder();
         switch (gameStatus){
             case PREPARATION:
-                commands.append("- legend");
+                commands.append("≡ legend");
                 commands.append(System.lineSeparator());
-                commands.append("- set (B/C/S/D) (1-10) (A-J) (N/E/S/W)");
+                commands.append("˅ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)");
                 commands.append(System.lineSeparator());
-                commands.append("- remove (1-10) (A-J)");
+                commands.append("˄ remove (A-J) (1-10)");
                 commands.append(System.lineSeparator());
-                commands.append("- ready");
+                commands.append("► ready");
                 commands.append(System.lineSeparator());
                 break;
             case READY:
-                commands.append("- legend");
+                commands.append("≡ legend");
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
-                commands.append("- revoke");
+                commands.append("◄ revoke");
                 commands.append(System.lineSeparator());
                 break;
             case ATTACK:
-                commands.append("- legend");
+                commands.append("≡ legend");
                 commands.append(System.lineSeparator());
-                commands.append("- shoot (A-J)");
+                commands.append("☼ shoot (A-J) (1-10)");
                 commands.append(System.lineSeparator());
-                commands.append("- last shots");
+                commands.append("◦ last shots");
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
                 break;
             case RECEIVE:
-                commands.append("- legend");
+                commands.append("≡ legend");
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
-                commands.append("- last shots");
+                commands.append("◦ last shots");
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
                 break;
             case OVER:
-                commands.append("- legend");
+                commands.append("≡ legend");
                 commands.append(System.lineSeparator());
                 commands.append(System.lineSeparator());
-                commands.append("- last shots");
+                commands.append("◦ last shots");
                 commands.append(System.lineSeparator());
-                commands.append("- continue");
+                commands.append("→ continue");
                 commands.append(System.lineSeparator());
                 break;
         }
