@@ -102,7 +102,7 @@ public class Board implements MyBoard {
         if (shipPlacementPossible(shipType, orientation, coordinate)) {
             int chosenShip = availableShipFromType(shipType);
             ships[chosenShip].setShip(coordinate, orientation);
-            for (int shipSegment = 0; shipSegment < ShipLength.getLength(shipType); shipSegment++) {
+            for (int shipSegment = 0; shipSegment < ShipInfo.getLength(shipType); shipSegment++) {
                 switch (orientation) {
                     case HORIZONTAL:
                         board[coordinate.getXCoordinate() + shipSegment][coordinate.getYCoordinate()].setShip(ships[chosenShip]);
@@ -196,6 +196,11 @@ public class Board implements MyBoard {
         return fields;
     }
 
+    @Override
+    public Ship[] getShips(){
+        return this.ships;
+    }
+
     /**
      * checks if a given type of ship could be placed on the board.
      * it does that by checking if the given coordinates are on the board,
@@ -228,7 +233,7 @@ public class Board implements MyBoard {
      * @return if there is a ship
      */
     private boolean noShipHere(ShipType shipType, Orientation orientation, Coordinate coordinate) {
-        for (int shipSegment = 0; shipSegment < ShipLength.getLength(shipType); shipSegment++) {
+        for (int shipSegment = 0; shipSegment < ShipInfo.getLength(shipType); shipSegment++) {
             int x = 0, y = 0;
             switch (orientation) {
                 case HORIZONTAL:
@@ -241,7 +246,7 @@ public class Board implements MyBoard {
                     break;
             }
             try {
-                if (getFieldStatus(new CoordinateImpl(x + 1, y + 1)) == FieldStatus.SHIP) {
+                if (getFieldStatus(new CoordinateImpl(x + 1, y + 1)) == FieldStatus.SETSHIP) {
                     return false;
                 }
             } catch (FieldException e) {
@@ -259,7 +264,7 @@ public class Board implements MyBoard {
      * @return if ship is to close to another
      */
     private boolean noShipNearby(ShipType shipType, Orientation orientation, Coordinate coordinate) {
-        for (int shipLengthOutline = -1; shipLengthOutline < ShipLength.getLength(shipType) + 1; shipLengthOutline++) {
+        for (int shipLengthOutline = -1; shipLengthOutline < ShipInfo.getLength(shipType) + 1; shipLengthOutline++) {
             int x = 0, y = 0, xOffset = 0, yOffset = 0;
             switch (orientation) {
                 case HORIZONTAL:
@@ -275,22 +280,22 @@ public class Board implements MyBoard {
             }
             try {
                 if (//compares the field before the ship with bad-case SHIP
-                        shipLengthOutline == -1 && board[x][y].getFieldStatus() == FieldStatus.SHIP)
+                        shipLengthOutline == -1 && board[x][y].getFieldStatus() == FieldStatus.SETSHIP)
                     return false;
             } catch (ArrayIndexOutOfBoundsException e) {
             }
             try {
                 if (//compares the field after the ship with bad-case SHIP
-                        shipLengthOutline == ShipLength.getLength(shipType)
-                                && board[x][y].getFieldStatus() == FieldStatus.SHIP)
+                        shipLengthOutline == ShipInfo.getLength(shipType)
+                                && board[x][y].getFieldStatus() == FieldStatus.SETSHIP)
                     return false;
             } catch (ArrayIndexOutOfBoundsException e) {
             }
             try {
                 if (//compares the fields sideways of the ship with bad-case SHIP
-                        shipLengthOutline >= 0 && shipLengthOutline < ShipLength.getLength(shipType)
-                                && (board[x + xOffset][y + yOffset].getFieldStatus() == FieldStatus.SHIP
-                                || board[x - xOffset][y - yOffset].getFieldStatus() == FieldStatus.SHIP)) {
+                        shipLengthOutline >= 0 && shipLengthOutline < ShipInfo.getLength(shipType)
+                                && (board[x + xOffset][y + yOffset].getFieldStatus() == FieldStatus.SETSHIP
+                                || board[x - xOffset][y - yOffset].getFieldStatus() == FieldStatus.SETSHIP)) {
                     return false;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -306,7 +311,7 @@ public class Board implements MyBoard {
      * @return if the coordinate is possible
      */
     private boolean onBoard(ShipType shipType, Orientation orientation, Coordinate coordinate) {
-        for (int shipSegment = 0; shipSegment < ShipLength.getLength(shipType); shipSegment++) {
+        for (int shipSegment = 0; shipSegment < ShipInfo.getLength(shipType); shipSegment++) {
             int x = 0, y = 0;
             switch (orientation) {
                 case HORIZONTAL:
@@ -335,7 +340,7 @@ public class Board implements MyBoard {
     private int availableShipFromType(ShipType shipType) throws ShipException {
         int shipCounter;
         for (shipCounter = 0; shipCounter < ships.length; shipCounter++) {
-            if (ShipLength.getLength(shipType) == ships[shipCounter].getLength()
+            if (ShipInfo.getLength(shipType) == ships[shipCounter].getLength()
                     && ships[shipCounter].getPosition() == null) {
                 return shipCounter;
             }

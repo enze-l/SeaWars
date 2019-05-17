@@ -38,7 +38,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.outputMyBoard(board);
+            OutputImpl.output(board);
         } catch (StatusException e) {
         }
         //
@@ -69,7 +69,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.outputMyBoard(board);
+            OutputImpl.output(board);
         } catch (StatusException e) {
         }
         //
@@ -92,8 +92,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
-        }
+        } catch (StatusException e) { }
         //
     }
 
@@ -221,6 +220,11 @@ public class MyBoardTest {
             );
         } catch (FieldException e) {
         }
+        //just temporarily for output-test
+        try {
+            OutputImpl.output(board);
+        } catch (StatusException e) { }
+        //
     }
 
     @Test
@@ -241,8 +245,12 @@ public class MyBoardTest {
                             && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
                             && board.getFieldStatus(coordinate3) == FieldStatus.WATER
             );
-        } catch (FieldException e) {
-        }
+        } catch (FieldException e) { }
+        //just temporarily for output-test
+        try {
+            OutputImpl.output(board);
+        } catch (StatusException e) { }
+        //
     }
 
     /**

@@ -13,7 +13,7 @@ public class OutputSymbols {
      * @return corresponding representation as a char
      */
     static char getSymbol(FieldStatus fieldStatus) {
-        char fieldSymbol = ' ';
+        char fieldSymbol;
         switch (fieldStatus) {
             case WATER:
                 fieldSymbol = '~';
@@ -21,7 +21,7 @@ public class OutputSymbols {
             case SHOTWATER:
                 fieldSymbol = '○';
                 break;
-            case SHIP:
+            case SETSHIP:
                 fieldSymbol = '■';
                 break;
             case HIT:
@@ -29,6 +29,29 @@ public class OutputSymbols {
                 break;
             case SUNK:
                 fieldSymbol = '□';
+                break;
+            default:
+                fieldSymbol = ' ';
+                break;
+        }
+        return fieldSymbol;
+    }
+
+    static char getMiniSymbol(FieldStatus fieldStatus){
+        char fieldSymbol;
+        switch (fieldStatus) {
+            case SHIP:
+                fieldSymbol = '▪';
+                break;
+            case SETSHIP:
+                fieldSymbol = '▫';
+                break;
+            case HIT:
+                fieldSymbol = '·';
+                break;
+            case SUNK:
+            default:
+                fieldSymbol = ' ';
                 break;
         }
         return fieldSymbol;

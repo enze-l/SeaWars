@@ -11,6 +11,7 @@ public enum FieldStatus {
     WATER,
     SHOTWATER,
     SHIP,
+    SETSHIP,
     HIT,
     SUNK
 }

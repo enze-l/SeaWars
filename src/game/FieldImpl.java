@@ -56,7 +56,7 @@ class FieldImpl implements Field{
     public  void receiveHit() {
         if(this.ship!=null){
             this.ship.setHit(this.coordinate);
-            this.fieldStatus=this.ship.getShipStatus(this.coordinate);
+            this.fieldStatus=this.ship.getSegmentStatus(this.coordinate);
         }
         else if (this.fieldStatus==FieldStatus.WATER) this.fieldStatus=FieldStatus.SHOTWATER;
     }
@@ -70,7 +70,7 @@ class FieldImpl implements Field{
     @Override
     public FieldStatus getFieldStatus() {
         if (this.ship!=null){
-            return this.ship.getShipStatus(this.coordinate);
+            return this.ship.getSegmentStatus(this.coordinate);
         }
          else return this.fieldStatus;
     }

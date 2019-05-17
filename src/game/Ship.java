@@ -79,7 +79,7 @@ public abstract class Ship {
             if (segment.getStatus()==FieldStatus.HIT){
                 sunk=true;
             }
-            else if (segment.getStatus()==FieldStatus.SHIP){
+            else if (segment.getStatus()==FieldStatus.SETSHIP){
                 sunk=false;
                 break;
             }
@@ -97,7 +97,7 @@ public abstract class Ship {
      * @param coordinate coordinate of witch the status is asked for
      * @return status of the ship-segment
      */
-    FieldStatus getShipStatus(Coordinate coordinate){
+    FieldStatus getSegmentStatus(Coordinate coordinate){
         FieldStatus fieldStatus=null;
         for (ShipSegment shipSegment : segments) {
             if (shipSegment.getCoordinate().equals(coordinate)) {
@@ -105,6 +105,10 @@ public abstract class Ship {
             }
         }
         return fieldStatus;
+    }
+
+    FieldStatus getSegmentStatus(int segment){
+        return this.segments[segment-1].getStatus();
     }
 }
 

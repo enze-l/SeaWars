@@ -6,16 +6,14 @@ package game;
 public class OutputImpl {
 
     public static void output(MyBoard board) throws StatusException {
-        outputShips(board.shipsAvailable());
-        outputMyBoard(board);
+        outputShips(board);
+        outputMyBoard(board.getFields(), board.getStatus());
     }
 
     /**
      * Displays given Board in the console-view
      */
-    public static void outputMyBoard(MyBoard board) throws StatusException {
-        FieldStatus[][] fields = board.getFields();
-        GameStatus gameStatus = board.getStatus();
+    public static void outputMyBoard(FieldStatus[][] fields, GameStatus gameStatus) throws StatusException {
         //output numbers over board
         System.out.print("   ");
         for (int number = 1; number <= fields.length; number++) {
@@ -58,10 +56,79 @@ public class OutputImpl {
         System.out.println("────────────────────────────┴────────────────────────────");
     }
 
-    /**
-     * Displays available ships in console view
-     */
-    public static void outputShips(int[] ships) {
+    /*
+    @Deprecated
+    public static void outputShips(MyBoard board) {
+        int[] ships = board.shipsAvailable();
+        //first ship-line
+        if (ships[3]>=4) System.out.println("▪▪");
+        else System.out.println("▫▫");
+        //second line
+        if (ships[3]>=3) System.out.print("▪▪ ");
+        else System.out.print("▫▫ ");
+        if (ships[2]>=3) System.out.println("▪▪▪");
+        else System.out.println("▫▫▫");
+        //third line
+        if (ships[3]>=2) System.out.print("▪▪ ");
+        else System.out.print("▫▫ ");
+        if (ships[2]>=2) System.out.print("▪▪▪ ");
+        else System.out.print("▫▫▫ ");
+        if (ships[1]>=2) System.out.println("▪▪▪▪");
+        else System.out.println("▫▫▫▫");
+        //fourth line
+        if (ships[3]>=1) System.out.print("▪▪ ");
+        else System.out.print("▫▫ ");
+        if (ships[2]>=1) System.out.print("▪▪▪ ");
+        else System.out.print("▫▫▫ ");
+        if (ships[1]>=1) System.out.print("▪▪▪▪ ");
+        else System.out.print("▫▫▫▫ ");
+        if (ships[0]>=1) System.out.println("▪▪▪▪▪");
+        else System.out.println("▫▫▫▫▫");
+        System.out.println();
+    }
+    */
+    public static void outputShips(MyBoard board) {
+        int[] availabelOnes = board.shipsAvailable();
+        Ship[] ships = board.getShips();
+        //Battleship
+        for (int battleship=ShipInfo.getAmount(ShipType.BATTLESHIP); battleship>0; battleship--){
+            if (ships[battleship-1].getSegmentStatus(1)!=FieldStatus.SUNK){
+                for(int cruiserpart=1; cruiserpart<ShipInfo.getLength(ShipType.BATTLESHIP)+1; cruiserpart++) {
+                    System.out.print(OutputSymbols.getMiniSymbol(ships[battleship-1].getSegmentStatus(cruiserpart)));
+                }
+            }
+        }
+        System.out.println();
+        //Cruiser
+        for (int destroyer=ShipInfo.getAmount(ShipType.CRUISER); destroyer>0; destroyer--){
+            if (ships[destroyer].getSegmentStatus(1)!=FieldStatus.SUNK){
+                for(int cruiserpart=1; cruiserpart<ShipInfo.getLength(ShipType.CRUISER)+1; cruiserpart++) {
+                    System.out.print(OutputSymbols.getMiniSymbol(ships[destroyer].getSegmentStatus(cruiserpart)));
+                }
+                System.out.print("  ");
+            }
+        }
+        System.out.println();
+        //Submarine
+        for (int destroyer=ShipInfo.getAmount(ShipType.SUBMARINE); destroyer>0; destroyer--){
+            if (ships[2+destroyer].getSegmentStatus(1)!=FieldStatus.SUNK){
+                for(int cruiserpart=1; cruiserpart<ShipInfo.getLength(ShipType.SUBMARINE)+1; cruiserpart++) {
+                    System.out.print(OutputSymbols.getMiniSymbol(ships[2 + destroyer].getSegmentStatus(cruiserpart)));
+                }
+                System.out.print("   ");
+            }
+        }
+        System.out.println();
+        //Destroyer
+        for (int destroyer=ShipInfo.getAmount(ShipType.DESTROYER); destroyer>0; destroyer--){
+            if (ships[5+destroyer].getSegmentStatus(1)!=FieldStatus.SUNK){
+                for(int cruiserpart=1; cruiserpart<ShipInfo.getLength(ShipType.DESTROYER)+1; cruiserpart++) {
+                    System.out.print(OutputSymbols.getMiniSymbol(ships[5 + destroyer].getSegmentStatus(cruiserpart)));
+                }
+                System.out.print("    ");
+            }
+        }
+        System.out.println();
 
     }
 

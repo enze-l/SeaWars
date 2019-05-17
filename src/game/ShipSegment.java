@@ -12,7 +12,6 @@ class ShipSegment {
      * Its default status is "Ship" and it doesn't know where it belongs till it is placed.
      */
     ShipSegment(){
-        this.coordinate=null;
         this.status=FieldStatus.SHIP;
     }
 
@@ -22,6 +21,7 @@ class ShipSegment {
      */
     void segmentAssignment(Coordinate coordinate){
         this.coordinate=coordinate;
+        this.status=FieldStatus.SETSHIP;
     }
 
     /**
@@ -29,6 +29,7 @@ class ShipSegment {
      */
     void removeAssignment(){
         this.coordinate=null;
+        this.status=FieldStatus.SHIP;
     }
 
     /**

@@ -49,6 +49,12 @@ public interface MyBoard {
     int[] shipsAvailable();
 
     /**
+     * gives back all ships saved for the board
+     * @return an array of ships
+     */
+    Ship[] getShips();
+
+    /**
      * @param coordinate array with the x and y coordinate of shot
      * @return Opponent Move is received and Result of shot is given back
      * @throws FieldException if Coordinate doesn't correspond to an actual field
