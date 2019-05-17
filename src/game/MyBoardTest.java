@@ -288,8 +288,13 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
-        }
+        } catch (StatusException e) { }
+        try {
+            board.setStatus(GameStatus.READY);
+        }catch(StatusException e){}
+        try {
+            OutputImpl.output(board);
+        } catch (StatusException e) { }
         //
         Assert.assertArrayEquals(expected, actual);
     }
