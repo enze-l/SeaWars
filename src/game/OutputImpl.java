@@ -1,31 +1,45 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
 /**
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputImpl {
     private static int STANDARD_HALF_SIZE=28;
 
-    public static void output(MyBoard board) throws StatusException {
+    public static void output(MyBoard board) throws StatusException, IOException {
         StringBuilder output=new StringBuilder();
+        BufferedReader boardsplitter =
+                new BufferedReader(new StringReader(toStringMyBoard(board.getFields(), board.getStatus())));
         System.out.printf("%n%n%n%n%n");
-        output.append(outputShips(board));
-        output.append(outputMyBoard(board.getFields(), board.getStatus()));
-        output.append(outputCommandsAvailable(board.getStatus()));
+        output.append(toStringShips(board))
+                .append(tDivider());
+        String split=boardsplitter.readLine();
+        do {
+            if (split.length()!=0)output.append(split)
+                    .append(iDivider())
+                    .append(System.lineSeparator());
+            split=boardsplitter.readLine();
+        }while(split!=null);
+        output.append(lDivider())
+                .append(toStringCommands(board.getStatus()));
         System.out.println(output.toString());
     }
 
     /**
      * Displays given Board in the console-view
      */
-    private static String outputMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
+    private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
         StringBuilder ownSide=new StringBuilder();
         //output numbers over board
         ownSide.append("   ");
         for (int number = 1; number <= fields.length; number++) {
             ownSide.append(" ").append(number);
         }
-        ownSide.append("    │").append(System.lineSeparator());
+        ownSide.append("    ").append(System.lineSeparator());
         //output field-boarder over the board
         ownSide.append("  ");
         ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
@@ -34,7 +48,7 @@ public class OutputImpl {
         }
         OutputSymbols.even = false;
         ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus))
-                .append("   │").append(System.lineSeparator());
+                .append("   ").append(System.lineSeparator());
 
         //output letters and fields in a row at a time
         for (int row = 0; row < fields.length; row++) {
@@ -44,7 +58,7 @@ public class OutputImpl {
                 ownSide.append(" " + OutputSymbols.getSymbol(fields[column][row]));
             }
             ownSide.append(" " + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus)
-                    + " " + OutputSymbols.getAlphabet(row + 1) + " │").append(System.lineSeparator());
+                    + " " + OutputSymbols.getAlphabet(row + 1) + " ").append(System.lineSeparator());
         }
         //output field-boarder below the board
         ownSide.append("  ");
@@ -53,20 +67,18 @@ public class OutputImpl {
             ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus) + "   │")
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus) + "   ")
                 .append(System.lineSeparator());
         //output numbers below board
         ownSide.append("   ");
         for (int number = 1; number <= fields.length; number++) {
             ownSide.append(" " + number);
         }
-        ownSide.append("    │").append(System.lineSeparator())
-                .append("────────────────────────────┴────────────────────────────")
-                .append(System.lineSeparator());
+        ownSide.append("    ").append(System.lineSeparator());
         return ownSide.toString();
     }
 
-    private static String outputShips(MyBoard board) {
+    private static String toStringShips(MyBoard board) {
         return toLeft("─ Player ──────────────") + 'N' + toRight("────────────── Enemy ─") +
                 System.lineSeparator() +
                 toLeft("B " + toStringBattleship(board)) + '↑' +
@@ -76,8 +88,6 @@ public class OutputImpl {
                 toLeft("S " + toStringSubmarine(board)) + "↓" +
                 System.lineSeparator() +
                 toLeft("D " + toStringDestroyer(board)) + "S" +
-                System.lineSeparator() +
-                tDivider() +
                 System.lineSeparator();
         /*
           ↑      ▲      ˄
@@ -89,7 +99,7 @@ public class OutputImpl {
     /**
      * Displays the commands that are available at the moment
      */
-    private static String outputCommandsAvailable(GameStatus gameStatus) {
+    private static String toStringCommands(GameStatus gameStatus) {
         StringBuilder commands=new StringBuilder();
         switch (gameStatus){
             case PREPARATION:
@@ -143,19 +153,29 @@ public class OutputImpl {
     private static String standartDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
-        return divider.toString()+"─"+divider.toString();
+        return divider.toString()+"─"+divider.toString()+System.lineSeparator();
     }
 
     private static String xDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
-        return divider.toString()+"┼"+divider.toString();
+        return divider.toString()+"┼"+divider.toString()+System.lineSeparator();
     }
 
     private static String tDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
-        return divider.toString()+"┬"+divider.toString();
+        return divider.toString()+"┬"+divider.toString()+System.lineSeparator();
+    }
+
+    private static String lDivider(){
+        StringBuilder divider=new StringBuilder();
+        divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
+        return divider.toString()+"┴"+divider.toString()+System.lineSeparator();
+    }
+
+    private static char iDivider(){
+        return '│';
     }
 
     private static String toLeft(String inputString){

@@ -39,7 +39,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -70,7 +70,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -92,7 +92,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) { }
+        } catch (Exception e) { }
         //
     }
 
@@ -113,7 +113,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -135,7 +135,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -223,7 +223,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) { }
+        } catch (Exception e) { }
         //
     }
 
@@ -249,7 +249,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) { }
+        } catch (Exception e) { }
         //
     }
 
@@ -288,13 +288,13 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) { }
+        } catch (Exception e) { }
         try {
             board.setStatus(GameStatus.READY);
         }catch(StatusException e){}
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) { }
+        } catch (Exception e) { }
         //
         Assert.assertArrayEquals(expected, actual);
     }
@@ -463,7 +463,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -494,7 +494,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -512,7 +512,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
     }
@@ -550,7 +550,7 @@ public class MyBoardTest {
         //just temporarily for output-test
         try {
             OutputImpl.output(board);
-        } catch (StatusException e) {
+        } catch (Exception e) {
         }
         //
         Assert.assertTrue(allWater);
