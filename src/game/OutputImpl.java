@@ -3,6 +3,7 @@ package game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -25,7 +26,7 @@ public class OutputImpl {
             split=boardsplitter.readLine();
         }while(split!=null);
         output.append(lDivider())
-                .append(toStringCommands(board.getStatus()));
+                .append(toStringCommands(board.getStatus(), board.shipsAvailable()));
         System.out.println(output.toString());
     }
 
@@ -99,7 +100,7 @@ public class OutputImpl {
     /**
      * Displays the commands that are available at the moment
      */
-    private static String toStringCommands(GameStatus gameStatus) {
+    private static String toStringCommands(GameStatus gameStatus, int[] shipsAvailable) {
         StringBuilder commands=new StringBuilder();
         switch (gameStatus){
             case PREPARATION:
@@ -108,9 +109,11 @@ public class OutputImpl {
                         .append("˅ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)")
                         .append(System.lineSeparator())
                         .append("˄ remove (A-J) (1-10)")
-                        .append(System.lineSeparator())
-                        .append("► ready")
                         .append(System.lineSeparator());
+                if (Arrays.equals(shipsAvailable, new int[]{0, 0, 0, 0})) {
+                    commands.append("► ready")
+                            .append(System.lineSeparator());
+                } else commands.append(System.lineSeparator()).append(System.lineSeparator());
                 break;
             case READY:
                 commands.append("≡ legend")
