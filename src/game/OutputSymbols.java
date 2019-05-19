@@ -12,7 +12,7 @@ public class OutputSymbols {
      * @param fieldStatus status of which the corresponding symbols is asked for
      * @return corresponding representation as a char
      */
-    static char getSymbol(FieldStatus fieldStatus) {
+    public static char getSymbol(FieldStatus fieldStatus) {
         char fieldSymbol;
         switch (fieldStatus) {
             case WATER:
@@ -37,7 +37,7 @@ public class OutputSymbols {
         return fieldSymbol;
     }
 
-    static char getMiniSymbol(FieldStatus fieldStatus){
+    public static char getMiniSymbol(FieldStatus fieldStatus){
         char fieldSymbol;
         switch (fieldStatus) {
             case SHIP:
@@ -63,7 +63,7 @@ public class OutputSymbols {
      * @param number of which the corresponding letter is asked for
      * @return char that corresponds with the given number
      */
-    static char getAlphabet(int number) {
+    public static char getAlphabet(int number) {
         char letter = 'x';
         switch (number) {
             case 1:

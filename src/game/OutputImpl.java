@@ -13,17 +13,17 @@ public class OutputImpl {
 
     public static void output(MyBoard board) throws StatusException, IOException {
         StringBuilder output=new StringBuilder();
-        BufferedReader boardsplitter =
+        BufferedReader boardSplitter =
                 new BufferedReader(new StringReader(toStringMyBoard(board.getFields(), board.getStatus())));
         System.out.printf("%n%n%n%n%n");
         output.append(toStringShips(board))
                 .append(tDivider());
-        String split=boardsplitter.readLine();
+        String split=boardSplitter.readLine();
         do {
             if (split.length()!=0)output.append(split)
                     .append(iDivider())
                     .append(System.lineSeparator());
-            split=boardsplitter.readLine();
+            split=boardSplitter.readLine();
         }while(split!=null);
         output.append(lDivider())
                 .append(toStringCommands(board.getStatus(), board.shipsAvailable()));
@@ -53,13 +53,19 @@ public class OutputImpl {
 
         //output letters and fields in a row at a time
         for (int row = 0; row < fields.length; row++) {
-            ownSide.append(OutputSymbols.getAlphabet(row + 1) + " "
-                    + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
+            ownSide.append(OutputSymbols.getAlphabet(row + 1))
+                    .append(" ")
+                    .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
             for (int column = 0; column < fields[row].length; column++) {
-                ownSide.append(" " + OutputSymbols.getSymbol(fields[column][row]));
+                ownSide.append(" ")
+                        .append(OutputSymbols.getSymbol(fields[column][row]));
             }
-            ownSide.append(" " + OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus)
-                    + " " + OutputSymbols.getAlphabet(row + 1) + " ").append(System.lineSeparator());
+            ownSide.append(" ")
+                    .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus))
+                    .append(" ")
+                    .append(OutputSymbols.getAlphabet(row + 1))
+                    .append(" ")
+                    .append(System.lineSeparator());
         }
         //output field-boarder below the board
         ownSide.append("  ");
@@ -68,12 +74,14 @@ public class OutputImpl {
             ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus) + "   ")
+        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus))
+                .append("   ")
                 .append(System.lineSeparator());
         //output numbers below board
         ownSide.append("   ");
         for (int number = 1; number <= fields.length; number++) {
-            ownSide.append(" " + number);
+            ownSide.append(" ")
+                    .append(number);
         }
         ownSide.append("    ").append(System.lineSeparator());
         return ownSide.toString();
@@ -153,7 +161,7 @@ public class OutputImpl {
        return commands.toString();
     }
 
-    private static String standartDivider(){
+    private static String standardDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"─"+divider.toString()+System.lineSeparator();

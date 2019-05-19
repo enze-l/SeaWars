@@ -23,7 +23,7 @@ public abstract class Ship {
      * @param coordinate upper left segment of the ship (anchor-point)
      * @param orientation the direction in witch the ship is pointed
      */
-    void setShip(Coordinate coordinate, Orientation orientation){
+    public void setShip(Coordinate coordinate, Orientation orientation){
         for(int segment=0; segment<segments.length; segment++){
             if (orientation==Orientation.HORIZONTAL) {
                 segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+segment+1, coordinate.getYCoordinate()+1));
@@ -37,14 +37,14 @@ public abstract class Ship {
     /**
      * @return anchor point of ship on board
      */
-    Coordinate getPosition(){
+    public Coordinate getPosition(){
         return segments[0].getCoordinate();
     }
 
     /**
      * resets the status of
      */
-    void removeShip(){
+    public void removeShip(){
         for (ShipSegment segment:segments){
             segment.removeAssignment();
         }
@@ -54,7 +54,7 @@ public abstract class Ship {
      * Getter-method for the length of the ship
      * @return length of ship
      */
-    int getLength(){
+    public int getLength(){
         return segments.length;
     }
 
@@ -65,7 +65,7 @@ public abstract class Ship {
      * status "sunk"
      * @param coordinate the coordinate that is getting attacked
      */
-    void setHit(Coordinate coordinate){
+    public void setHit(Coordinate coordinate){
         //search for segment and set hit if its found
         for (ShipSegment segment : segments) {
             if (segment.getCoordinate().equals(coordinate)) {
@@ -97,7 +97,7 @@ public abstract class Ship {
      * @param coordinate coordinate of witch the status is asked for
      * @return status of the ship-segment
      */
-    FieldStatus getSegmentStatus(Coordinate coordinate){
+    public FieldStatus getSegmentStatus(Coordinate coordinate){
         FieldStatus fieldStatus=null;
         for (ShipSegment shipSegment : segments) {
             if (shipSegment.getCoordinate().equals(coordinate)) {
