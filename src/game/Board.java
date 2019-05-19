@@ -134,11 +134,12 @@ public class Board implements MyBoard {
         Coordinate shipAnchor = board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getPosition();
         int shipLength = board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getLength();
         Orientation orientation;
-        if (board[shipAnchor.getXCoordinate() + 1][shipAnchor.getYCoordinate()].getFieldStatus() == FieldStatus.SHIP) {
+        if (board[shipAnchor.getXCoordinate() + 1][shipAnchor.getYCoordinate()].getFieldStatus() == FieldStatus.SETSHIP) {
             orientation = Orientation.HORIZONTAL;
         } else {
             orientation = Orientation.VERTICAL;
         }
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
         for (int shipSegment = 1; shipSegment < shipLength; shipSegment++) {
             if (orientation == Orientation.HORIZONTAL) {
                 board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate() + shipSegment].removeShip();
@@ -171,10 +172,10 @@ public class Board implements MyBoard {
      */
     @Override
     public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
-        if (coordinate.getXCoordinate() < 1
-                || coordinate.getXCoordinate() > 10
-                || coordinate.getYCoordinate() < 1
-                || coordinate.getYCoordinate() > 10) {
+        if (coordinate.getXCoordinate() < 0
+                || coordinate.getXCoordinate() > 9
+                || coordinate.getYCoordinate() < 0
+                || coordinate.getYCoordinate() > 9) {
             throw new FieldException("Feld ausserhalb des Spielfeldes");
         }
         return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();

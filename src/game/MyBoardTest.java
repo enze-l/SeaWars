@@ -23,6 +23,7 @@ public class MyBoardTest {
                             && board.getFieldStatus(coordinateLeftLower) == FieldStatus.WATER
             );
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -35,11 +36,13 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -62,15 +65,18 @@ public class MyBoardTest {
         try {
             board.setStatus(GameStatus.READY);
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertEquals(GameStatus.READY, board.getStatus());
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -84,15 +90,19 @@ public class MyBoardTest {
         try {
             board.setStatus(GameStatus.ATTACK);
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         //
     }
 
@@ -105,15 +115,18 @@ public class MyBoardTest {
         try {
             board.setStatus(GameStatus.RECEIVE);
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -127,15 +140,18 @@ public class MyBoardTest {
         try {
             board.setStatus(GameStatus.OVER);
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertEquals(GameStatus.OVER, board.getStatus());
         } catch (StatusException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -150,6 +166,7 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate));
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -176,18 +193,20 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.BATTLESHIP, coordinate1, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertTrue(
                     board.getFieldStatus(coordinate0) == FieldStatus.WATER
-                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate3) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate4) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate5) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate3) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate4) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate5) == FieldStatus.SETSHIP
                             && board.getFieldStatus(coordinate6) == FieldStatus.WATER
             );
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -207,23 +226,27 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.BATTLESHIP, coordinate1, Orientation.VERTICAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertTrue(
                     board.getFieldStatus(coordinate0) == FieldStatus.WATER
-                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate3) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate4) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate5) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate3) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate4) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate5) == FieldStatus.SETSHIP
                             && board.getFieldStatus(coordinate6) == FieldStatus.WATER
             );
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         //
     }
 
@@ -237,19 +260,24 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.VERTICAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertTrue(
                     board.getFieldStatus(coordinate0) == FieldStatus.WATER
-                            && board.getFieldStatus(coordinate1) == FieldStatus.SHIP
-                            && board.getFieldStatus(coordinate2) == FieldStatus.SHIP
+                            && board.getFieldStatus(coordinate1) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(coordinate2) == FieldStatus.SETSHIP
                             && board.getFieldStatus(coordinate3) == FieldStatus.WATER
             );
-        } catch (FieldException e) { }
+        } catch (FieldException e) {
+            System.err.println(e.getMessage());
+        }
         //just temporarily for output-test
         try {
             Output.output(board);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         //
     }
 
@@ -282,19 +310,26 @@ public class MyBoardTest {
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8, 7), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8, 9), Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         int[] expected = {0, 0, 0, 0};
         int[] actual = board.shipsAvailable();
         //just temporarily for output-test
         try {
             Output.output(board);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         try {
             board.setStatus(GameStatus.READY);
-        }catch(StatusException e){}
+        }catch(StatusException e){
+            System.err.println(e.getMessage());
+        }
         try {
             Output.output(board);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         //
         Assert.assertArrayEquals(expected, actual);
     }
@@ -318,6 +353,7 @@ public class MyBoardTest {
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8, 9), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(4, 9), Orientation.HORIZONTAL);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -331,6 +367,7 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
         } catch (ShipException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -346,6 +383,7 @@ public class MyBoardTest {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -361,6 +399,7 @@ public class MyBoardTest {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -374,6 +413,7 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
         } catch (ShipException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -387,15 +427,17 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertTrue(
                     board.getFieldStatus(new CoordinateImpl(8, 1)) == FieldStatus.WATER
-                            && board.getFieldStatus(new CoordinateImpl(9, 1)) == FieldStatus.SHIP
-                            && board.getFieldStatus(new CoordinateImpl(10, 1)) == FieldStatus.SHIP
+                            && board.getFieldStatus(new CoordinateImpl(9, 1)) == FieldStatus.SETSHIP
+                            && board.getFieldStatus(new CoordinateImpl(10, 1)) == FieldStatus.SETSHIP
                             && board.getFieldStatus(new CoordinateImpl(10, 2)) == FieldStatus.WATER
             );
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -409,6 +451,7 @@ public class MyBoardTest {
         try {
             board.removeShip(coordinate);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -422,6 +465,7 @@ public class MyBoardTest {
         try {
             board.removeShip(coordinate);
         } catch (ShipException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -435,12 +479,14 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         Coordinate coordinate2 = new CoordinateImpl(3, 2);
         try {
             board.removeShip(coordinate2);
             Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate1));
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -455,15 +501,18 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -478,23 +527,27 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         Coordinate coordinate2 = new CoordinateImpl(2, 1);
         try {
             board.receiveAttack(coordinate1);
             board.receiveAttack(coordinate2);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
         try {
             Assert.assertTrue(board.getFieldStatus(coordinate2) == FieldStatus.SUNK
                     && board.getFieldStatus(coordinate2) == FieldStatus.SUNK
                     && board.getFieldStatus(coordinate1) == FieldStatus.SUNK);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -508,11 +561,13 @@ public class MyBoardTest {
         try {
             Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
         //just temporarily for output-test
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
     }
@@ -528,10 +583,12 @@ public class MyBoardTest {
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
         } catch (SeaWarException e) {
+            System.err.println(e.getMessage());
         }
         try {
-            Assert.assertEquals(FieldStatus.SHIP, board.getFieldStatus(coordinate2));
+            Assert.assertEquals(FieldStatus.SETSHIP, board.getFieldStatus(coordinate2));
         } catch (FieldException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -540,9 +597,9 @@ public class MyBoardTest {
         boolean allWater = true;
         MyBoard board = new Board();
         FieldStatus[][] fieldStatuses = board.getFields();
-        for (int column = 0; column < fieldStatuses.length; column++) {
-            for (int row = 0; row < fieldStatuses[column].length; row++) {
-                if (fieldStatuses[column][row] != FieldStatus.WATER) {
+        for (FieldStatus[] fieldStatus : fieldStatuses) {
+            for (FieldStatus status : fieldStatus) {
+                if (status != FieldStatus.WATER) {
                     allWater = false;
                 }
             }
@@ -551,6 +608,7 @@ public class MyBoardTest {
         try {
             Output.output(board);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         //
         Assert.assertTrue(allWater);
