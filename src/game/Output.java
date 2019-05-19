@@ -8,26 +8,29 @@ import java.util.Arrays;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class OutputImpl {
+public class Output {
     private static int STANDARD_HALF_SIZE=28;
 
     public static void output(MyBoard board) throws StatusException, IOException {
         StringBuilder output=new StringBuilder();
+        output.append(System.lineSeparator())
+                .append(System.lineSeparator())
+                .append(System.lineSeparator());
         BufferedReader boardSplitter =
                 new BufferedReader(new StringReader(toStringMyBoard(board.getFields(), board.getStatus())));
-        System.out.printf("%n%n%n%n%n");
         output.append(toStringShips(board))
                 .append(tDivider());
-        String split=boardSplitter.readLine();
+        String split = boardSplitter.readLine();
         do {
-            if (split.length()!=0)output.append(split)
+            if (split.length() != 0) output.append(split)
                     .append(iDivider())
                     .append(System.lineSeparator());
-            split=boardSplitter.readLine();
-        }while(split!=null);
+            split = boardSplitter.readLine();
+        } while (split != null);
         output.append(lDivider())
-                .append(toStringCommands(board.getStatus(), board.shipsAvailable()));
-        System.out.println(output.toString());
+                .append(toStringCommands(board.getStatus(), board.shipsAvailable()))
+                .append(": ");
+        System.out.print(output.toString());
     }
 
     /**
@@ -136,7 +139,7 @@ public class OutputImpl {
                         .append(System.lineSeparator())
                         .append("☼ shoot (A-J) (1-10)")
                         .append(System.lineSeparator())
-                        .append("◦ last shots")
+                        .append("◦ last")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
@@ -144,7 +147,7 @@ public class OutputImpl {
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append("◦ last shots")
+                        .append("◦ last")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
@@ -152,7 +155,7 @@ public class OutputImpl {
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append("◦ last shots")
+                        .append("◦ last")
                         .append(System.lineSeparator())
                         .append("→ continue")
                         .append(System.lineSeparator());

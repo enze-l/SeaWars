@@ -30,7 +30,7 @@ public class MyBoardTest {
      * checks if "PREPARATION" Status is set when Board has been created
      */
     @Test
-    public void getStartStatus() {
+    public void getPreparationStatus() {
         MyBoard board = new Board();
         try {
             Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
@@ -38,7 +38,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -69,7 +69,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -91,7 +91,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) { }
         //
     }
@@ -112,7 +112,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -134,7 +134,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -222,7 +222,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) { }
         //
     }
@@ -248,7 +248,7 @@ public class MyBoardTest {
         } catch (FieldException e) { }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) { }
         //
     }
@@ -287,13 +287,13 @@ public class MyBoardTest {
         int[] actual = board.shipsAvailable();
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) { }
         try {
             board.setStatus(GameStatus.READY);
         }catch(StatusException e){}
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) { }
         //
         Assert.assertArrayEquals(expected, actual);
@@ -462,7 +462,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -493,7 +493,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -511,7 +511,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //
@@ -549,7 +549,7 @@ public class MyBoardTest {
         }
         //just temporarily for output-test
         try {
-            OutputImpl.output(board);
+            Output.output(board);
         } catch (Exception e) {
         }
         //

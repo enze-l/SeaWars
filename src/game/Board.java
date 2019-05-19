@@ -15,7 +15,7 @@ public class Board implements MyBoard {
      * The ships that can be placed on it are automatically created and placed in an array. They don't have any
      * coordinates assigned to them.
      */
-    Board() {
+    public Board() {
         this.board = new FieldImpl[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
             for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
