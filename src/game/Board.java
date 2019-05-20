@@ -139,12 +139,13 @@ public class Board implements MyBoard {
         } else {
             orientation = Orientation.VERTICAL;
         }
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
         for (int shipSegment = 0; shipSegment < shipLength; shipSegment++) {
             if (orientation == Orientation.HORIZONTAL) {
-                board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate() + shipSegment].removeShip();
+                board[shipAnchor.getXCoordinate() + shipSegment][shipAnchor.getYCoordinate()].removeShip();
             }
             if (orientation == Orientation.VERTICAL) {
-                board[shipAnchor.getXCoordinate() + shipSegment][shipAnchor.getYCoordinate()].removeShip();
+                board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+ shipSegment].removeShip();
             }
         }
     }

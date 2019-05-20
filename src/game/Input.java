@@ -16,11 +16,11 @@ public class Input {
         BufferedReader userInputBuffer=new BufferedReader(userInput);
         String commandString=null;
         String command=null;
-        String parameter=null;
+        String parameters=null;
         try {
             commandString = userInputBuffer.readLine().trim().toUpperCase();
             command = commandString.substring(0,commandString.indexOf(' '));
-            parameter=commandString.substring(commandString.indexOf(' ')+1).replaceAll("\\s+","");
+            parameters=commandString.substring(commandString.indexOf(' ')+1).replaceAll("\\s+","");
         }catch (Exception e){
             System.err.println("StringError");
         }
@@ -34,11 +34,10 @@ public class Input {
                             System.out.println("legend");
                             break;
                         case "SET":
-                            set(board, parameter);
+                            set(board, parameters);
                             break;
                         case "REMOVE":
-                            //remove has to be implemented
-                            System.out.println("remove");
+                            removeShip(board, parameters);
                             break;
                     }
                     break;
@@ -103,10 +102,9 @@ public class Input {
         }
     }
 
-    static void set(MyBoard board, String parameter){
-        char chosenShip=parameter.charAt(0);
-        char letter=parameter.charAt(1);
-
+    private static void set(MyBoard board, String parameters){
+        char chosenShip=parameters.charAt(0);
+        char letter=parameters.charAt(1);
         ShipType shipType=null;
         switch (chosenShip){
             case ('B'):
@@ -155,8 +153,8 @@ public class Input {
                 yCoordinate=10;
                 break;
         }
-        int xCoordinate=Character.getNumericValue(parameter.charAt(2));
-        char direction=parameter.charAt(3);
+        int xCoordinate=Character.getNumericValue(parameters.charAt(2));
+        char direction=parameters.charAt(3);
         Orientation orientation=null;
         switch (direction){
             case ('N'):
@@ -171,6 +169,49 @@ public class Input {
         try {
             board.setShip(shipType, new CoordinateImpl(xCoordinate, yCoordinate), orientation);
         }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private static void removeShip(MyBoard board, String parameters){
+        char letter=parameters.charAt(0);
+        int yCoordinate=0;
+        switch (letter){
+            case ('A'):
+                yCoordinate=1;
+                break;
+            case ('B'):
+                yCoordinate=2;
+                break;
+            case ('C'):
+                yCoordinate=3;
+                break;
+            case ('D'):
+                yCoordinate=4;
+                break;
+            case ('E'):
+                yCoordinate=5;
+                break;
+            case ('F'):
+                yCoordinate=6;
+                break;
+            case ('G'):
+                yCoordinate=7;
+                break;
+            case ('H'):
+                yCoordinate=8;
+                break;
+            case ('I'):
+                yCoordinate=9;
+                break;
+            case ('J'):
+                yCoordinate=10;
+                break;
+        }
+        int xCoordinate=Character.getNumericValue(parameters.charAt(1));
+        try {
+            board.removeShip(new CoordinateImpl(xCoordinate, yCoordinate));
+        }catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
