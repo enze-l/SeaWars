@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Arrays;
+
 /**
  * @author s0568823 - Leon Enzenberger
  */
@@ -83,6 +85,11 @@ public class Board implements MyBoard {
         }
 
         return available;
+    }
+
+    @Override
+    public boolean allShipsSet(){
+        return Arrays.equals(shipsAvailable(), new int[]{0,0,0,0});
     }
 
     /**

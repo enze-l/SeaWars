@@ -104,7 +104,6 @@ public class OutputSymbols {
         char symbol = 'x';
         switch (status) {
             case ATTACK:
-            case READY:
                 switch (piece) {
                     case VERTICAL:
                         symbol = '║';
@@ -127,6 +126,7 @@ public class OutputSymbols {
                 }
                 break;
             case RECEIVE:
+            case READY:
                 switch (piece) {
                     case VERTICAL:
                         symbol = '│';

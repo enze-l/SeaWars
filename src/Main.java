@@ -11,8 +11,10 @@ public class Main {
         while (true) {
             try {
                 Output.output(board);
-            } catch (Exception e) { }
-            Input.input(board);
+                Input.input(board);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 }

@@ -5,26 +5,28 @@ import jdk.swing.interop.SwingInterOpUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.Buffer;
+import java.util.Arrays;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
 public class Input {
-    public static void input(MyBoard board){
+    public static void input(MyBoard board) throws InputException{
         InputStreamReader userInput= new InputStreamReader(System.in);
         BufferedReader userInputBuffer=new BufferedReader(userInput);
-        String commandString=null;
+        String[] commandString=null;
         String command=null;
-        String parameters=null;
+        String[] parameters=null;
         try {
-            commandString = userInputBuffer.readLine().trim().toUpperCase();
-            command = commandString.substring(0,commandString.indexOf(' '));
-            parameters=commandString.substring(commandString.indexOf(' ')+1).replaceAll("\\s+","");
+            commandString = userInputBuffer.readLine().trim().toUpperCase().split(" ");
+            command = commandString[0];
+            parameters=Arrays.copyOfRange(commandString, 1, 5);
         }catch (Exception e){
-            System.err.println("StringError");
+            System.err.println("This is not a valid command!");
         }
-        if (commandString.length()<1) System.err.println("not working!");
+        if (commandString[0]=="") System.err.println("You have to give me some command!");
         try {
             switch (board.getStatus()){
                 case PREPARATION:
@@ -39,6 +41,13 @@ public class Input {
                         case "REMOVE":
                             removeShip(board, parameters);
                             break;
+                        case "READY":
+                            if (board.allShipsSet()) {
+                                board.setStatus(GameStatus.READY);
+                            } else throw new InputException("You first have to get all ships into position!");
+                            break;
+                        default:
+                            throw new InputException("command not available!");
                     }
                     break;
                 case READY:
@@ -48,8 +57,14 @@ public class Input {
                             System.out.println("legend");
                             break;
                         case "REVOKE":
-                            //main menu has to get implemented
+                            board.setStatus(GameStatus.PREPARATION);
                             System.out.println("revoke");
+                            break;
+                        case "SET":
+                        case "REMOVE":
+                            throw new InputException("You have to revoke your status first in order to do that");
+                        default:
+                            throw new InputException("command not available!");
                     }
                     break;
                 case ATTACK:
@@ -66,6 +81,8 @@ public class Input {
                             //history has to be implemented
                             System.out.println("last");
                             break;
+                        default:
+                            throw new InputException("command not available!");
                     }
                     break;
                 case RECEIVE:
@@ -78,6 +95,10 @@ public class Input {
                             //history has to be implemented
                             System.out.println("last");
                             break;
+                        case "SHOT":
+                            throw  new InputException("You have to wait till it is your turn!");
+                        default:
+                            throw new InputException("command not available!");
                     }
                     break;
                 case OVER:
@@ -94,6 +115,8 @@ public class Input {
                             //Successive rounds have to be implemented
                             System.out.println("continue");
                             break;
+                        default:
+                            throw new InputException("command not available!");
                     }
                     break;
             }
@@ -102,69 +125,77 @@ public class Input {
         }
     }
 
-    private static void set(MyBoard board, String parameters){
-        char chosenShip=parameters.charAt(0);
-        char letter=parameters.charAt(1);
+    private static void set(MyBoard board, String[] parameters)throws InputException{
+        String chosenShip=parameters[0];
+        String letter=parameters[1];
         ShipType shipType=null;
         switch (chosenShip){
-            case ('B'):
+            case ("B"):
                 shipType=ShipType.BATTLESHIP;
                 break;
-            case ('C'):
+            case ("C"):
                 shipType=ShipType.CRUISER;
                 break;
-            case ('S'):
+            case ("S"):
                 shipType=ShipType.SUBMARINE;
                 break;
-            case ('D'):
-                shipType=ShipType.DESTROYER;
+            case ("D"):
+                shipType = ShipType.DESTROYER;
                 break;
+            default:
+                throw new InputException("We don't have ships of that type!");
         }
-        int yCoordinate=0;
-        switch (letter){
-            case ('A'):
+        int yCoordinate = 0;
+        switch (letter) {
+            case ("A"):
                 yCoordinate=1;
                 break;
-            case ('B'):
+            case ("B"):
                 yCoordinate=2;
                 break;
-            case ('C'):
+            case ("C"):
                 yCoordinate=3;
                 break;
-            case ('D'):
+            case ("D"):
                 yCoordinate=4;
                 break;
-            case ('E'):
+            case ("E"):
                 yCoordinate=5;
                 break;
-            case ('F'):
+            case ("F"):
                 yCoordinate=6;
                 break;
-            case ('G'):
+            case ("G"):
                 yCoordinate=7;
                 break;
-            case ('H'):
+            case ("H"):
                 yCoordinate=8;
                 break;
-            case ('I'):
+            case ("I"):
                 yCoordinate=9;
                 break;
-            case ('J'):
+            case ("J"):
                 yCoordinate=10;
                 break;
+            default:
+                throw new InputException("Were do you wan to go again?");
         }
-        int xCoordinate=Character.getNumericValue(parameters.charAt(2));
-        char direction=parameters.charAt(3);
+        int xCoordinate=Integer.parseInt(parameters[2]);
+        String direction=parameters[3];
         Orientation orientation=null;
         switch (direction){
-            case ('N'):
-            case ('S'):
+            case ("N"):
+                yCoordinate=yCoordinate-(ShipInfo.getLength(shipType)-1);
+            case ("S"):
                 orientation=Orientation.VERTICAL;
                 break;
-            case ('W'):
-            case ('E'):
+            case ("W"):
+                xCoordinate=xCoordinate-(ShipInfo.getLength(shipType)-1);
+            case ("E"):
                 orientation=Orientation.HORIZONTAL;
                 break;
+            default:
+                throw new InputException("I don't know that direction!");
         }
         try {
             board.setShip(shipType, new CoordinateImpl(xCoordinate, yCoordinate), orientation);
@@ -173,42 +204,44 @@ public class Input {
         }
     }
 
-    private static void removeShip(MyBoard board, String parameters){
-        char letter=parameters.charAt(0);
+    private static void removeShip(MyBoard board, String[] parameters)throws InputException{
+        String letter=parameters[0];
         int yCoordinate=0;
         switch (letter){
-            case ('A'):
+            case ("A"):
                 yCoordinate=1;
                 break;
-            case ('B'):
+            case ("B"):
                 yCoordinate=2;
                 break;
-            case ('C'):
+            case ("C"):
                 yCoordinate=3;
                 break;
-            case ('D'):
+            case ("D"):
                 yCoordinate=4;
                 break;
-            case ('E'):
+            case ("E"):
                 yCoordinate=5;
                 break;
-            case ('F'):
+            case ("F"):
                 yCoordinate=6;
                 break;
-            case ('G'):
+            case ("G"):
                 yCoordinate=7;
                 break;
-            case ('H'):
+            case ("H"):
                 yCoordinate=8;
                 break;
-            case ('I'):
+            case ("I"):
                 yCoordinate=9;
                 break;
-            case ('J'):
+            case ("J"):
                 yCoordinate=10;
                 break;
+            default:
+                throw new InputException("Were do you wan to go again?");
         }
-        int xCoordinate=Character.getNumericValue(parameters.charAt(1));
+        int xCoordinate=Integer.parseInt(parameters[1]);
         try {
             board.removeShip(new CoordinateImpl(xCoordinate, yCoordinate));
         }catch (Exception e) {

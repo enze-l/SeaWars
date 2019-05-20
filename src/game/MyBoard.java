@@ -48,6 +48,7 @@ public interface MyBoard {
      */
     int[] shipsAvailable();
 
+    boolean allShipsSet();
     /**
      * gives back all ships saved for the board
      * @return an array of ships
