@@ -37,33 +37,30 @@ public class Output {
      * Displays given Board in the console-view
      */
     private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
-        StringBuilder ownSide=new StringBuilder();
+        StringBuilder myBoard = new StringBuilder();
         //output numbers over board
-        ownSide.append("   ");
-        for (int number = 1; number <= fields.length; number++) {
-            ownSide.append(" ").append(number);
-        }
-        ownSide.append("    ").append(System.lineSeparator());
+        myBoard.append(toMiddle(toStringNumbers(fields.length)))
+                .append(System.lineSeparator());
         //output field-boarder over the board
-        ownSide.append("  ");
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
+        myBoard.append("  ");
+        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
         for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
+            myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus))
+        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus))
                 .append("   ").append(System.lineSeparator());
 
         //output letters and fields in a row at a time
         for (int row = 0; row < fields.length; row++) {
-            ownSide.append(OutputSymbols.getAlphabet(row + 1))
+            myBoard.append(OutputSymbols.getAlphabet(row + 1))
                     .append(" ")
                     .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
             for (int column = 0; column < fields[row].length; column++) {
-                ownSide.append(" ")
+                myBoard.append(" ")
                         .append(OutputSymbols.getSymbol(fields[column][row]));
             }
-            ownSide.append(" ")
+            myBoard.append(" ")
                     .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus))
                     .append(" ")
                     .append(OutputSymbols.getAlphabet(row + 1))
@@ -71,23 +68,31 @@ public class Output {
                     .append(System.lineSeparator());
         }
         //output field-boarder below the board
-        ownSide.append("  ");
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_LEFT, gameStatus));
+        myBoard.append("  ");
+        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_LEFT, gameStatus));
         for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
+            myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
         }
         OutputSymbols.even = false;
-        ownSide.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus))
+        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus))
                 .append("   ")
                 .append(System.lineSeparator());
         //output numbers below board
-        ownSide.append("   ");
+        myBoard.append("   ");
         for (int number = 1; number <= fields.length; number++) {
-            ownSide.append(" ")
+            myBoard.append(" ")
                     .append(number);
         }
-        ownSide.append("    ").append(System.lineSeparator());
-        return ownSide.toString();
+        myBoard.append("    ").append(System.lineSeparator());
+        return myBoard.toString();
+    }
+
+    private static String toStringNumbers(int length){
+        StringBuilder numbers=new StringBuilder();
+        for (int number = 1; number <= length; number++) {
+            numbers.append(" ").append(number);
+        }
+        return numbers.toString();
     }
 
     private static String toStringShips(MyBoard board) {
@@ -124,7 +129,7 @@ public class Output {
                 if (Arrays.equals(shipsAvailable, new int[]{0, 0, 0, 0})) {
                     commands.append("► ready")
                             .append(System.lineSeparator());
-                } else commands.append(System.lineSeparator()).append(System.lineSeparator());
+                } else commands.append(System.lineSeparator());
                 break;
             case READY:
                 commands.append("≡ legend")
@@ -212,11 +217,15 @@ public class Output {
                 inputString;
     }
 
-
-    private static String toMiddle(String inputString){
+    private static String toMiddleWhitespace(String inputString){
         StringBuilder half=new StringBuilder();
         half.append(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
-        return half.toString()+inputString+half.toString();
+        return half.toString()+inputString+half.toString()+half.toString();
+    }
+
+    private static String toMiddle(String inputString){
+        String half=(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
+        return half+inputString+half;
     }
 
     private static String toStringBattleship(MyBoard board){
