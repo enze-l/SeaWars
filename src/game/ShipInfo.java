@@ -11,7 +11,7 @@ class ShipInfo {
      * @return length of ship
      */
     static int getLength(ShipType type) {
-        int length;
+        int length=0;
         switch (type) {
             case BATTLESHIP:
                 length = 5;
@@ -25,15 +25,12 @@ class ShipInfo {
             case DESTROYER:
                 length = 2;
                 break;
-            default:
-                length = 0;
-                break;
         }
         return length;
     }
 
     static int getAmount(ShipType type){
-        int amount;
+        int amount=0;
         switch (type) {
             case BATTLESHIP:
                 amount = 1;
@@ -46,9 +43,6 @@ class ShipInfo {
                 break;
             case DESTROYER:
                 amount = 4;
-                break;
-            default:
-                amount = 0;
                 break;
         }
         return amount;

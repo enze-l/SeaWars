@@ -1,7 +1,6 @@
 package game;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
 
@@ -11,7 +10,7 @@ import java.util.Arrays;
 public class Output {
     private static int STANDARD_HALF_SIZE=28;
 
-    public static void output(MyBoard board) throws StatusException, IOException {
+    public static void output(MyBoard board) throws Exception {
         StringBuilder output=new StringBuilder();
         output.append(System.lineSeparator())
                 .append(System.lineSeparator())
@@ -36,7 +35,7 @@ public class Output {
     /**
      * Displays given Board in the console-view
      */
-    private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
+    private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException{
         StringBuilder myBoard = new StringBuilder();
         myBoard.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
@@ -61,7 +60,7 @@ public class Output {
         return numbers.toString();
     }
 
-    private static String toStringRow(FieldStatus[][] fields, GameStatus gameStatus, int row){
+    private static String toStringRow(FieldStatus[][] fields, GameStatus gameStatus, int row)throws InputException{
         StringBuilder rowString=new StringBuilder();
         rowString.append(OutputSymbols.getAlphabet(row + 1))
                 .append(" ")

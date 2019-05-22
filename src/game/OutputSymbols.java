@@ -4,7 +4,7 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputSymbols {
-    public static boolean even = false;
+    static boolean even = false;
 
     /**
      * Assigns every field-status a symbol
@@ -63,41 +63,16 @@ public class OutputSymbols {
      * @param number of which the corresponding letter is asked for
      * @return char that corresponds with the given number
      */
-    public static char getAlphabet(int number) {
-        char letter = 'x';
-        switch (number) {
-            case 1:
-                letter = 'A';
-                break;
-            case 2:
-                letter = 'B';
-                break;
-            case 3:
-                letter = 'C';
-                break;
-            case 4:
-                letter = 'D';
-                break;
-            case 5:
-                letter = 'E';
-                break;
-            case 6:
-                letter = 'F';
-                break;
-            case 7:
-                letter = 'G';
-                break;
-            case 8:
-                letter = 'H';
-                break;
-            case 9:
-                letter = 'I';
-                break;
-            case 10:
-                letter = 'J';
-                break;
+    public static char getAlphabet(int number)throws InputException {
+        if (number<0||number>25)throw new InputException("Not an Letter");
+        return (char)(number+64);
+    }
+
+    public static int getNumber(char character)throws InputException{
+        if (character<65||character>90){
+            throw new InputException("Not Letter");
         }
-        return letter;
+        return character-64;
     }
 
     public static char fieldBoarder(BoarderPiece piece, GameStatus status) {
