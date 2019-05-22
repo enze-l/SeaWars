@@ -38,52 +38,18 @@ public class Output {
      */
     private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) {
         StringBuilder myBoard = new StringBuilder();
-        //output numbers over board
         myBoard.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
-        //output field-boarder over the board
-        myBoard.append("  ");
-        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_LEFT, gameStatus));
-        for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
-        }
-        OutputSymbols.even = false;
-        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.UPPER_RIGHT, gameStatus))
-                .append("   ").append(System.lineSeparator());
-
-        //output letters and fields in a row at a time
+        myBoard.append(toMiddle(verticalBoarder(fields.length, gameStatus, true)))
+                .append(System.lineSeparator());
         for (int row = 0; row < fields.length; row++) {
-            myBoard.append(OutputSymbols.getAlphabet(row + 1))
-                    .append(" ")
-                    .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
-            for (int column = 0; column < fields[row].length; column++) {
-                myBoard.append(" ")
-                        .append(OutputSymbols.getSymbol(fields[column][row]));
-            }
-            myBoard.append(" ")
-                    .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus))
-                    .append(" ")
-                    .append(OutputSymbols.getAlphabet(row + 1))
-                    .append(" ")
+            myBoard.append(toStringRow(fields, gameStatus, row))
                     .append(System.lineSeparator());
         }
-        //output field-boarder below the board
-        myBoard.append("  ");
-        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_LEFT, gameStatus));
-        for (int boarderPart = 0; boarderPart < fields.length * 2 + 1; boarderPart++) {
-            myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
-        }
-        OutputSymbols.even = false;
-        myBoard.append(OutputSymbols.fieldBoarder(BoarderPiece.LOWER_RIGHT, gameStatus))
-                .append("   ")
+        myBoard.append(toMiddle(verticalBoarder(fields.length, gameStatus, false)))
                 .append(System.lineSeparator());
-        //output numbers below board
-        myBoard.append("   ");
-        for (int number = 1; number <= fields.length; number++) {
-            myBoard.append(" ")
-                    .append(number);
-        }
-        myBoard.append("    ").append(System.lineSeparator());
+        myBoard.append(toMiddle(toStringNumbers(fields.length)))
+                .append(System.lineSeparator());
         return myBoard.toString();
     }
 
@@ -93,6 +59,41 @@ public class Output {
             numbers.append(" ").append(number);
         }
         return numbers.toString();
+    }
+
+    private static String toStringRow(FieldStatus[][] fields, GameStatus gameStatus, int row){
+        StringBuilder rowString=new StringBuilder();
+        rowString.append(OutputSymbols.getAlphabet(row + 1))
+                .append(" ")
+                .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus));
+        for (FieldStatus[] field : fields) {
+            rowString.append(" ")
+                    .append(OutputSymbols.getSymbol(field[row]));
+        }
+        rowString.append(" ")
+                .append(OutputSymbols.fieldBoarder(BoarderPiece.VERTICAL, gameStatus))
+                .append(" ")
+                .append(OutputSymbols.getAlphabet(row + 1))
+                .append(" ");
+        return rowString.toString();
+    }
+
+
+
+    private static String verticalBoarder(int length, GameStatus gameStatus, boolean up){
+        StringBuilder boarder=new StringBuilder();
+        BoarderPiece left=BoarderPiece.UPPER_LEFT, right=BoarderPiece.UPPER_RIGHT;
+        if (!up){
+            left=BoarderPiece.LOWER_LEFT;
+            right=BoarderPiece.LOWER_RIGHT;
+        }
+        boarder.append(OutputSymbols.fieldBoarder(left, gameStatus));
+        for (int boarderPart = 0; boarderPart < length * 2 + 1; boarderPart++) {
+            boarder.append(OutputSymbols.fieldBoarder(BoarderPiece.HORRIZONTAL, gameStatus));
+        }
+        boarder.append(OutputSymbols.fieldBoarder(right, gameStatus));
+        OutputSymbols.even=false;
+        return boarder.toString();
     }
 
     private static String toStringShips(MyBoard board) {
@@ -217,15 +218,11 @@ public class Output {
                 inputString;
     }
 
-    private static String toMiddleWhitespace(String inputString){
-        StringBuilder half=new StringBuilder();
-        half.append(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
-        return half.toString()+inputString+half.toString()+half.toString();
-    }
-
     private static String toMiddle(String inputString){
         String half=(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
-        return half+inputString+half;
+        String unevenCorrection="";
+        if (inputString.length()%2==1) unevenCorrection=" ";
+        return half+inputString+half+unevenCorrection;
     }
 
     private static String toStringBattleship(MyBoard board){
