@@ -4,7 +4,7 @@ package game;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public interface MyBoard {
+public interface MyBoard extends Board{
 
     /**
      * @return returns the Status of the Field

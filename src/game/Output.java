@@ -10,14 +10,14 @@ import java.util.Arrays;
 public class Output {
     private static int STANDARD_HALF_SIZE=28;
 
-    public static void output(MyBoard board) throws Exception {
+    public static void output(MyBoard ownBoard, EnemyBoard enemyBoard) throws Exception {
         StringBuilder output=new StringBuilder();
         output.append(System.lineSeparator())
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
         BufferedReader boardSplitter =
-                new BufferedReader(new StringReader(toStringMyBoard(board.getFields(), board.getStatus())));
-        output.append(toStringShips(board))
+                new BufferedReader(new StringReader(toStringBoard(ownBoard.getFields(), ownBoard.getStatus())));
+        output.append(toStringOwnShips(ownBoard))
                 .append(tDivider());
         String split = boardSplitter.readLine();
         do {
@@ -27,7 +27,7 @@ public class Output {
             split = boardSplitter.readLine();
         } while (split != null);
         output.append(lDivider())
-                .append(toStringCommands(board.getStatus(), board.shipsAvailable()))
+                .append(toStringCommands(ownBoard.getStatus(), ownBoard.shipsAvailable()))
                 .append(": ");
         System.out.print(output.toString());
     }
@@ -35,7 +35,7 @@ public class Output {
     /**
      * Displays given Board in the console-view
      */
-    private static String toStringMyBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException{
+    private static String toStringBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException{
         StringBuilder myBoard = new StringBuilder();
         myBoard.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
@@ -95,7 +95,7 @@ public class Output {
         return boarder.toString();
     }
 
-    private static String toStringShips(MyBoard board) {
+    private static String toStringOwnShips(MyBoard board) {
         return toLeft("─ Player ──────────────") + 'N' + toRight("────────────── Enemy ─") +
                 System.lineSeparator() +
                 toLeft("B " + toStringBattleship(board)) + '↑' +
