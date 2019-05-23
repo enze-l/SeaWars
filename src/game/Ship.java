@@ -111,4 +111,3 @@ public abstract class Ship {
         return this.segments[segment-1].getStatus();
     }
 }
-

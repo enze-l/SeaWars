@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class Board implements MyBoard {
+public class MyBoardImpl implements MyBoard {
     private Field[][] board;
     private Ship[] ships;
     private GameStatus gameStatus;
@@ -17,7 +17,7 @@ public class Board implements MyBoard {
      * The ships that can be placed on it are automatically created and placed in an array. They don't have any
      * coordinates assigned to them.
      */
-    public Board() {
+    public MyBoardImpl() {
         this.board = new FieldImpl[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
             for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
@@ -290,16 +290,10 @@ public class Board implements MyBoard {
                 if (//compares the field before the ship with bad-case SHIP
                         shipLengthOutline == -1 && board[x][y].getFieldStatus() == FieldStatus.SETSHIP)
                     return false;
-            } catch (ArrayIndexOutOfBoundsException e) {
-            }
-            try {
                 if (//compares the field after the ship with bad-case SHIP
                         shipLengthOutline == ShipInfo.getLength(shipType)
                                 && board[x][y].getFieldStatus() == FieldStatus.SETSHIP)
                     return false;
-            } catch (ArrayIndexOutOfBoundsException e) {
-            }
-            try {
                 if (//compares the fields sideways of the ship with bad-case SHIP
                         shipLengthOutline >= 0 && shipLengthOutline < ShipInfo.getLength(shipType)
                                 && (board[x + xOffset][y + yOffset].getFieldStatus() == FieldStatus.SETSHIP

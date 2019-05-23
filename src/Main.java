@@ -7,14 +7,14 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String[] args) {
-        MyBoard board=new Board();
-        while (true) {
-            try {
-                Output.output(board);
-                Input.input(board);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
+//        Board board=new MyBoardImpl();
+//        while (true) {
+//            try {
+//                Output.output(board);
+//                Input.input(board);
+//            } catch (Exception e) {
+//                System.err.println(e.getMessage());
+//            }
+//        }
     }
 }
