@@ -4,15 +4,15 @@ package game;
  * @author s0568823 - Leon Enzenberger
  */
 public class EnemyBoardImpl implements EnemyBoard {
-    private Field[][] board;
+    private FieldStatus[][] board;
     private Ship[] ships;
     private GameStatus gameStatus;
 
-    EnemyBoardImpl(){
-        this.board = new FieldImpl[10][10];
+    public EnemyBoardImpl(){
+        this.board = new FieldStatus[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
             for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
-                this.board[fieldsHorizontal - 1][fieldsVertical - 1] = new FieldImpl(new CoordinateImpl(fieldsHorizontal, fieldsVertical));
+                this.board[fieldsHorizontal - 1][fieldsVertical - 1] = FieldStatus.WATER;
             }
         }
 
@@ -28,31 +28,32 @@ public class EnemyBoardImpl implements EnemyBoard {
 
     @Override
     public FieldStatus[][] getFields() {
-        return new FieldStatus[0][];
+        return this.board;
     }
 
     @Override
     public Ship[] getShips() {
-        return new Ship[0];
+        return this.ships;
     }
 
     @Override
     public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
-        return null;
+        return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()];
     }
 
     @Override
     public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
+        //NEEDS TO IMPLEMENT COMMUNICATION
         return null;
     }
 
     @Override
     public void setStatus(GameStatus status) throws StatusException {
-
+        this.gameStatus = status;
     }
 
     @Override
     public GameStatus getStatus() throws StatusException {
-        return null;
+        return this.gameStatus;
     }
 }
