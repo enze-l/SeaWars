@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="866ed6bd-39f9-4ff8-965f-f4659481f608" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/game/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/MyBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/MyBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/MyBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/MyBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Output.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Output.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,20 +22,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/MyBoardTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="597" column="41" selection-start-line="597" selection-start-column="41" selection-end-line="597" selection-end-column="41" />
+            <state relative-caret-position="537">
+              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/Ship.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1484">
-              <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -62,10 +49,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Output.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1885">
+            <state relative-caret-position="257">
               <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,11 +70,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/EnemyBoardImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="35" />
+            <state relative-caret-position="420">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/Field.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="448">
+              <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -196,8 +192,8 @@
         <option value="$PROJECT_DIR$/src/game/EnemyBoardImpl.java" />
         <option value="$PROJECT_DIR$/src/game/MyBoard.java" />
         <option value="$PROJECT_DIR$/src/game/Board.java" />
-        <option value="$PROJECT_DIR$/src/game/MyBoardTest.java" />
         <option value="$PROJECT_DIR$/src/game/Output.java" />
+        <option value="$PROJECT_DIR$/src/game/MyBoardTest.java" />
       </list>
     </option>
   </component>
@@ -754,13 +750,17 @@
       <option name="project" value="LOCAL" />
       <updated>1558611757028</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="interfaces for board with two implementations">
+      <created>1558614720695</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1558614720695</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MyBoardTest - 2019.05.22 at 09h 45m 31s.xml">
-      <configuration name="MyBoardTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MyBoardTest - 2019.05.22 at 09h 46m 24s.xml">
       <configuration name="MyBoardTest" configurationId="JUnit" />
     </history-entry>
@@ -788,10 +788,12 @@
     <history-entry file="MyBoardTest - 2019.05.23 at 14h 22m 17s.xml">
       <configuration name="MyBoardTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="MyBoardTest - 2019.05.23 at 14h 31m 10s.xml">
+      <configuration name="MyBoardTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4983108" visible="true" weight="0.18900344" />
       <window_info id="Structure" order="1" sideWeight="0.5016892" side_tool="true" weight="0.13127148" />
@@ -802,7 +804,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295583" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31823328" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31823328" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4020385" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1083,13 +1085,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/FieldImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1247,13 +1242,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/EnemyBoardImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/MyBoardImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -1275,16 +1263,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MyBoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="597" column="41" selection-start-line="597" selection-start-column="41" selection-end-line="597" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/EnemyBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51">
@@ -1292,13 +1270,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MyBoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Output.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1885">
+        <state relative-caret-position="257">
           <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/EnemyBoardImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
