@@ -508,18 +508,4 @@ public class MyBoardTest {
             System.err.println(e.getMessage());
         }
     }
-
-    @Test
-    public void getBoardStatus() {
-        boolean allWater = true;
-        MyBoard board = new MyBoardImpl();
-        FieldStatus[][] fieldStatuses = board.getFields();
-        for (FieldStatus[] fieldStatus : fieldStatuses) {
-            for (FieldStatus status : fieldStatus) {
-                if (status != FieldStatus.WATER) {
-                    allWater = false;
-                }
-            }
-        }
-    }
 }

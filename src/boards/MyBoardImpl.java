@@ -262,7 +262,7 @@ public class MyBoardImpl implements MyBoard {
                 if (getFieldStatus(new CoordinateImpl(x + 1, y + 1)) == FieldStatus.SETSHIP) {
                     return false;
                 }
-            } catch (FieldException e) {
+            } catch (FieldException ignored) {
             }
         }
         return true;
@@ -305,7 +305,7 @@ public class MyBoardImpl implements MyBoard {
                                 || board[x - xOffset][y - yOffset].getFieldStatus() == FieldStatus.SETSHIP)) {
                     return false;
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException ignored) {
             }
         }
         return true;

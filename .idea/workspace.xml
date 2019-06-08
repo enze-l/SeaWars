@@ -2,39 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="866ed6bd-39f9-4ff8-965f-f4659481f608" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/exceptions/InputException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/SeaWarException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/ShipException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/StatusException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Battleship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/BoarderPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/BoarderPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Coordinate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/coordinates/Coordinate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/CoordinateImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/coordinates/CoordinateImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Cruiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Cruiser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Destroyer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Destroyer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/EnemyBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/EnemyBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/EnemyBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/fields/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/FieldException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/fields/FieldException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/FieldImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/fields/FieldImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/FieldStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/fields/FieldStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Input.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/MyBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/MyBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/MyBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/MyBoardImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/MyBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/MyBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Orientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Orientation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Output.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/Output.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/OutputSymbols.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/OutputSymbols.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Ship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ShipInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/ShipInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ShipSegment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/ShipSegment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ShipType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/ShipType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Submarine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ships/Submarine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boards/MyBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/MyBoardImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boards/MyBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/MyBoardTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,44 +21,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/exceptions/InputException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/exceptions/SeaWarException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/exceptions/StatusException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/exceptions/ShipException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -106,8 +40,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/game/Ships/Destroyer.java" />
-        <option value="$PROJECT_DIR$/src/game/Ships/Submarine.java" />
         <option value="$PROJECT_DIR$/src/game/OutputImpl.java" />
         <option value="$PROJECT_DIR$/src/game/Commands.java" />
         <option value="$PROJECT_DIR$/src/game/FieldStatus.java" />
@@ -135,28 +67,30 @@
         <option value="$PROJECT_DIR$/src/game/MyBoard.java" />
         <option value="$PROJECT_DIR$/src/game/MyBoardImpl.java" />
         <option value="$PROJECT_DIR$/src/game/MyBoardTest.java" />
-        <option value="$PROJECT_DIR$/src/input/Input.java" />
         <option value="$PROJECT_DIR$/src/game/SeaWarException.java" />
-        <option value="$PROJECT_DIR$/src/boards/Board.java" />
         <option value="$PROJECT_DIR$/src/boards/fields/FieldImpl.java" />
         <option value="$PROJECT_DIR$/src/boards/fields/FieldStatus.java" />
-        <option value="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" />
-        <option value="$PROJECT_DIR$/src/boards/EnemyBoard.java" />
-        <option value="$PROJECT_DIR$/src/boards/MyBoardImpl.java" />
         <option value="$PROJECT_DIR$/src/boards/SeaWarException.java" />
-        <option value="$PROJECT_DIR$/src/boards/MyBoardTest.java" />
         <option value="$PROJECT_DIR$/src/boards/StatusException.java" />
         <option value="$PROJECT_DIR$/src/boards/fields/FieldException.java" />
-        <option value="$PROJECT_DIR$/src/boards/MyBoard.java" />
         <option value="$PROJECT_DIR$/src/ships/ShipException.java" />
         <option value="$PROJECT_DIR$/src/ships/Ship.java" />
         <option value="$PROJECT_DIR$/src/ships/ShipSegment.java" />
-        <option value="$PROJECT_DIR$/src/output/OutputSymbols.java" />
         <option value="$PROJECT_DIR$/src/input/InputException.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/output/Output.java" />
         <option value="$PROJECT_DIR$/src/boards/fields/Field.java" />
         <option value="$PROJECT_DIR$/src/exceptions/ShipException.java" />
+        <option value="$PROJECT_DIR$/src/boards/MyBoard.java" />
+        <option value="$PROJECT_DIR$/src/boards/Board.java" />
+        <option value="$PROJECT_DIR$/src/boards/EnemyBoard.java" />
+        <option value="$PROJECT_DIR$/src/exceptions/FieldException.java" />
+        <option value="$PROJECT_DIR$/src/exceptions/InputException.java" />
+        <option value="$PROJECT_DIR$/src/input/Input.java" />
+        <option value="$PROJECT_DIR$/src/output/Output.java" />
+        <option value="$PROJECT_DIR$/src/output/OutputSymbols.java" />
+        <option value="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" />
+        <option value="$PROJECT_DIR$/src/boards/MyBoardImpl.java" />
+        <option value="$PROJECT_DIR$/src/boards/MyBoardTest.java" />
       </list>
     </option>
   </component>
@@ -771,16 +705,17 @@
       <option name="project" value="LOCAL" />
       <updated>1558625124482</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="New project structure">
+      <created>1559987495809</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1559987495809</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MyBoardTest - 2019.05.23 at 14h 31m 10s.xml">
-      <configuration name="MyBoardTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBoardTest - 2019.06.08 at 10h 44m 47s.xml">
-      <configuration name="MyBoardTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MyBoardTest - 2019.06.08 at 10h 46m 22s.xml">
       <configuration name="MyBoardTest" configurationId="JUnit" />
     </history-entry>
@@ -805,11 +740,17 @@
     <history-entry file="MyBoardTest - 2019.06.08 at 11h 39m 30s.xml">
       <configuration name="MyBoardTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="MyBoardTest - 2019.06.08 at 11h 50m 43s.xml">
+      <configuration name="MyBoardTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBoardTest - 2019.06.08 at 11h 54m 02s.xml">
+      <configuration name="MyBoardTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4983108" visible="true" weight="0.21924399" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4983108" visible="true" weight="0.21924399" />
       <window_info id="Structure" order="1" sideWeight="0.5016892" side_tool="true" weight="0.13127148" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -917,7 +858,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added method for getting the Statuses of al Fields on myBoard.&#10;Changed Object initialization from &quot;Board&quot; to &quot;MyBoard&quot; to utilize Interface" />
     <MESSAGE value="Added Output-Class.&#10;Assigned FieldStatus different symbols." />
     <MESSAGE value="Changed font-type to courier new.&#10;back to unicode for field encoding.&#10;added shot-water test method" />
     <MESSAGE value="changed water char" />
@@ -942,7 +882,8 @@
     <MESSAGE value="interfaces for board with two implementations" />
     <MESSAGE value="Added EnemyBoard" />
     <MESSAGE value="Enemy Board gets output" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enemy Board gets output" />
+    <MESSAGE value="New project structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="New project structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1033,41 +974,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/input/Input.java">
+    <entry file="file://$PROJECT_DIR$/src/exceptions/StatusException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+        <state relative-caret-position="-7">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/boards/MyBoardImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/exceptions/ShipException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="109" column="123" selection-start-line="109" selection-start-column="123" selection-end-line="109" selection-end-column="123" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/exceptions/SeaWarException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/fields/Field.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/boards/fields/FieldException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="98">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/fields/FieldImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1022">
-          <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+        <state relative-caret-position="659">
+          <caret line="63" column="93" lean-forward="true" selection-start-line="63" selection-start-column="93" selection-end-line="63" selection-end-column="93" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1083,8 +1021,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="140">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1093,8 +1031,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/EnemyBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        <state relative-caret-position="294">
+          <caret line="21" column="22" lean-forward="true" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1103,10 +1041,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/EnemyBoardImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="756">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1526#1527#0" expanded="true" />
+            <element signature="e#1566#1567#0" expanded="true" />
+            <element signature="e#1616#1617#0" expanded="true" />
+            <element signature="e#1654#1655#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1120,8 +1062,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/MyBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+        <state relative-caret-position="-210">
+          <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/boards/MyBoardImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4326">
+          <caret line="313" column="7" lean-forward="true" selection-start-line="313" selection-start-column="7" selection-end-line="313" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1130,8 +1082,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/boards/MyBoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="318">
+          <caret line="509" column="5" selection-start-line="509" selection-start-column="5" selection-end-line="509" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1140,12 +1092,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/coordinates/Coordinate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state relative-caret-position="304">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/coordinates/CoordinateImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-350">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/exceptions/FieldException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/exceptions/InputException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
@@ -1159,6 +1125,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/input/Input.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/output/BoarderPiece.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1168,8 +1144,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/output/Output.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="20" column="39" lean-forward="true" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+        <state relative-caret-position="210">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1178,8 +1154,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/output/OutputSymbols.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" column="73" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="73" />
+        <state relative-caret-position="126">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1216,7 +1192,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ships/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1484">
+        <state relative-caret-position="290">
           <caret line="110" column="5" lean-forward="true" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1226,14 +1202,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ships/ShipInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
+        <state relative-caret-position="-298">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ships/ShipSegment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
+        <state relative-caret-position="98">
           <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1248,6 +1224,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ships/Submarine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1258,41 +1241,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ships/Submarine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/exceptions/InputException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/exceptions/SeaWarException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/exceptions/StatusException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/exceptions/ShipException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>

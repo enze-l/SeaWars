@@ -42,23 +42,23 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
+    public FieldStatus getFieldStatus(Coordinate coordinate) {
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()];
     }
 
     @Override
-    public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
+    public FieldStatus receiveAttack(Coordinate coordinate) {
         //NEEDS TO IMPLEMENT COMMUNICATION
         return null;
     }
 
     @Override
-    public void setStatus(GameStatus status) throws StatusException {
+    public void setStatus(GameStatus status) {
         this.gameStatus = status;
     }
 
     @Override
-    public GameStatus getStatus() throws StatusException {
+    public GameStatus getStatus() {
         return this.gameStatus;
     }
 }
