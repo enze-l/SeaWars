@@ -1,5 +1,6 @@
-package boards;
+package tests;
 
+import boards.*;
 import coordinates.*;
 import boards.fields.*;
 import ships.*;
