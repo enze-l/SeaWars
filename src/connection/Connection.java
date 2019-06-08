@@ -19,17 +19,17 @@ public class Connection extends Thread {
     private boolean threadRunning = false;
     private boolean fatalError = false;
 
-    public  final int WAIT_SECOND_MS=1000;
+    private  final int WAIT_SECOND_MS=1000;
 
     private String connectionStatus="";
 
-    public Connection(int port, boolean asServer, String name){
+    public Connection(int port, boolean asServer){
         this.port=port;
         this.asServer=asServer;
         this.remoteIP=null;
     }
 
-    public Connection(int port, boolean asServer, String name, String ip){
+    public Connection(int port, boolean asServer, String ip){
         this.port=port;
         this.asServer=asServer;
         this.remoteIP=ip;
@@ -96,7 +96,7 @@ public class Connection extends Thread {
         return serverSocket.accept();
     }
 
-    private Socket getClientSocket()throws IOException{
+    private Socket getClientSocket(){
         for(;;){
             try{
                 return new Socket(remoteIP, port);
