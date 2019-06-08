@@ -1,6 +1,6 @@
-import game.*;
-
-import java.io.IOException;
+import boards.*;
+import input.*;
+import output.*;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         MyBoard myBoard = new MyBoardImpl();
         EnemyBoard enemyBoard = new EnemyBoardImpl();
-        while (true) {
+        for(;;) {
             try {
                 System.out.printf("%n%n%n");
                 Output.output(myBoard, enemyBoard);
