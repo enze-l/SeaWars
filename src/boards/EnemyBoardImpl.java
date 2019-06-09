@@ -3,7 +3,6 @@ package boards;
 import coordinates.*;
 import boards.fields.*;
 import ships.*;
-import exceptions.*;
 
 /**
  * @author s0568823 - Leon Enzenberger

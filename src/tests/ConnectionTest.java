@@ -1,24 +1,23 @@
 package tests;
 
-import boards.*;
-import input.Input;
-import output.Output;
+import coordinates.CoordinateImpl;
+import gameInstance.gameInstance;
+import ships.Orientation;
+import ships.ShipType;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
 public class ConnectionTest {
     public static void main(String[] args) {
-        PlayerBoard playerBoard = new PlayerBoardImpl();
-        EnemyBoard enemyBoard = new EnemyBoardImpl();
-        for(;;) {
-            try {
-                System.out.printf("%n%n%n");
-                Output.output(playerBoard, enemyBoard);
-                Input.gameCommands(playerBoard);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
+        Thread game = new gameInstance();
+        game.start();
+        gameInstance.changeOccurred();
+        try {
+            gameInstance.getPlayerBoard().setShip(ShipType.DESTROYER, new CoordinateImpl(1, 1), Orientation.VERTICAL);
+            gameInstance.getPlayerBoard().setShip(ShipType.DESTROYER, new CoordinateImpl(3, 1), Orientation.VERTICAL);
+        }catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 }

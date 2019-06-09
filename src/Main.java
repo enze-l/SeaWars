@@ -1,6 +1,5 @@
-import boards.*;
+import gameInstance.*;
 import input.*;
-import output.*;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -13,7 +12,7 @@ public class Main {
             try {
                 System.out.printf("%n%n%n");
                 gameInstance.displayGame();
-                Input.gameCommands(playerBoard);
+                Input.gameCommands();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }

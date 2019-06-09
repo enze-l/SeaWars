@@ -1,11 +1,11 @@
 package input;
 
 import coordinates.*;
-import boards.GameStatus;
-import boards.PlayerBoard;
+import boards.*;
 import output.OutputSymbols;
 import ships.*;
 import exceptions.*;
+import gameInstance.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +16,9 @@ import java.util.Arrays;
  * @author s0568823 - Leon Enzenberger
  */
 public class Input {
-    public static void gameCommands(PlayerBoard board)
+    public static void gameCommands()
             throws IOException, StatusException, InputException, FieldException, ShipException {
+        PlayerBoard board = gameInstance.getPlayerBoard();
         InputStreamReader userInput = new InputStreamReader(System.in);
         BufferedReader userInputBuffer = new BufferedReader(userInput);
         String[] commandString=userInputBuffer.readLine().trim().toUpperCase().split(" ");
@@ -99,6 +100,7 @@ public class Input {
                         //Successive rounds have to be implemented
                         System.out.println("continue");
                         break;
+                    case "LEAVE":
                     default:
                         throw new InputException("command not available!");
                 }
