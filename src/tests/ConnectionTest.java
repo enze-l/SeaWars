@@ -1,18 +1,20 @@
+package tests;
+
 import boards.*;
-import input.*;
-import output.*;
+import input.Input;
+import output.Output;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class Main {
+public class ConnectionTest {
     public static void main(String[] args) {
-        gameInstance.newGame();
-        //noinspection InfiniteLoopStatement
-        for (; ; ) {
+        PlayerBoard playerBoard = new PlayerBoardImpl();
+        EnemyBoard enemyBoard = new EnemyBoardImpl();
+        for(;;) {
             try {
                 System.out.printf("%n%n%n");
-                gameInstance.displayGame();
+                Output.output(playerBoard, enemyBoard);
                 Input.gameCommands(playerBoard);
             } catch (Exception e) {
                 System.err.println(e.getMessage());

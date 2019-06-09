@@ -2,12 +2,13 @@ package input;
 
 import coordinates.*;
 import boards.GameStatus;
-import boards.MyBoard;
+import boards.PlayerBoard;
 import output.OutputSymbols;
 import ships.*;
 import exceptions.*;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
@@ -15,15 +16,13 @@ import java.util.Arrays;
  * @author s0568823 - Leon Enzenberger
  */
 public class Input {
-    public static void input(MyBoard board) throws Exception{
+    public static void gameCommands(PlayerBoard board)
+            throws IOException, StatusException, InputException, FieldException, ShipException {
         InputStreamReader userInput = new InputStreamReader(System.in);
         BufferedReader userInputBuffer = new BufferedReader(userInput);
-        String[] commandString;
-        String command;
-        String[] parameters;
-        commandString = userInputBuffer.readLine().trim().toUpperCase().split(" ");
-        command = commandString[0];
-        parameters = Arrays.copyOfRange(commandString, 1, 5);
+        String[] commandString=userInputBuffer.readLine().trim().toUpperCase().split(" ");
+        String command= commandString[0];
+        String[] parameters = Arrays.copyOfRange(commandString, 1, commandString.length);
         if (commandString[0].equals("")) System.err.println("You have to give me some command!");
         switch (board.getStatus()) {
             case PREPARATION:
@@ -74,10 +73,6 @@ public class Input {
                         //shot has to be implemented
                         System.out.println("shot");
                         break;
-                    case "LAST":
-                        //history has to be implemented
-                        System.out.println("last");
-                        break;
                     default:
                         throw new InputException("command not available!");
                 }
@@ -87,10 +82,6 @@ public class Input {
                     case "LEGEND":
                         //legend needs to get implemented
                         System.out.println("legend");
-                        break;
-                    case "LAST":
-                        //history has to be implemented
-                        System.out.println("last");
                         break;
                     case "SHOT":
                         throw new InputException("You have to wait till it is your turn!");
@@ -104,10 +95,6 @@ public class Input {
                         //legend needs to get implemented
                         System.out.println("legend");
                         break;
-                    case "LAST":
-                        //history has to be implemented
-                        System.out.println("last");
-                        break;
                     case "CONTINUE":
                         //Successive rounds have to be implemented
                         System.out.println("continue");
@@ -119,7 +106,9 @@ public class Input {
         }
     }
 
-    private static void set(MyBoard board, String[] parameters) throws Exception {
+    private static void set(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException{
+        if(parameters.length<4)throw new InputException("To few information for the position!");
+        if(parameters.length>4)throw new InputException("To much information for the position!");
         String chosenShip = parameters[0];
         String letter = parameters[1];
         ShipType shipType;
@@ -161,7 +150,9 @@ public class Input {
 
     }
 
-    private static void removeShip(MyBoard board, String[] parameters) throws Exception {
+    private static void removeShip(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException {
+        if(parameters.length<2)throw new InputException("To few information for the position!");
+        if(parameters.length>2)throw new InputException("To much information for the position!");
         String letter = parameters[0];
         int yCoordinate= OutputSymbols.getNumber(letter.charAt(0));
         int xCoordinate = Integer.parseInt(parameters[1]);

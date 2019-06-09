@@ -4,6 +4,7 @@ import boards.*;
 import boards.fields.*;
 import ships.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
 import exceptions.*;
@@ -14,7 +15,7 @@ import exceptions.*;
 public class Output {
     private static int STANDARD_HALF_SIZE=28;
 
-    public static void output(MyBoard ownBoard, EnemyBoard enemyBoard) throws Exception {
+    public static void output(PlayerBoard ownBoard, EnemyBoard enemyBoard) throws StatusException,InputException, IOException {
         StringBuilder output=new StringBuilder();
         //Buffer
         BufferedReader ownBoardBuffer =
@@ -27,6 +28,7 @@ public class Output {
                 new BufferedReader(new StringReader(toStringOwnShips(ownBoard)));
         BufferedReader enemyShipsBuffer=
                 new BufferedReader(new StringReader(toStringEnemyShips(enemyBoard)));
+        output.append(System.lineSeparator());
         //Headline
         output.append(toLeft(playerHeadline()))
                 .append(compassBuffer.readLine())
@@ -147,7 +149,7 @@ public class Output {
         return boarder.toString();
     }
 
-    private static String toStringOwnShips(MyBoard board) {
+    private static String toStringOwnShips(PlayerBoard board) {
         return  "B " + toStringBattleship(board) +
                 System.lineSeparator() +
                 "C " + toStringCruiserLeft(board) +
@@ -189,7 +191,7 @@ public class Output {
                         .append(System.lineSeparator())
                         .append("☼ shoot (A-J) (1-10)")
                         .append(System.lineSeparator())
-                        .append("◦ last")
+                        .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
@@ -197,7 +199,7 @@ public class Output {
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append("◦ last")
+                        .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
@@ -205,7 +207,7 @@ public class Output {
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append("◦ last")
+                        .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append("→ continue")
                         .append(System.lineSeparator());

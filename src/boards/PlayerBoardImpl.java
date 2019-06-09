@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class MyBoardImpl implements MyBoard {
+public class PlayerBoardImpl implements PlayerBoard {
     private Field[][] board;
     private Ship[] ships;
     private GameStatus gameStatus;
@@ -22,7 +22,7 @@ public class MyBoardImpl implements MyBoard {
      * The ships that can be placed on it are automatically created and placed in an array. They don't have any
      * coordinates assigned to them.
      */
-    public MyBoardImpl() {
+    public PlayerBoardImpl() {
         this.board = new FieldImpl[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
             for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
