@@ -7,7 +7,7 @@ import exceptions.*;
 import input.Input;
 import org.junit.Assert;
 import org.junit.Test;
-import gameInstance.*;
+import gameModules.*;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -26,7 +26,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1 s\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -42,7 +42,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream(" set  c a   1 s\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -59,7 +59,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream((" set c a 1 s n\n").getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (IOException | StatusException | FieldException | ShipException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -72,7 +72,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("setca1s\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (IOException | StatusException | FieldException | ShipException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -85,7 +85,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (IOException | StatusException | FieldException | ShipException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -98,7 +98,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c i 1 s\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (StatusException | InputException | IOException | ShipException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -121,7 +121,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set b b 2 e\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -151,7 +151,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set d b 2 s\n".getBytes());
             System.setIn(input);
             Input.gameCommands();
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -192,7 +192,7 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -256,7 +256,7 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -359,7 +359,7 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -393,7 +393,7 @@ public class IOTest {
                 }
             } catch (FieldException|ShipException ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (StatusException|IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -429,7 +429,7 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -463,7 +463,7 @@ public class IOTest {
                 }
             } catch (FieldException|ShipException ignored) {
             }
-            gameInstance.displayGame();
+            displayInstance.displayGame();
         } catch (StatusException|IOException e) {
             System.out.println(e.getLocalizedMessage());
         }

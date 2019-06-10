@@ -1,4 +1,4 @@
-import gameInstance.*;
+import gameModules.*;
 import input.*;
 
 /**
@@ -11,7 +11,7 @@ public class Main {
         for (; ; ) {
             try {
                 System.out.printf("%n%n%n");
-                gameInstance.displayGame();
+                displayInstance.displayGame();
                 Input.gameCommands();
             } catch (Exception e) {
                 System.err.println(e.getMessage());

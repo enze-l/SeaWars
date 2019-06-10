@@ -5,7 +5,7 @@ import boards.*;
 import output.OutputSymbols;
 import ships.*;
 import exceptions.*;
-import gameInstance.*;
+import gameModules.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

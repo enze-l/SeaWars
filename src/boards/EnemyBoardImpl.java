@@ -2,6 +2,7 @@ package boards;
 
 import coordinates.*;
 import boards.fields.*;
+import exceptions.StatusException;
 import ships.*;
 
 /**
@@ -52,7 +53,8 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public void setStatus(GameStatus status) {
+    public void setStatus(GameStatus status)throws StatusException {
+        if (this.gameStatus==GameStatus.OVER)throw new StatusException("Game is over!");
         this.gameStatus = status;
     }
 

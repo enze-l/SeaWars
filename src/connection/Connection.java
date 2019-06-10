@@ -12,39 +12,37 @@ import java.net.Socket;
 public class Connection extends Thread {
     private final int port;
     private final boolean asServer;
-    private Socket socket=null;
+    private Socket socket = null;
 
     private final String remoteIP;
 
     private boolean threadRunning = false;
     private boolean fatalError = false;
 
-    private  final int WAIT_SECOND_MS=1000;
+    private final int WAIT_SECOND = 1000;
 
-    private String connectionStatus="";
-
-    public Connection(int port, boolean asServer){
-        this.port=port;
-        this.asServer=asServer;
-        this.remoteIP=null;
+    public Connection(int port) {
+        this.port = port;
+        this.asServer = true;
+        this.remoteIP = null;
     }
 
-    public Connection(int port, boolean asServer, String ip){
-        this.port=port;
-        this.asServer=asServer;
-        this.remoteIP=ip;
+    public Connection(int port, String ip) {
+        this.port = port;
+        this.asServer = false;
+        this.remoteIP = ip;
     }
 
     @Override
-    public void run(){
-        this.threadRunning=true;
+    public synchronized void run() {
+        this.threadRunning = true;
         try {
             if (this.asServer)
-                this.socket=getServerSocket();
-            else{
-                this.socket=getClientSocket();
+                this.socket = getServerSocket();
+            else {
+                this.socket = getClientSocket();
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println(e.getMessage());
             this.fatalError = true;
         }
@@ -59,16 +57,15 @@ public class Connection extends Thread {
     public void waitForConnection() throws IOException {
         if (!this.threadRunning) {
             try {
-                Thread.sleep(WAIT_SECOND_MS);
-            } catch (InterruptedException ignored) {}
-
+                Thread.sleep(WAIT_SECOND);
+            } catch (InterruptedException ignored) { }
             if (!this.threadRunning) {
                 throw new IOException("Connection not initialized!");
             }
         }
         while (!this.fatalError && this.socket == null) {
             try {
-                Thread.sleep(WAIT_SECOND_MS);
+                Thread.sleep(WAIT_SECOND);
             } catch (InterruptedException ex) {
                 // ignore
             }
@@ -91,19 +88,20 @@ public class Connection extends Thread {
         return this.socket.getOutputStream();
     }
 
-    private Socket getServerSocket()throws IOException {
+    private Socket getServerSocket() throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
         return serverSocket.accept();
     }
 
-    private Socket getClientSocket(){
-        for(;;){
-            try{
+    private Socket getClientSocket() {
+        for (; ; ) {
+            try {
                 return new Socket(remoteIP, port);
-            }catch (IOException e){
+            } catch (IOException e) {
                 try {
-                    Thread.sleep(WAIT_SECOND_MS);
-                } catch (InterruptedException ignored){}
+                    Thread.sleep(WAIT_SECOND);
+                } catch (InterruptedException ignored) {
+                }
             }
         }
     }
