@@ -6,12 +6,12 @@ import input.*;
  */
 public class Main {
     public static void main(String[] args) {
-        gameInstance.newGame();
+        GameInstance.newGame();
         //noinspection InfiniteLoopStatement
         for (; ; ) {
             try {
                 System.out.printf("%n%n%n");
-                displayInstance.displayGame();
+                DisplayInstance.displayGame();
                 Input.gameCommands();
             } catch (Exception e) {
                 System.err.println(e.getMessage());

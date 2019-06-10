@@ -5,7 +5,8 @@ import boards.*;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class gameInstance {
+public class GameInstance {
+    private GameInstance(){}
     private static PlayerBoard PLAYER_BOARD = new PlayerBoardImpl();
     private static EnemyBoard ENEMY_BOARD = new EnemyBoardImpl();
 

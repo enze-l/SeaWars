@@ -30,14 +30,6 @@ public interface Board {
     FieldStatus getFieldStatus(Coordinate coordinate)throws FieldException;
 
     /**
-     * Method for receiving an attack
-     * @param coordinate The coordinates of the field that is getting attacked
-     * @return The status of the field after getting attacked
-     * @throws FieldException If there is no field with the given coordinates
-     */
-    FieldStatus receiveAttack(Coordinate coordinate) throws FieldException;
-
-    /**
      * Method for setting a game-status for the board
      * @param status The status the board should take on
      * @throws StatusException if it is attempted to set a null status

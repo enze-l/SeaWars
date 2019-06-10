@@ -64,7 +64,7 @@ public class PlayerBoardImpl implements PlayerBoard {
     public void setStatus(GameStatus status) throws StatusException {
         if (status == null) throw new StatusException();
         this.gameStatus = status;
-        displayInstance.changeOccurred();
+        DisplayInstance.changeOccurred();
     }
 
     /**
@@ -127,7 +127,7 @@ public class PlayerBoardImpl implements PlayerBoard {
                 }
             }
         }
-        displayInstance.changeOccurred();
+        DisplayInstance.changeOccurred();
 
     }
 
@@ -163,7 +163,7 @@ public class PlayerBoardImpl implements PlayerBoard {
                 board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+ shipSegment].removeShip();
             }
         }
-        displayInstance.changeOccurred();
+        DisplayInstance.changeOccurred();
     }
 
     /**
@@ -176,7 +176,7 @@ public class PlayerBoardImpl implements PlayerBoard {
     public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
         if (!coordinate.validCoordinate()) throw new FieldException("Es gibt kein Feld mit diesen Koordinaten!");
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
-        displayInstance.changeOccurred();
+        DisplayInstance.changeOccurred();
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 

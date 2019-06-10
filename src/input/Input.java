@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class Input {
     public static void gameCommands()
             throws IOException, StatusException, InputException, FieldException, ShipException {
-        PlayerBoard board = gameInstance.getPlayerBoard();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         InputStreamReader userInput = new InputStreamReader(System.in);
         BufferedReader userInputBuffer = new BufferedReader(userInput);
         String[] commandString=userInputBuffer.readLine().trim().toUpperCase().split(" ");
@@ -107,12 +107,12 @@ public class Input {
         }
     }
 
-    private static void attack(String[] parameters)throws InputException, IOException{
+    private static void attack(String[] parameters)throws InputException, IOException, FieldException{
         int yCoordinate=OutputSymbols.getNumber(parameters[0].charAt(0));
         int xCoordinate = Integer.parseInt(parameters[2]);
         Coordinate attackedField=new CoordinateImpl(xCoordinate, yCoordinate);
-        FieldStatus attackedFieldStatus=communicationInstance.attackEnemy(attackedField);
-        gameInstance.getEnemyBoard().receiveAttack()
+        FieldStatus attackedFieldStatus=CommunicationInstance.attackEnemy(attackedField);
+        GameInstance.getEnemyBoard().setFieldStatus(attackedField, attackedFieldStatus);
     }
 
     private static void set(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException{

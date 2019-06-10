@@ -1,38 +1,31 @@
 package gameModules;
 
-import boards.EnemyBoard;
-import boards.GameStatus;
-import boards.PlayerBoard;
+import boards.*;
 import boards.fields.FieldStatus;
 import connection.Connection;
-import coordinates.Coordinate;
-import coordinates.CoordinateImpl;
-import exceptions.FieldException;
-import exceptions.InputException;
-import exceptions.StatusException;
+import coordinates.*;
+import exceptions.*;
 import output.OutputSymbols;
 
 import java.awt.*;
 import java.io.*;
-import java.nio.Buffer;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class communicationInstance extends Thread {
+public class CommunicationInstance extends Thread {
     private static OutputStream OUTPUT;
-    private static InputStream INPUT;
     private static BufferedReader INPUT_BUFFER;
     private static int REFRESH_RATE;
     private static boolean CONNECTION_IN_USE;
 
-    public communicationInstance(int port) throws IOException {
+    public CommunicationInstance(int port) throws IOException {
         Connection connection = new Connection(port);
         connection.start();
         OUTPUT = connection.getOutputStream();
-        INPUT = connection.getInputStream();
+        InputStream input = connection.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(input);
         CONNECTION_IN_USE =false;
-        InputStreamReader inputStreamReader = new InputStreamReader(INPUT);
         INPUT_BUFFER = new BufferedReader(inputStreamReader);
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = env.getScreenDevices();
@@ -41,6 +34,24 @@ public class communicationInstance extends Thread {
             if (displayRefreshRate > REFRESH_RATE) REFRESH_RATE = displayRefreshRate;
         }
     }
+
+    public CommunicationInstance(String ip, int port) throws IOException {
+        Connection connection = new Connection(port, ip);
+        connection.start();
+        OUTPUT = connection.getOutputStream();
+        InputStream input = connection.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(input);
+        CONNECTION_IN_USE =false;
+        INPUT_BUFFER = new BufferedReader(inputStreamReader);
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] devices = env.getScreenDevices();
+        for (GraphicsDevice device : devices) {
+            int displayRefreshRate = device.getDisplayMode().getRefreshRate();
+            if (displayRefreshRate > REFRESH_RATE) REFRESH_RATE = displayRefreshRate;
+        }
+    }
+
+
 
     @Override
     public synchronized void run() {
@@ -66,8 +77,8 @@ public class communicationInstance extends Thread {
     }
 
     private void enemyInput(String commandString) throws StatusException, InputException, FieldException {
-        PlayerBoard playerBoard = gameInstance.getPlayerBoard();
-        EnemyBoard enemyBoard = gameInstance.getEnemyBoard();
+        PlayerBoard playerBoard = GameInstance.getPlayerBoard();
+        EnemyBoard enemyBoard = GameInstance.getEnemyBoard();
 
         String[] commandArray = commandString.trim().toUpperCase().split(" ");
         String command = commandArray[0];
