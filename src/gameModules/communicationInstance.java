@@ -14,6 +14,7 @@ import output.OutputSymbols;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.Buffer;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -21,6 +22,7 @@ import java.io.*;
 public class communicationInstance extends Thread {
     private static OutputStream OUTPUT;
     private static InputStream INPUT;
+    private static BufferedReader INPUT_BUFFER;
     private static int REFRESH_RATE;
     private static boolean CONNECTION_IN_USE;
 
@@ -30,6 +32,8 @@ public class communicationInstance extends Thread {
         OUTPUT = connection.getOutputStream();
         INPUT = connection.getInputStream();
         CONNECTION_IN_USE =false;
+        InputStreamReader inputStreamReader = new InputStreamReader(INPUT);
+        INPUT_BUFFER = new BufferedReader(inputStreamReader);
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = env.getScreenDevices();
         for (GraphicsDevice device : devices) {
@@ -40,15 +44,13 @@ public class communicationInstance extends Thread {
 
     @Override
     public synchronized void run() {
-        InputStreamReader inputStreamReader = new InputStreamReader(INPUT);
-        BufferedReader inputBuffer = new BufferedReader(inputStreamReader);
         //noinspection InfiniteLoopStatement
         while (true) {
             while(!CONNECTION_IN_USE) {
                 CONNECTION_IN_USE = true;
                 try {
                     try {
-                        String line = inputBuffer.readLine();
+                        String line = INPUT_BUFFER.readLine();
                         enemyInput(line);
                     } catch (StatusException | InputException | FieldException e) {
                         OUTPUT.write("NetworkException".getBytes());
@@ -82,28 +84,52 @@ public class communicationInstance extends Thread {
             int xCoordinate = OutputSymbols.getNumber(commandArray[0].charAt(0));
             int yCoordinate = Integer.parseInt(commandArray[1]);
             CoordinateImpl attackedField = new CoordinateImpl(xCoordinate, yCoordinate);
-            FieldStatus shotResult = playerBoard.receiveAttack(attackedField);
+            playerBoard.receiveAttack(attackedField);
         }
     }
 
-    public synchronized FieldStatus attackEnemy(Coordinate coordinate)throws InputException, IOException{
+    public static synchronized FieldStatus attackEnemy(Coordinate coordinate)throws InputException, IOException{
         boolean attackSend=false;
         FieldStatus attackedFieldStatus=null;
         while(!attackSend){
-            if(!CONNECTION_IN_USE){
-                CONNECTION_IN_USE=true;
-                int xCoordinate=coordinate.getYCoordinate();
-                char yCoordinate=OutputSymbols.getAlphabet(coordinate.getYCoordinate());
+            if (!CONNECTION_IN_USE) {
+                CONNECTION_IN_USE = true;
+                int xCoordinate = coordinate.getYCoordinate();
+                char yCoordinate = OutputSymbols.getAlphabet(coordinate.getYCoordinate());
                 OUTPUT.write((yCoordinate + " " + xCoordinate).getBytes());
-                attackSend=true;
-
-                CONNECTION_IN_USE=false;
-            }
-            else{
-                try{
+                attackSend = true;
+                while (true) {
+                    try {
+                        String attackFeedback = INPUT_BUFFER.readLine().trim().toUpperCase();
+                        switch (attackFeedback) {
+                            case "SHOTWATER":
+                                attackedFieldStatus = FieldStatus.SHOTWATER;
+                                break;
+                            case "HIT":
+                                attackedFieldStatus = FieldStatus.HIT;
+                                break;
+                            case "SUNK":
+                                attackedFieldStatus = FieldStatus.SUNK;
+                                break;
+                            default:
+                                throw new IOException("Unidentified Network response");
+                        }
+                        break;
+                    } catch (IOException e) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException ignored) {
+                        }
+                    }
+                }
+                CONNECTION_IN_USE = false;
+            } else {
+                try {
                     Thread.sleep(1);
-                } catch (InterruptedException ignored){}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
+        return attackedFieldStatus;
     }
 }

@@ -35,7 +35,7 @@ public interface EnemyBoard extends Board {
      * @return The status of the field after getting attacked
      * @throws FieldException If there is no field with the given coordinates
      */
-    FieldStatus receiveAttack(Coordinate coordinate) throws FieldException;
+    FieldStatus setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException;
 
     /**
      * Method for setting a game-status for the board

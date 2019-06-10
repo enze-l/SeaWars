@@ -47,7 +47,7 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public FieldStatus receiveAttack(Coordinate coordinate) {
+    public FieldStatus setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) {
         //NEEDS TO IMPLEMENT COMMUNICATION
         return null;
     }

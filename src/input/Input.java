@@ -1,5 +1,6 @@
 package input;
 
+import boards.fields.FieldStatus;
 import coordinates.*;
 import boards.*;
 import output.OutputSymbols;
@@ -7,9 +8,7 @@ import ships.*;
 import exceptions.*;
 import gameModules.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -71,7 +70,7 @@ public class Input {
                         System.out.println("legend");
                         break;
                     case "SHOT":
-                        //shot has to be implemented
+                        attack(parameters);
                         System.out.println("shot");
                         break;
                     default:
@@ -106,6 +105,14 @@ public class Input {
                 }
                 break;
         }
+    }
+
+    private static void attack(String[] parameters)throws InputException, IOException{
+        int yCoordinate=OutputSymbols.getNumber(parameters[0].charAt(0));
+        int xCoordinate = Integer.parseInt(parameters[2]);
+        Coordinate attackedField=new CoordinateImpl(xCoordinate, yCoordinate);
+        FieldStatus attackedFieldStatus=communicationInstance.attackEnemy(attackedField);
+        gameInstance.getEnemyBoard().receiveAttack()
     }
 
     private static void set(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException{
