@@ -11,10 +11,9 @@ import java.net.Socket;
  */
 public class Connection extends Thread {
     private final int port;
-    private final boolean asServer;
-    private Socket socket = null;
-
     private final String remoteIP;
+    private final boolean asServer;
+    private Socket socket;
 
     private boolean threadRunning = false;
     private boolean fatalError = false;
@@ -34,7 +33,7 @@ public class Connection extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         this.threadRunning = true;
         try {
             if (this.asServer)
@@ -46,6 +45,10 @@ public class Connection extends Thread {
             System.err.println(e.getMessage());
             this.fatalError = true;
         }
+    }
+
+    public boolean isRunning(){
+        return this.threadRunning;
     }
 
     public void close() throws IOException {

@@ -22,11 +22,17 @@ public class CommunicationInstance extends Thread {
     public CommunicationInstance(int port) throws IOException {
         Connection connection = new Connection(port);
         connection.start();
-        OUTPUT = connection.getOutputStream();
-        InputStream input = connection.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(input);
-        CONNECTION_IN_USE =false;
-        INPUT_BUFFER = new BufferedReader(inputStreamReader);
+        while (!connection.isRunning()) {
+            try {
+                OUTPUT = connection.getOutputStream();
+                InputStream input = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(input);
+                INPUT_BUFFER = new BufferedReader(inputStreamReader);
+                break;
+            } catch (IOException ignored) {
+            }
+        }
+        CONNECTION_IN_USE = false;
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = env.getScreenDevices();
         for (GraphicsDevice device : devices) {
@@ -38,11 +44,16 @@ public class CommunicationInstance extends Thread {
     public CommunicationInstance(String ip, int port) throws IOException {
         Connection connection = new Connection(port, ip);
         connection.start();
-        OUTPUT = connection.getOutputStream();
-        InputStream input = connection.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(input);
-        CONNECTION_IN_USE =false;
-        INPUT_BUFFER = new BufferedReader(inputStreamReader);
+        while(!connection.isRunning()) {
+            try {
+                OUTPUT = connection.getOutputStream();
+                InputStream input = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(input);
+                INPUT_BUFFER = new BufferedReader(inputStreamReader);
+            } catch (IOException|NullPointerException ignored) {
+            }
+        }
+        CONNECTION_IN_USE = false;
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] devices = env.getScreenDevices();
         for (GraphicsDevice device : devices) {
@@ -51,13 +62,11 @@ public class CommunicationInstance extends Thread {
         }
     }
 
-
-
     @Override
     public synchronized void run() {
         //noinspection InfiniteLoopStatement
         while (true) {
-            while(!CONNECTION_IN_USE) {
+            while (!CONNECTION_IN_USE) {
                 CONNECTION_IN_USE = true;
                 try {
                     try {
@@ -66,12 +75,14 @@ public class CommunicationInstance extends Thread {
                     } catch (StatusException | InputException | FieldException e) {
                         OUTPUT.write("NetworkException".getBytes());
                     }
-                } catch (IOException ignored) { }
-                CONNECTION_IN_USE=false;
+                } catch (IOException|NullPointerException ignored) {
+                }
+                CONNECTION_IN_USE = false;
             }
             try {
-                Thread.sleep((1000 / REFRESH_RATE)+1);
-            } catch (InterruptedException ignored) { }
+                Thread.sleep((1000 / REFRESH_RATE) + 1);
+            } catch (InterruptedException ignored) {
+            }
 
         }
     }
@@ -99,10 +110,10 @@ public class CommunicationInstance extends Thread {
         }
     }
 
-    public static synchronized FieldStatus attackEnemy(Coordinate coordinate)throws InputException, IOException{
-        boolean attackSend=false;
-        FieldStatus attackedFieldStatus=null;
-        while(!attackSend){
+    public static synchronized FieldStatus attackEnemy(Coordinate coordinate) throws InputException, IOException {
+        boolean attackSend = false;
+        FieldStatus attackedFieldStatus = null;
+        while (!attackSend) {
             if (!CONNECTION_IN_USE) {
                 CONNECTION_IN_USE = true;
                 int xCoordinate = coordinate.getYCoordinate();

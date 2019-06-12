@@ -2,7 +2,6 @@ package boards;
 
 import coordinates.*;
 import boards.fields.*;
-import gameModules.*;
 import ships.*;
 import exceptions.*;
 
@@ -64,7 +63,6 @@ public class PlayerBoardImpl implements PlayerBoard {
     public void setStatus(GameStatus status) throws StatusException {
         if (status == null) throw new StatusException();
         this.gameStatus = status;
-        DisplayInstance.changeOccurred();
     }
 
     /**
@@ -127,7 +125,6 @@ public class PlayerBoardImpl implements PlayerBoard {
                 }
             }
         }
-        DisplayInstance.changeOccurred();
 
     }
 
@@ -163,7 +160,6 @@ public class PlayerBoardImpl implements PlayerBoard {
                 board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+ shipSegment].removeShip();
             }
         }
-        DisplayInstance.changeOccurred();
     }
 
     /**
@@ -176,7 +172,6 @@ public class PlayerBoardImpl implements PlayerBoard {
     public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
         if (!coordinate.validCoordinate()) throw new FieldException("Es gibt kein Feld mit diesen Koordinaten!");
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
-        DisplayInstance.changeOccurred();
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 

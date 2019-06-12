@@ -1,19 +1,22 @@
 package tests;
 
-import gameModules.CommunicationInstance;
-import gameModules.DisplayInstance;
-import gameModules.GameInstance;
+import gameModules.*;
 import input.Input;
+
+import java.net.InetAddress;
+import java.util.Arrays;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class ServerTest {
+public class ComInstanceCLient {
     public static void main(String[] args) {
         GameInstance.newGame();
         try {
-            CommunicationInstance comInstance = new CommunicationInstance(12345);
+            String serverIP="127.0.0.1";
+            CommunicationInstance comInstance = new CommunicationInstance( serverIP,12345);
             comInstance.start();
+            Thread.sleep(10000);
             for (; ; ) {
                 try {
                     System.out.printf("%n%n%n");
@@ -23,9 +26,8 @@ public class ServerTest {
                     System.err.println(e.getMessage());
                 }
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             System.err.println(e.getMessage());
         }
     }
-
 }

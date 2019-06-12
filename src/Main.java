@@ -11,7 +11,8 @@ public class Main {
         for (; ; ) {
             try {
                 System.out.printf("%n%n%n");
-                DisplayInstance.displayGame();
+                DisplayInstance display=new DisplayInstance();
+                display.start();
                 Input.gameCommands();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
