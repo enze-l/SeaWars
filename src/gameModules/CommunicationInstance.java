@@ -2,6 +2,7 @@ package gameModules;
 
 import boards.*;
 import boards.fields.FieldStatus;
+import connection.Communication;
 import connection.Connection;
 import coordinates.*;
 import exceptions.*;
@@ -13,14 +14,13 @@ import java.io.*;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class CommunicationInstance extends Thread {
+public class CommunicationInstance extends Thread implements Communication {
     private static Connection CONNECTION;
-    private static OutputStream OUTPUT;
-    private static BufferedReader INPUT_BUFFER;
-    private static int REFRESH_RATE;
-    private static boolean CONNECTION_IN_USE;
+    private static DataOutputStream OUTPUT;
+    private static DataInputStream INPUT;
 
-    private CommunicationInstance(){}
+    private CommunicationInstance() {
+    }
 
     public CommunicationInstance(int port) throws IOException {
         CONNECTION = new Connection(port);
@@ -34,99 +34,105 @@ public class CommunicationInstance extends Thread {
         CommunicationInstanceInitialization(CONNECTION);
     }
 
-    private void CommunicationInstanceInitialization(Connection connection){
+    private void CommunicationInstanceInitialization(Connection connection) {
         while (true) {
             try {
-                OUTPUT = connection.getOutputStream();
-                InputStream input = connection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(input);
-                INPUT_BUFFER = new BufferedReader(inputStreamReader);
+                OUTPUT = new DataOutputStream(connection.getOutputStream());
+                INPUT = new DataInputStream(connection.getInputStream());
                 break;
             } catch (IOException e) {
                 try {
                     Thread.sleep(50);
-                }catch (InterruptedException ignored){}
+                } catch (InterruptedException ignored) {
+                }
             }
-        }
-        CONNECTION_IN_USE = false;
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] devices = env.getScreenDevices();
-        for (GraphicsDevice device : devices) {
-            int displayRefreshRate = device.getDisplayMode().getRefreshRate();
-            if (displayRefreshRate > REFRESH_RATE) REFRESH_RATE = displayRefreshRate;
         }
     }
 
     @Override
     public synchronized void run() {
-        //noinspection InfiniteLoopStatement
-        while (GameInstance.getPlayerBoard().getStatus()!=GameStatus.OVER) {
+        try {
+            while (GameInstance.getPlayerBoard().getStatus() != GameStatus.OVER) {
+                String command = INPUT.readUTF();
+                switch (command) {
+                    case "ready":
 
+                        break;
+                    case "revoke":
+
+                        break;
+                    case "start":
+
+                        break;
+                    case "receive":
+
+                        break;
+                    case "shot":
+
+                        break;
+                    case "giveup":
+
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            try {
+                CONNECTION.close();
+            } catch (IOException ignored) { }
+            System.out.println("Es ist ein Fehler in der Verbindung aufgetreten!");
         }
-        Co
     }
 
-    private void enemyInput(String commandString) throws StatusException, InputException, FieldException {
-        PlayerBoard playerBoard = GameInstance.getPlayerBoard();
-        EnemyBoard enemyBoard = GameInstance.getEnemyBoard();
 
-        String[] commandArray = commandString.trim().toUpperCase().split(" ");
-        String command = commandArray[0];
+    @Override
+    public void shot() {
 
-        if (command.equals("READY")) {
-            if (enemyBoard.getStatus() != GameStatus.PREPARATION) throw new StatusException();
-            enemyBoard.setStatus(GameStatus.READY);
-        } else if (command.equals("REVOKE")) {
-            if (enemyBoard.getStatus() != GameStatus.READY) throw new StatusException();
-            enemyBoard.setStatus(GameStatus.PREPARATION);
-        } else if (command.matches("\\D")) {
-            if (playerBoard.getStatus() != GameStatus.RECEIVE) throw new StatusException();
-            if (commandArray.length != 2) throw new InputException();
-            int xCoordinate = OutputSymbols.getNumber(commandArray[0].charAt(0));
-            int yCoordinate = Integer.parseInt(commandArray[1]);
-            CoordinateImpl attackedField = new CoordinateImpl(xCoordinate, yCoordinate);
-            playerBoard.receiveAttack(attackedField);
-        }
     }
 
-    public static synchronized FieldStatus attackEnemy(Coordinate coordinate) throws InputException, IOException {
+    @Override
+    public void giveUp() {
+
+    }
+
+    @Override
+    public void receive() {
+
+    }
+
+    @Override
+    public void ready() {
+
+    }
+
+
+    @Override
+    public FieldStatus attackEnemy(Coordinate coordinate) throws InputException, IOException {
         boolean attackSend = false;
         FieldStatus attackedFieldStatus = null;
-        while (!attackSend) {
-            if (!CONNECTION_IN_USE) {
-                CONNECTION_IN_USE = true;
-                int xCoordinate = coordinate.getYCoordinate();
-                char yCoordinate = OutputSymbols.getAlphabet(coordinate.getYCoordinate());
-                OUTPUT.write((yCoordinate + " " + xCoordinate).getBytes());
-                attackSend = true;
-                while (true) {
-                    try {
-                        String attackFeedback = INPUT_BUFFER.readLine().trim().toUpperCase();
-                        switch (attackFeedback) {
-                            case "SHOTWATER":
-                                attackedFieldStatus = FieldStatus.SHOTWATER;
-                                break;
-                            case "HIT":
-                                attackedFieldStatus = FieldStatus.HIT;
-                                break;
-                            case "SUNK":
-                                attackedFieldStatus = FieldStatus.SUNK;
-                                break;
-                            default:
-                                throw new IOException("Unidentified Network response");
-                        }
+        int xCoordinate = coordinate.getYCoordinate();
+        char yCoordinate = OutputSymbols.getAlphabet(coordinate.getYCoordinate());
+        OUTPUT.write((yCoordinate + " " + xCoordinate).getBytes());
+        attackSend = true;
+        while (true) {
+            try {
+                String attackFeedback = INPUT.readUTF().toUpperCase();
+                switch (attackFeedback) {
+                    case "SHOTWATER":
+                        attackedFieldStatus = FieldStatus.SHOTWATER;
                         break;
-                    } catch (IOException e) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException ignored) {
-                        }
-                    }
+                    case "HIT":
+                        attackedFieldStatus = FieldStatus.HIT;
+                        break;
+                    case "SUNK":
+                        attackedFieldStatus = FieldStatus.SUNK;
+                        break;
+                    default:
+                        throw new IOException("Unidentified Network response");
                 }
-                CONNECTION_IN_USE = false;
-            } else {
+                break;
+            } catch (IOException e) {
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException ignored) {
                 }
             }
