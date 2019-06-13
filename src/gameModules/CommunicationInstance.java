@@ -8,7 +8,6 @@ import coordinates.*;
 import exceptions.*;
 import output.OutputSymbols;
 
-import java.awt.*;
 import java.io.*;
 
 /**
@@ -22,13 +21,13 @@ public class CommunicationInstance extends Thread implements Communication {
     private CommunicationInstance() {
     }
 
-    public CommunicationInstance(int port) throws IOException {
+    public CommunicationInstance(int port) {
         CONNECTION = new Connection(port);
         CONNECTION.start();
         CommunicationInstanceInitialization(CONNECTION);
     }
 
-    public CommunicationInstance(String ip, int port) throws IOException {
+    public CommunicationInstance(String ip, int port) {
         CONNECTION = new Connection(port, ip);
         CONNECTION.start();
         CommunicationInstanceInitialization(CONNECTION);
@@ -107,12 +106,10 @@ public class CommunicationInstance extends Thread implements Communication {
 
     @Override
     public FieldStatus attackEnemy(Coordinate coordinate) throws InputException, IOException {
-        boolean attackSend = false;
-        FieldStatus attackedFieldStatus = null;
+        FieldStatus attackedFieldStatus;
         int xCoordinate = coordinate.getYCoordinate();
         char yCoordinate = OutputSymbols.getAlphabet(coordinate.getYCoordinate());
         OUTPUT.write((yCoordinate + " " + xCoordinate).getBytes());
-        attackSend = true;
         while (true) {
             try {
                 String attackFeedback = INPUT.readUTF().toUpperCase();
