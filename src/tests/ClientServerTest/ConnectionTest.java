@@ -21,10 +21,12 @@ public class ConnectionTest {
             server.start();
             client.start();
             Thread.sleep(1000);
-            boolean serverStarted=server.isRunning();
-            boolean clientStarted=client.isRunning();
+            server.isRunning();
+            client.isRunning();
             server.checkConnected();
             client.checkConnected();
+            server.close();
+            client.close();
         }catch (UnknownHostException| InterruptedException e){
             System.err.println(e.getLocalizedMessage());
         }

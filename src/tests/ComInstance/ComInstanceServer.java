@@ -1,4 +1,4 @@
-package tests;
+package tests.ComInstance;
 
 import gameModules.CommunicationInstance;
 import gameModules.DisplayInstance;

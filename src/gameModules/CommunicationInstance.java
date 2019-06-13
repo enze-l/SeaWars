@@ -14,43 +14,38 @@ import java.io.*;
  * @author s0568823 - Leon Enzenberger
  */
 public class CommunicationInstance extends Thread {
+    private static Connection CONNECTION;
     private static OutputStream OUTPUT;
     private static BufferedReader INPUT_BUFFER;
     private static int REFRESH_RATE;
     private static boolean CONNECTION_IN_USE;
 
+    private CommunicationInstance(){}
+
     public CommunicationInstance(int port) throws IOException {
-        Connection connection = new Connection(port);
-        connection.start();
-        while (!connection.isRunning()) {
+        CONNECTION = new Connection(port);
+        CONNECTION.start();
+        CommunicationInstanceInitialization(CONNECTION);
+    }
+
+    public CommunicationInstance(String ip, int port) throws IOException {
+        CONNECTION = new Connection(port, ip);
+        CONNECTION.start();
+        CommunicationInstanceInitialization(CONNECTION);
+    }
+
+    private void CommunicationInstanceInitialization(Connection connection){
+        while (true) {
             try {
                 OUTPUT = connection.getOutputStream();
                 InputStream input = connection.getInputStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(input);
                 INPUT_BUFFER = new BufferedReader(inputStreamReader);
                 break;
-            } catch (IOException ignored) {
-            }
-        }
-        CONNECTION_IN_USE = false;
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] devices = env.getScreenDevices();
-        for (GraphicsDevice device : devices) {
-            int displayRefreshRate = device.getDisplayMode().getRefreshRate();
-            if (displayRefreshRate > REFRESH_RATE) REFRESH_RATE = displayRefreshRate;
-        }
-    }
-
-    public CommunicationInstance(String ip, int port) throws IOException {
-        Connection connection = new Connection(port, ip);
-        connection.start();
-        while(!connection.isRunning()) {
-            try {
-                OUTPUT = connection.getOutputStream();
-                InputStream input = connection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(input);
-                INPUT_BUFFER = new BufferedReader(inputStreamReader);
-            } catch (IOException|NullPointerException ignored) {
+            } catch (IOException e) {
+                try {
+                    Thread.sleep(50);
+                }catch (InterruptedException ignored){}
             }
         }
         CONNECTION_IN_USE = false;
@@ -65,26 +60,10 @@ public class CommunicationInstance extends Thread {
     @Override
     public synchronized void run() {
         //noinspection InfiniteLoopStatement
-        while (true) {
-            while (!CONNECTION_IN_USE) {
-                CONNECTION_IN_USE = true;
-                try {
-                    try {
-                        String line = INPUT_BUFFER.readLine();
-                        enemyInput(line);
-                    } catch (StatusException | InputException | FieldException e) {
-                        OUTPUT.write("NetworkException".getBytes());
-                    }
-                } catch (IOException|NullPointerException ignored) {
-                }
-                CONNECTION_IN_USE = false;
-            }
-            try {
-                Thread.sleep((1000 / REFRESH_RATE) + 1);
-            } catch (InterruptedException ignored) {
-            }
+        while (GameInstance.getPlayerBoard().getStatus()!=GameStatus.OVER) {
 
         }
+        Co
     }
 
     private void enemyInput(String commandString) throws StatusException, InputException, FieldException {
