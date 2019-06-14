@@ -1,4 +1,4 @@
-package ships;
+package boards.ships;
 
 /**
  * @author s0568823 - Leon Enzenberger

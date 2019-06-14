@@ -14,12 +14,13 @@ public class ComInstanceServer {
         try {
             CommunicationInstance comInstance = new CommunicationInstance(12345);
             comInstance.start();
+            DisplayInstance d=new DisplayInstance();
+            d.start();
+            Input input=new Input();
             //noinspection InfiniteLoopStatement
             for (; ; ) {
                 try {
-                    System.out.printf("%n%n%n");
-                    DisplayInstance.displayGame();
-                    Input.gameCommands();
+                    input.command();
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }

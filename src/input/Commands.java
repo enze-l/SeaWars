@@ -10,5 +10,5 @@ public enum Commands {
     READY,
     REVOKE,
     LAST,
-    CONTINUE
+    GIVEUP
 }

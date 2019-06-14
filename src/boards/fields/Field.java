@@ -1,6 +1,6 @@
 package boards.fields;
 
-import ships.*;
+import boards.ships.*;
 
 /**
  * @author s0568823 - Leon Enzenberger

@@ -1,4 +1,4 @@
-package connection;
+package input;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +12,11 @@ import java.net.Socket;
 public class Connection extends Thread {
     private final int port;
     private final String remoteIP;
+
+    public boolean isServer() {
+        return asServer;
+    }
+
     private final boolean asServer;
     private Socket socket;
 

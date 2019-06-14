@@ -1,19 +1,21 @@
 import gameModules.*;
 import input.*;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * @author s0568823 - Leon Enzenberger
  */
 public class Main {
     public static void main(String[] args) {
         GameInstance.newGame();
+        Input input=new Input();
+        DisplayInstance display=new DisplayInstance();
+        display.start();
         //noinspection InfiniteLoopStatement
         for (; ; ) {
             try {
-                System.out.printf("%n%n%n");
-                DisplayInstance display=new DisplayInstance();
-                display.start();
-                Input.gameCommands();
+                input.command();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }

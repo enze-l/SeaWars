@@ -1,8 +1,8 @@
 package boards;
 
-import coordinates.*;
+import boards.coordinates.*;
 import boards.fields.*;
-import ships.*;
+import boards.ships.*;
 import exceptions.*;
 
 import java.util.Arrays;

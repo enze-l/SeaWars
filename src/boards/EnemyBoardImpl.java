@@ -1,9 +1,10 @@
 package boards;
 
-import coordinates.*;
+import boards.coordinates.*;
 import boards.fields.*;
+import exceptions.FieldException;
 import exceptions.StatusException;
-import ships.*;
+import boards.ships.*;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -47,9 +48,9 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public FieldStatus setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) {
-        //NEEDS TO IMPLEMENT COMMUNICATION
-        return null;
+    public void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus)throws FieldException {
+        if (!coordinate.validCoordinate()) throw new FieldException("There isn't a field with these coordinates!");
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()]=fieldStatus;
     }
 
     @Override

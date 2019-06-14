@@ -1,6 +1,6 @@
-package ships;
+package boards.ships;
 
-import coordinates.*;
+import boards.coordinates.*;
 import boards.fields.*;
 
 /**

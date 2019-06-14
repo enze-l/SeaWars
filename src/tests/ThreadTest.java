@@ -1,10 +1,10 @@
 package tests;
 
 import boards.PlayerBoard;
-import coordinates.CoordinateImpl;
+import boards.coordinates.CoordinateImpl;
 import gameModules.*;
-import ships.Orientation;
-import ships.ShipType;
+import boards.ships.Orientation;
+import boards.ships.ShipType;
 
 /**
  * @author s0568823 - Leon Enzenberger

@@ -1,9 +1,9 @@
 package tests;
 
 import boards.*;
-import coordinates.*;
+import boards.coordinates.*;
 import boards.fields.*;
-import ships.*;
+import boards.ships.*;
 import org.junit.Assert;
 import exceptions.*;
 import org.junit.Test;

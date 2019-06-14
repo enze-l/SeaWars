@@ -1,6 +1,6 @@
 package tests.ClientServerTest;
 
-import connection.Connection;
+import input.*;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -2,7 +2,7 @@ package output;
 
 import boards.*;
 import boards.fields.*;
-import ships.*;
+import boards.ships.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -90,20 +90,20 @@ public class Output {
      * Displays given Board in the console-view
      */
     private static String toStringBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException {
-        StringBuilder myBoard = new StringBuilder();
-        myBoard.append(toMiddle(toStringNumbers(fields.length)))
+        StringBuilder board = new StringBuilder();
+        board.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
-        myBoard.append(toMiddle(verticalBoarder(fields.length, gameStatus, true)))
+        board.append(toMiddle(verticalBoarder(fields.length, gameStatus, true)))
                 .append(System.lineSeparator());
         for (int row = 0; row < fields.length; row++) {
-            myBoard.append(toStringRow(fields, gameStatus, row))
+            board.append(toStringRow(fields, gameStatus, row))
                     .append(System.lineSeparator());
         }
-        myBoard.append(toMiddle(verticalBoarder(fields.length, gameStatus, false)))
+        board.append(toMiddle(verticalBoarder(fields.length, gameStatus, false)))
                 .append(System.lineSeparator());
-        myBoard.append(toMiddle(toStringNumbers(fields.length)))
+        board.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
-        return myBoard.toString();
+        return board.toString();
     }
 
     private static String toStringNumbers(int length){
@@ -181,6 +181,7 @@ public class Output {
             case READY:
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
+
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append("◄ revoke")
@@ -192,7 +193,6 @@ public class Output {
                         .append("☼ shoot (A-J) (1-10)")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
             case RECEIVE:
@@ -200,12 +200,10 @@ public class Output {
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
-                        .append(System.lineSeparator())
                         .append(System.lineSeparator());
                 break;
             case OVER:
                 commands.append("≡ legend")
-                        .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())

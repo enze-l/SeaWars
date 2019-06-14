@@ -73,6 +73,7 @@ public class OutputSymbols {
     }
 
     public static int getNumber(char character)throws InputException{
+        character=Character.toUpperCase(character);
         if (character<65||character>90){
             throw new InputException("Not Letter");
         }

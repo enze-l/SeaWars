@@ -3,9 +3,6 @@ package tests.ComInstance;
 import gameModules.*;
 import input.Input;
 
-import java.net.InetAddress;
-import java.util.Arrays;
-
 /**
  * @author s0568823 - Leon Enzenberger
  */
@@ -16,11 +13,13 @@ public class ComInstanceClient {
             String serverIP="127.0.0.1";
             CommunicationInstance comInstance = new CommunicationInstance( serverIP,12345);
             comInstance.start();
+            DisplayInstance d=new DisplayInstance();
+            d.start();
+            Input i=new Input();
+            //noinspection InfiniteLoopStatement
             for (; ; ) {
                 try {
-                    System.out.printf("%n%n%n");
-                    DisplayInstance.displayGame();
-                    Input.gameCommands();
+                    i.command();
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }

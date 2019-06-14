@@ -1,4 +1,4 @@
-package coordinates;
+package boards.coordinates;
 
 /**
  * @author s0568823 - Leon Enzenberger

@@ -1,123 +1,116 @@
 package input;
 
-import boards.fields.FieldStatus;
-import coordinates.*;
+import boards.coordinates.*;
 import boards.*;
 import output.OutputSymbols;
-import ships.*;
+import boards.ships.*;
 import exceptions.*;
 import gameModules.*;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
 public class Input {
-    public static void gameCommands()
+    private PlayerBoard playerBoard;
+    private EnemyBoard enemyBoard;
+
+    public Input() {
+        this.playerBoard = GameInstance.getPlayerBoard();
+        this.enemyBoard = GameInstance.getEnemyBoard();
+    }
+
+    public void command()
             throws IOException, StatusException, InputException, FieldException, ShipException {
-        PlayerBoard board = GameInstance.getPlayerBoard();
         InputStreamReader userInput = new InputStreamReader(System.in);
         BufferedReader userInputBuffer = new BufferedReader(userInput);
-        String[] commandString=userInputBuffer.readLine().trim().toUpperCase().split(" ");
-        String command= commandString[0];
+        String[] commandString = userInputBuffer.readLine().trim().toUpperCase().split(" +");
+        String command = commandString[0];
         String[] parameters = Arrays.copyOfRange(commandString, 1, commandString.length);
         if (commandString[0].equals("")) System.err.println("You have to give me some command!");
-        switch (board.getStatus()) {
-            case PREPARATION:
-                switch (command) {
-                    case "LEGEND":
-                        //legend needs to get implemented
-                        System.out.println("legend");
-                        break;
-                    case "SET":
-                        set(board, parameters);
-                        break;
-                    case "REMOVE":
-                        removeShip(board, parameters);
-                        break;
-                    case "READY":
-                        if (board.allShipsSet()) {
-                            board.setStatus(GameStatus.READY);
-                        } else throw new InputException("You first have to get all ships into position!");
-                        break;
-                    default:
-                        throw new InputException("command not available!");
-                }
+        switch (command) {
+            case "LEGEND":
+                //legend needs to get implemented
+                System.out.println("legend");
                 break;
-            case READY:
-                switch (command) {
-                    case "LEGEND":
-                        //legend needs to get implemented
-                        System.out.println("legend");
-                        break;
-                    case "REVOKE":
-                        board.setStatus(GameStatus.PREPARATION);
-                        System.out.println("revoke");
-                        break;
-                    case "SET":
-                    case "REMOVE":
-                        throw new InputException("You have to revoke your status first in order to do that");
-                    default:
-                        throw new InputException("command not available!");
-                }
+            case "SET":
+                set(parameters);
                 break;
-            case ATTACK:
-                switch (command) {
-                    case "LEGEND":
-                        //legend needs to get implemented
-                        System.out.println("legend");
-                        break;
-                    case "SHOT":
-                        attack(parameters);
-                        System.out.println("shot");
-                        break;
-                    default:
-                        throw new InputException("command not available!");
-                }
+            case "REMOVE":
+                removeShip(parameters);
                 break;
-            case RECEIVE:
-                switch (command) {
-                    case "LEGEND":
-                        //legend needs to get implemented
-                        System.out.println("legend");
-                        break;
-                    case "SHOT":
-                        throw new InputException("You have to wait till it is your turn!");
-                    default:
-                        throw new InputException("command not available!");
-                }
+            case "READY":
+                ready();
                 break;
-            case OVER:
-                switch (command) {
-                    case "LEGEND":
-                        //legend needs to get implemented
-                        System.out.println("legend");
-                        break;
-                    case "CONTINUE":
-                        //Successive rounds have to be implemented
-                        System.out.println("continue");
-                        break;
-                    case "LEAVE":
-                    default:
-                        throw new InputException("command not available!");
-                }
+            case "REVOKE":
+                revoke();
                 break;
+            case "SHOOT":
+                shoot(parameters);
+                break;
+            case "CONTINUE":
+                //Successive rounds have to be implemented
+                System.out.println("continue");
+                break;
+            case "LEAVE":
+
+                break;
+            default:
+                throw new InputException("command not available!");
         }
     }
 
-    private static void attack(String[] parameters)throws InputException, IOException, FieldException{
-        int yCoordinate=OutputSymbols.getNumber(parameters[0].charAt(0));
-        int xCoordinate = Integer.parseInt(parameters[2]);
-        Coordinate attackedField=new CoordinateImpl(xCoordinate, yCoordinate);
-        FieldStatus attackedFieldStatus=CommunicationInstance.attackEnemy(attackedField);
-        GameInstance.getEnemyBoard().setFieldStatus(attackedField, attackedFieldStatus);
+
+    private void revoke() throws IOException, StatusException, InputException {
+        if (playerBoard.getStatus() == GameStatus.READY
+                && enemyBoard.getStatus() == GameStatus.PREPARATION) {
+            playerBoard.setStatus(GameStatus.PREPARATION);
+            CommunicationInstance.getOUTPUT().writeUTF("revoke");
+        } else if (playerBoard.getStatus() == GameStatus.PREPARATION) {
+            throw new InputException("You are not ready yet!");
+        } else {
+            throw new InputException("You cannot reverse your status anymore");
+        }
     }
 
-    private static void set(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException{
-        if(parameters.length<4)throw new InputException("To few information for the position!");
-        if(parameters.length>4)throw new InputException("To much information for the position!");
+    private void ready() throws StatusException, InputException, IOException {
+        if (playerBoard.allShipsSet()) {
+            playerBoard.setStatus(GameStatus.READY);
+            CommunicationInstance.getOUTPUT().writeUTF("ready");
+            if (enemyBoard.getStatus() == GameStatus.READY
+                    && playerBoard.getStatus() == GameStatus.READY
+                    && CommunicationInstance.isIsServer()) {
+                int randomStart = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+                if (randomStart == 0) {
+                    enemyBoard.setStatus(GameStatus.ATTACK);
+                    playerBoard.setStatus(GameStatus.RECEIVE);
+                    CommunicationInstance.getOUTPUT().writeUTF("attack");
+                } else {
+                    enemyBoard.setStatus(GameStatus.RECEIVE);
+                    playerBoard.setStatus(GameStatus.ATTACK);
+                    CommunicationInstance.getOUTPUT().writeUTF("receive");
+                }
+            }
+        } else throw new InputException("You first have to get all ships into position!");
+    }
+
+    private void shoot(String[] parameters) throws IOException, StatusException, InputException {
+        if (playerBoard.getStatus() == GameStatus.ATTACK) {
+            char yCoordinate = parameters[0].charAt(0);
+            int xCoordinate = Integer.parseInt(parameters[1]);
+            CommunicationInstance.getOUTPUT().writeUTF("shoot");
+            CommunicationInstance.getOUTPUT().writeChar(yCoordinate);
+            CommunicationInstance.getOUTPUT().writeInt(xCoordinate);
+            CommunicationInstance.setLastShot(new CoordinateImpl(xCoordinate, OutputSymbols.getNumber(yCoordinate)));
+        } else throw new InputException("It is not your turn to shoot yet!");
+    }
+
+    private void set(String[] parameters) throws InputException, FieldException, ShipException {
+        if (parameters.length < 4) throw new InputException("To few information for the position!");
+        if (parameters.length > 4) throw new InputException("To much information for the position!");
         String chosenShip = parameters[0];
         String letter = parameters[1];
         ShipType shipType;
@@ -137,7 +130,7 @@ public class Input {
             default:
                 throw new InputException("We don't have ships of that type!");
         }
-        int yCoordinate=OutputSymbols.getNumber(letter.charAt(0));
+        int yCoordinate = OutputSymbols.getNumber(letter.charAt(0));
         int xCoordinate = Integer.parseInt(parameters[2]);
         String direction = parameters[3];
         Orientation orientation;
@@ -155,16 +148,16 @@ public class Input {
             default:
                 throw new InputException("I don't know that direction!");
         }
-        board.setShip(shipType, new CoordinateImpl(xCoordinate, yCoordinate), orientation);
+        this.playerBoard.setShip(shipType, new CoordinateImpl(xCoordinate, yCoordinate), orientation);
 
     }
 
-    private static void removeShip(PlayerBoard board, String[] parameters) throws InputException, FieldException, ShipException {
-        if(parameters.length<2)throw new InputException("To few information for the position!");
-        if(parameters.length>2)throw new InputException("To much information for the position!");
+    private void removeShip(String[] parameters) throws InputException, FieldException, ShipException {
+        if (parameters.length < 2) throw new InputException("To few information for the position!");
+        if (parameters.length > 2) throw new InputException("To much information for the position!");
         String letter = parameters[0];
-        int yCoordinate= OutputSymbols.getNumber(letter.charAt(0));
+        int yCoordinate = OutputSymbols.getNumber(letter.charAt(0));
         int xCoordinate = Integer.parseInt(parameters[1]);
-        board.removeShip(new CoordinateImpl(xCoordinate, yCoordinate));
+        this.playerBoard.removeShip(new CoordinateImpl(xCoordinate, yCoordinate));
     }
 }

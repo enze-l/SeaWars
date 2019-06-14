@@ -1,6 +1,6 @@
 package tests.ClientServerTest;
 
-import connection.Connection;
+import input.Connection;
 
 import java.io.IOException;
 
