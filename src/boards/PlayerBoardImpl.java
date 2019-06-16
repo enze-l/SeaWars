@@ -4,6 +4,7 @@ import boards.coordinates.*;
 import boards.fields.*;
 import boards.ships.*;
 import exceptions.*;
+import output.Notifiable;
 
 import java.util.Arrays;
 
@@ -46,7 +47,7 @@ public class PlayerBoardImpl implements PlayerBoard {
      * @return gameStatus of the board
      */
     @Override
-    public GameStatus getStatus() throws StatusException {
+    public GameStatus getGameStatus() throws StatusException {
         if (this.gameStatus == null) {
             throw new StatusException("No Status has been set jet!");
         }
@@ -60,9 +61,10 @@ public class PlayerBoardImpl implements PlayerBoard {
      * @throws StatusException if a "null"-status is attempted to be set
      */
     @Override
-    public void setStatus(GameStatus status) throws StatusException {
+    public void setGameStatus(GameStatus status) throws StatusException, DisplayException {
         if (status == null) throw new StatusException();
         this.gameStatus = status;
+        Notifiable.update();
     }
 
     /**
@@ -108,7 +110,7 @@ public class PlayerBoardImpl implements PlayerBoard {
      *                        positioned onto or directly next to another ship.
      */
     @Override
-    public void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException {
+    public void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException, DisplayException {
         if (shipsAvailable()[shipType.ordinal()] == 0)
             throw new ShipException("Es wurden bereits alle Schiffe dieser Klasse platziert!");
         if (shipPlacementPossible(shipType, orientation, coordinate)) {
@@ -125,7 +127,7 @@ public class PlayerBoardImpl implements PlayerBoard {
                 }
             }
         }
-
+        Notifiable.update();
     }
 
     /**
@@ -136,7 +138,7 @@ public class PlayerBoardImpl implements PlayerBoard {
      * @throws ShipException  if there is no ship at the given coordinate
      */
     @Override
-    public void removeShip(Coordinate coordinate) throws FieldException, ShipException {
+    public void removeShip(Coordinate coordinate) throws FieldException, ShipException, DisplayException {
         if (!coordinate.validCoordinate()) {
             throw new FieldException("Es gibt kein Spielfeld mit diesen Koordinaten");
         }
@@ -160,6 +162,7 @@ public class PlayerBoardImpl implements PlayerBoard {
                 board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+ shipSegment].removeShip();
             }
         }
+        Notifiable.update();
     }
 
     /**
@@ -169,9 +172,10 @@ public class PlayerBoardImpl implements PlayerBoard {
      * @return result of ship (hitwater, hit, sunk)
      */
     @Override
-    public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
+    public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException, DisplayException {
         if (!coordinate.validCoordinate()) throw new FieldException("Es gibt kein Feld mit diesen Koordinaten!");
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
+        Notifiable.update();
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 

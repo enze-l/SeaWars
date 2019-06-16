@@ -39,7 +39,7 @@ public class PlayerBoardTest {
     public void getPreparationStatus() {
         PlayerBoard board = new PlayerBoardImpl();
         try {
-            Assert.assertEquals(GameStatus.PREPARATION, board.getStatus());
+            Assert.assertEquals(GameStatus.PREPARATION, board.getGameStatus());
         } catch (StatusException e) {
             System.err.println(e.getMessage());
         }
@@ -50,8 +50,10 @@ public class PlayerBoardTest {
      */
     @Test(expected = StatusException.class)
     public void setNullStatus() throws StatusException {
-        PlayerBoard board = new PlayerBoardImpl();
-        board.setStatus(null);
+        try {
+            PlayerBoard board = new PlayerBoardImpl();
+            board.setGameStatus(null);
+        }catch (DisplayException ignored){}
     }
 
     /**
@@ -61,12 +63,12 @@ public class PlayerBoardTest {
     public void getReadyStatus() {
         PlayerBoard board = new PlayerBoardImpl();
         try {
-            board.setStatus(GameStatus.READY);
-        } catch (StatusException e) {
+            board.setGameStatus(GameStatus.READY);
+        } catch (StatusException|DisplayException e) {
             System.err.println(e.getMessage());
         }
         try {
-            Assert.assertEquals(GameStatus.READY, board.getStatus());
+            Assert.assertEquals(GameStatus.READY, board.getGameStatus());
         } catch (StatusException e) {
             System.err.println(e.getMessage());
         }
@@ -79,12 +81,12 @@ public class PlayerBoardTest {
     public void getAttackStatus() {
         PlayerBoard board = new PlayerBoardImpl();
         try {
-            board.setStatus(GameStatus.ATTACK);
-        } catch (StatusException e) {
+            board.setGameStatus(GameStatus.ATTACK);
+        } catch (StatusException|DisplayException e) {
             System.err.println(e.getMessage());
         }
         try {
-            Assert.assertEquals(GameStatus.ATTACK, board.getStatus());
+            Assert.assertEquals(GameStatus.ATTACK, board.getGameStatus());
         } catch (StatusException e) {
             System.err.println(e.getMessage());
         }
@@ -97,12 +99,12 @@ public class PlayerBoardTest {
     public void getReceiveStatus() {
         PlayerBoard board = new PlayerBoardImpl();
         try {
-            board.setStatus(GameStatus.RECEIVE);
-        } catch (StatusException e) {
+            board.setGameStatus(GameStatus.RECEIVE);
+        } catch (StatusException|DisplayException e) {
             System.err.println(e.getMessage());
         }
         try {
-            Assert.assertEquals(GameStatus.RECEIVE, board.getStatus());
+            Assert.assertEquals(GameStatus.RECEIVE, board.getGameStatus());
         } catch (StatusException e) {
             System.err.println(e.getMessage());
         }
@@ -115,12 +117,12 @@ public class PlayerBoardTest {
     public void getOverStatus() {
         PlayerBoard board = new PlayerBoardImpl();
         try {
-            board.setStatus(GameStatus.OVER);
-        } catch (StatusException e) {
+            board.setGameStatus(GameStatus.OVER);
+        } catch (StatusException|DisplayException e) {
             System.err.println(e.getMessage());
         }
         try {
-            Assert.assertEquals(GameStatus.OVER, board.getStatus());
+            Assert.assertEquals(GameStatus.OVER, board.getGameStatus());
         } catch (StatusException e) {
             System.err.println(e.getMessage());
         }
@@ -291,7 +293,7 @@ public class PlayerBoardTest {
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8, 7), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(8, 9), Orientation.HORIZONTAL);
             board.setShip(ShipType.DESTROYER, new CoordinateImpl(4, 9), Orientation.HORIZONTAL);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -305,7 +307,7 @@ public class PlayerBoardTest {
         Coordinate coordinate = new CoordinateImpl(0, 0);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
-        } catch (ShipException e) {
+        } catch (ShipException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -321,7 +323,7 @@ public class PlayerBoardTest {
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -337,7 +339,7 @@ public class PlayerBoardTest {
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
             board.setShip(ShipType.SUBMARINE, coordinate2, Orientation.HORIZONTAL);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -351,7 +353,7 @@ public class PlayerBoardTest {
         Coordinate coordinate = new CoordinateImpl(9, 1);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
-        } catch (ShipException e) {
+        } catch (ShipException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -389,7 +391,7 @@ public class PlayerBoardTest {
         Coordinate coordinate = new CoordinateImpl(1, 1);
         try {
             board.removeShip(coordinate);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -403,7 +405,7 @@ public class PlayerBoardTest {
         Coordinate coordinate = new CoordinateImpl(0, 0);
         try {
             board.removeShip(coordinate);
-        } catch (ShipException e) {
+        } catch (ShipException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -444,7 +446,7 @@ public class PlayerBoardTest {
         }
         try {
             Assert.assertSame(FieldStatus.HIT, board.receiveAttack(coordinate2));
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -465,7 +467,7 @@ public class PlayerBoardTest {
         try {
             board.receiveAttack(coordinate1);
             board.receiveAttack(coordinate2);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
         try {
@@ -485,7 +487,7 @@ public class PlayerBoardTest {
         PlayerBoard board = new PlayerBoardImpl();
         try {
             Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }

@@ -24,7 +24,7 @@ public class Input {
     }
 
     public void command()
-            throws IOException, StatusException, InputException, FieldException, ShipException {
+            throws IOException, StatusException, InputException, FieldException, ShipException, DisplayException {
         InputStreamReader userInput = new InputStreamReader(System.in);
         BufferedReader userInputBuffer = new BufferedReader(userInput);
         String[] commandString = userInputBuffer.readLine().trim().toUpperCase().split(" +");
@@ -64,33 +64,33 @@ public class Input {
     }
 
 
-    private void revoke() throws IOException, StatusException, InputException {
-        if (playerBoard.getStatus() == GameStatus.READY
-                && enemyBoard.getStatus() == GameStatus.PREPARATION) {
-            playerBoard.setStatus(GameStatus.PREPARATION);
+    private void revoke() throws IOException, StatusException, InputException, DisplayException {
+        if (playerBoard.getGameStatus() == GameStatus.READY
+                && enemyBoard.getGameStatus() == GameStatus.PREPARATION) {
+            playerBoard.setGameStatus(GameStatus.PREPARATION);
             CommunicationInstance.getOUTPUT().writeUTF("revoke");
-        } else if (playerBoard.getStatus() == GameStatus.PREPARATION) {
+        } else if (playerBoard.getGameStatus() == GameStatus.PREPARATION) {
             throw new InputException("You are not ready yet!");
         } else {
             throw new InputException("You cannot reverse your status anymore");
         }
     }
 
-    private void ready() throws StatusException, InputException, IOException {
+    private void ready() throws StatusException, InputException, IOException, DisplayException {
         if (playerBoard.allShipsSet()) {
-            playerBoard.setStatus(GameStatus.READY);
+            playerBoard.setGameStatus(GameStatus.READY);
             CommunicationInstance.getOUTPUT().writeUTF("ready");
-            if (enemyBoard.getStatus() == GameStatus.READY
-                    && playerBoard.getStatus() == GameStatus.READY
+            if (enemyBoard.getGameStatus() == GameStatus.READY
+                    && playerBoard.getGameStatus() == GameStatus.READY
                     && CommunicationInstance.isIsServer()) {
                 int randomStart = ThreadLocalRandom.current().nextInt(0, 1 + 1);
                 if (randomStart == 0) {
-                    enemyBoard.setStatus(GameStatus.ATTACK);
-                    playerBoard.setStatus(GameStatus.RECEIVE);
+                    enemyBoard.setGameStatus(GameStatus.ATTACK);
+                    playerBoard.setGameStatus(GameStatus.RECEIVE);
                     CommunicationInstance.getOUTPUT().writeUTF("attack");
                 } else {
-                    enemyBoard.setStatus(GameStatus.RECEIVE);
-                    playerBoard.setStatus(GameStatus.ATTACK);
+                    enemyBoard.setGameStatus(GameStatus.RECEIVE);
+                    playerBoard.setGameStatus(GameStatus.ATTACK);
                     CommunicationInstance.getOUTPUT().writeUTF("receive");
                 }
             }
@@ -98,7 +98,7 @@ public class Input {
     }
 
     private void shoot(String[] parameters) throws IOException, StatusException, InputException {
-        if (playerBoard.getStatus() == GameStatus.ATTACK) {
+        if (playerBoard.getGameStatus() == GameStatus.ATTACK) {
             char yCoordinate = parameters[0].charAt(0);
             int xCoordinate = Integer.parseInt(parameters[1]);
             CommunicationInstance.getOUTPUT().writeUTF("shoot");
@@ -108,7 +108,7 @@ public class Input {
         } else throw new InputException("It is not your turn to shoot yet!");
     }
 
-    private void set(String[] parameters) throws InputException, FieldException, ShipException {
+    private void set(String[] parameters) throws InputException, FieldException, ShipException, DisplayException {
         if (parameters.length < 4) throw new InputException("To few information for the position!");
         if (parameters.length > 4) throw new InputException("To much information for the position!");
         String chosenShip = parameters[0];
@@ -152,7 +152,7 @@ public class Input {
 
     }
 
-    private void removeShip(String[] parameters) throws InputException, FieldException, ShipException {
+    private void removeShip(String[] parameters) throws InputException, FieldException, ShipException, DisplayException {
         if (parameters.length < 2) throw new InputException("To few information for the position!");
         if (parameters.length > 2) throw new InputException("To much information for the position!");
         String letter = parameters[0];

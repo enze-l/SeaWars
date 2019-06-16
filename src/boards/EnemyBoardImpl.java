@@ -2,9 +2,9 @@ package boards;
 
 import boards.coordinates.*;
 import boards.fields.*;
-import exceptions.FieldException;
-import exceptions.StatusException;
+import exceptions.*;
 import boards.ships.*;
+import output.Notifiable;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -14,7 +14,7 @@ public class EnemyBoardImpl implements EnemyBoard {
     private Ship[] ships;
     private GameStatus gameStatus;
 
-    public EnemyBoardImpl(){
+    public EnemyBoardImpl() {
         this.board = new FieldStatus[10][10];
         for (int fieldsHorizontal = 1; fieldsHorizontal <= 10; fieldsHorizontal++) {
             for (int fieldsVertical = 1; fieldsVertical <= 10; fieldsVertical++) {
@@ -48,19 +48,47 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus)throws FieldException {
+    public void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException, DisplayException {
         if (!coordinate.validCoordinate()) throw new FieldException("There isn't a field with these coordinates!");
-        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()]=fieldStatus;
+        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()] = fieldStatus;
+        if (fieldStatus==FieldStatus.SUNK) sinkShip(coordinate);
+        Notifiable.update();
+    }
+
+    private void sinkShip(Coordinate coordinate){
+        if(getFieldStatus(coordinate)==FieldStatus.SUNK){
+            Coordinate upperField=new CoordinateImpl(coordinate.getXCoordinate()+1, coordinate.getYCoordinate());
+            Coordinate lowerField=new CoordinateImpl(coordinate.getXCoordinate()+1, coordinate.getYCoordinate()+2);
+            Coordinate leftField=new CoordinateImpl(coordinate.getXCoordinate(), coordinate.getYCoordinate()+1);
+            Coordinate rightField=new CoordinateImpl(coordinate.getXCoordinate()+2, coordinate.getYCoordinate()+1);
+            if (upperField.validCoordinate()&&getFieldStatus(upperField)==FieldStatus.HIT){
+                board[upperField.getXCoordinate()][upperField.getYCoordinate()]=FieldStatus.SUNK;
+                sinkShip(upperField);
+            }
+            if (lowerField.validCoordinate()&&getFieldStatus(lowerField)==FieldStatus.HIT){
+                board[lowerField.getXCoordinate()][lowerField.getYCoordinate()]=FieldStatus.SUNK;
+                sinkShip(lowerField);
+            }
+            if (leftField.validCoordinate()&&getFieldStatus(leftField)==FieldStatus.HIT){
+                board[leftField.getXCoordinate()][leftField.getYCoordinate()]=FieldStatus.SUNK;
+                sinkShip(leftField);
+            }
+            if (lowerField.validCoordinate()&&getFieldStatus(rightField)==FieldStatus.HIT){
+                board[rightField.getXCoordinate()][rightField.getYCoordinate()]=FieldStatus.SUNK;
+                sinkShip(rightField);
+            }
+        }
     }
 
     @Override
-    public void setStatus(GameStatus status)throws StatusException {
-        if (this.gameStatus==GameStatus.OVER)throw new StatusException("Game is over!");
+    public void setGameStatus(GameStatus status) throws StatusException, DisplayException {
+        if (this.gameStatus == GameStatus.OVER) throw new StatusException("Game is over!");
         this.gameStatus = status;
+        Notifiable.update();
     }
 
     @Override
-    public GameStatus getStatus() {
+    public GameStatus getGameStatus() {
         return this.gameStatus;
     }
 }

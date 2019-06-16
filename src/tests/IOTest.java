@@ -27,7 +27,6 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1 s\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -45,7 +44,6 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream(" set c a  1 s\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -64,8 +62,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream((" set c a 1 s n\n").getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
-        } catch (IOException | StatusException | FieldException | ShipException e) {
+        } catch (IOException | StatusException | FieldException | ShipException|DisplayException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -78,8 +75,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("setca1s\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
-        } catch (IOException | StatusException | FieldException | ShipException e) {
+        } catch (IOException | StatusException | FieldException | ShipException|DisplayException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -92,8 +88,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
-        } catch (IOException | StatusException | FieldException | ShipException e) {
+        } catch (IOException | StatusException | FieldException | ShipException|DisplayException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -106,8 +101,7 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set c i 1 s\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
-        } catch (StatusException | InputException | IOException | ShipException e) {
+        } catch (StatusException | InputException | IOException | ShipException|DisplayException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -130,7 +124,6 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set b b 2 e\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -160,7 +153,6 @@ public class IOTest {
             ByteArrayInputStream input = new ByteArrayInputStream("set d b 2 s\n".getBytes());
             System.setIn(input);
             i.command();
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -201,7 +193,6 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -234,7 +225,7 @@ public class IOTest {
                 System.setIn(byteArray);
                 i.command();
             }
-        } catch (StatusException | InputException | FieldException | IOException ignored) {
+        } catch (StatusException | InputException | FieldException | IOException|DisplayException ignored) {
         }
     }
 
@@ -244,7 +235,7 @@ public class IOTest {
         Coordinate coordinate = new CoordinateImpl(1, 1);
         try {
             board.removeShip(coordinate);
-        } catch (FieldException e) {
+        } catch (FieldException|DisplayException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -267,7 +258,6 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -292,7 +282,7 @@ public class IOTest {
                 System.setIn(byteArray);
                 i.command();
             }
-        } catch (StatusException | ShipException | FieldException | IOException ignored) { }
+        } catch (StatusException | ShipException | FieldException | IOException|DisplayException ignored) { }
     }
 
     @Test(expected = InputException.class)
@@ -310,7 +300,7 @@ public class IOTest {
                 System.setIn(byteArray);
                 i.command();
             }
-        } catch (StatusException | ShipException | FieldException | IOException ignored) { }
+        } catch (StatusException | ShipException | FieldException | IOException|DisplayException ignored) { }
     }
 
     @Test(expected = InputException.class)
@@ -328,7 +318,7 @@ public class IOTest {
                 System.setIn(byteArray);
                 i.command();
             }
-        } catch (StatusException | ShipException | FieldException | IOException ignored) { }
+        } catch (StatusException | ShipException | FieldException | IOException|DisplayException ignored) { }
     }
 
     @Test(expected = InputException.class)
@@ -345,7 +335,7 @@ public class IOTest {
                 System.setIn(byteArray);
                 i.command();
             }
-        } catch (StatusException | ShipException | FieldException | IOException ignored) { }
+        } catch (StatusException | ShipException | FieldException | IOException|DisplayException ignored) { }
     }
 
     @Test
@@ -375,12 +365,11 @@ public class IOTest {
                 }
             } catch (Exception ignored) {
             }
-            DisplayInstance.displayGame();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getStatus(), GameStatus.READY);
+            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.READY);
         }catch (StatusException ignored){}
     }
 
@@ -408,14 +397,13 @@ public class IOTest {
                     System.setIn(byteArray);
                     i.command();
                 }
-            } catch (FieldException|ShipException ignored) {
+            } catch (FieldException|ShipException|DisplayException ignored) {
             }
-            DisplayInstance.displayGame();
         } catch (StatusException|IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getStatus(), GameStatus.READY);
+            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.READY);
         }catch (StatusException ignored){}
     }
 
@@ -447,12 +435,12 @@ public class IOTest {
 //                    i.command();
 //                }
 //            } catch (Exception ignored) { }
-//            DisplayInstance.displayGame();
+//
 //        } catch (Exception e) {
 //            System.out.println(e.getLocalizedMessage());
 //        }
 //        try {
-//            Assert.assertEquals(GameStatus.PREPARATION, GameInstance.getPlayerBoard().getStatus());
+//            Assert.assertEquals(GameStatus.PREPARATION, GameInstance.getPlayerBoard().getGameStatus());
 //        }catch (StatusException ignored){}
 //    }
 
@@ -480,14 +468,13 @@ public class IOTest {
                     System.setIn(byteArray);
                     i.command();
                 }
-            } catch (FieldException|ShipException ignored) {
+            } catch (FieldException|ShipException|DisplayException ignored) {
             }
-            DisplayInstance.displayGame();
         } catch (StatusException|IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getStatus(), GameStatus.PREPARATION);
+            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.PREPARATION);
         }catch (StatusException ignored){}
     }
 

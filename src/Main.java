@@ -10,8 +10,6 @@ public class Main {
     public static void main(String[] args) {
         GameInstance.newGame();
         Input input=new Input();
-        DisplayInstance display=new DisplayInstance();
-        display.start();
         //noinspection InfiniteLoopStatement
         for (; ; ) {
             try {

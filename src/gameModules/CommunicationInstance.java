@@ -58,7 +58,7 @@ public class CommunicationInstance extends Thread implements Communication {
     @Override
     public synchronized void run() {
         try {
-            while (PLAYER_BOARD.getStatus() != GameStatus.OVER) {
+            while (PLAYER_BOARD.getGameStatus() != GameStatus.OVER) {
                 String command = INPUT.readUTF();
                 switch (command) {
                     case "ready":
@@ -99,8 +99,8 @@ public class CommunicationInstance extends Thread implements Communication {
             switch (result) {
                 case "SHOTWATER":
                     ENEMY_BOARD.setFieldStatus(LAST_SHOT, FieldStatus.SHOTWATER);
-                    ENEMY_BOARD.setStatus(GameStatus.ATTACK);
-                    PLAYER_BOARD.setStatus(GameStatus.RECEIVE);
+                    ENEMY_BOARD.setGameStatus(GameStatus.ATTACK);
+                    PLAYER_BOARD.setGameStatus(GameStatus.RECEIVE);
                     break;
                 case "HIT":
                     ENEMY_BOARD.setFieldStatus(LAST_SHOT, FieldStatus.HIT);
@@ -111,7 +111,7 @@ public class CommunicationInstance extends Thread implements Communication {
                 default:
                     throw new CommunicationException();
             }
-        } catch (IOException | FieldException | StatusException e) {
+        } catch (IOException | FieldException | StatusException|DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -134,10 +134,10 @@ public class CommunicationInstance extends Thread implements Communication {
             OUTPUT.writeUTF("result");
             OUTPUT.writeUTF(attackResult.toString().toLowerCase());
             if (attackResult == FieldStatus.SHOTWATER) {
-                PLAYER_BOARD.setStatus(GameStatus.ATTACK);
-                ENEMY_BOARD.setStatus(GameStatus.RECEIVE);
+                PLAYER_BOARD.setGameStatus(GameStatus.ATTACK);
+                ENEMY_BOARD.setGameStatus(GameStatus.RECEIVE);
             }
-        } catch (IOException | InputException | FieldException | StatusException e) {
+        } catch (IOException | InputException | FieldException | StatusException|DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -151,24 +151,24 @@ public class CommunicationInstance extends Thread implements Communication {
     @Override
     public void ready() throws CommunicationException {
         try {
-            if (ENEMY_BOARD.getStatus() == GameStatus.PREPARATION) {
-                ENEMY_BOARD.setStatus(GameStatus.READY);
+            if (ENEMY_BOARD.getGameStatus() == GameStatus.PREPARATION) {
+                ENEMY_BOARD.setGameStatus(GameStatus.READY);
             } else throw new CommunicationException();
-            if (ENEMY_BOARD.getStatus() == GameStatus.READY
-                    && PLAYER_BOARD.getStatus() == GameStatus.READY
+            if (ENEMY_BOARD.getGameStatus() == GameStatus.READY
+                    && PLAYER_BOARD.getGameStatus() == GameStatus.READY
                     && CONNECTION.isServer()) {
                 int randomStart = ThreadLocalRandom.current().nextInt(0, 1 + 1);
                 if (randomStart == 0) {
-                    ENEMY_BOARD.setStatus(GameStatus.ATTACK);
-                    PLAYER_BOARD.setStatus(GameStatus.RECEIVE);
+                    ENEMY_BOARD.setGameStatus(GameStatus.ATTACK);
+                    PLAYER_BOARD.setGameStatus(GameStatus.RECEIVE);
                     OUTPUT.writeUTF("attack");
                 } else {
-                    ENEMY_BOARD.setStatus(GameStatus.RECEIVE);
-                    PLAYER_BOARD.setStatus(GameStatus.ATTACK);
+                    ENEMY_BOARD.setGameStatus(GameStatus.RECEIVE);
+                    PLAYER_BOARD.setGameStatus(GameStatus.ATTACK);
                     OUTPUT.writeUTF("receive");
                 }
             }
-        } catch (StatusException | IOException e) {
+        } catch (StatusException | IOException|DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -176,11 +176,11 @@ public class CommunicationInstance extends Thread implements Communication {
     @Override
     public void revoke() throws CommunicationException {
         try {
-            if (PLAYER_BOARD.getStatus() == GameStatus.PREPARATION
-                    && ENEMY_BOARD.getStatus() == GameStatus.READY) {
-                ENEMY_BOARD.setStatus(GameStatus.PREPARATION);
+            if (PLAYER_BOARD.getGameStatus() == GameStatus.PREPARATION
+                    && ENEMY_BOARD.getGameStatus() == GameStatus.READY) {
+                ENEMY_BOARD.setGameStatus(GameStatus.PREPARATION);
             } else throw new CommunicationException();
-        } catch (StatusException e) {
+        } catch (StatusException|DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -188,12 +188,12 @@ public class CommunicationInstance extends Thread implements Communication {
     @Override
     public void receive() throws CommunicationException {
         try {
-            if (PLAYER_BOARD.getStatus() == GameStatus.READY
-                    && ENEMY_BOARD.getStatus() == GameStatus.READY) {
-                PLAYER_BOARD.setStatus(GameStatus.RECEIVE);
-                ENEMY_BOARD.setStatus(GameStatus.ATTACK);
+            if (PLAYER_BOARD.getGameStatus() == GameStatus.READY
+                    && ENEMY_BOARD.getGameStatus() == GameStatus.READY) {
+                PLAYER_BOARD.setGameStatus(GameStatus.RECEIVE);
+                ENEMY_BOARD.setGameStatus(GameStatus.ATTACK);
             } else throw new CommunicationException();
-        } catch (StatusException e) {
+        } catch (StatusException |DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -201,12 +201,12 @@ public class CommunicationInstance extends Thread implements Communication {
     @Override
     public void attack() throws CommunicationException {
         try {
-            if (PLAYER_BOARD.getStatus() == GameStatus.READY
-                    && ENEMY_BOARD.getStatus() == GameStatus.READY) {
-                PLAYER_BOARD.setStatus(GameStatus.ATTACK);
-                ENEMY_BOARD.setStatus(GameStatus.RECEIVE);
+            if (PLAYER_BOARD.getGameStatus() == GameStatus.READY
+                    && ENEMY_BOARD.getGameStatus() == GameStatus.READY) {
+                PLAYER_BOARD.setGameStatus(GameStatus.ATTACK);
+                ENEMY_BOARD.setGameStatus(GameStatus.RECEIVE);
             } else throw new CommunicationException();
-        } catch (StatusException e) {
+        } catch (StatusException|DisplayException e) {
             throw new CommunicationException();
         }
     }

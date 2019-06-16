@@ -2,6 +2,7 @@ package tests.ComInstance;
 
 import gameModules.*;
 import input.Input;
+import output.Notifiable;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -13,8 +14,7 @@ public class ComInstanceClient {
             String serverIP="127.0.0.1";
             CommunicationInstance comInstance = new CommunicationInstance( serverIP,12345);
             comInstance.start();
-            DisplayInstance d=new DisplayInstance();
-            d.start();
+            Notifiable.update();
             Input i=new Input();
             //noinspection InfiniteLoopStatement
             for (; ; ) {

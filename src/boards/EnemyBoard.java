@@ -32,22 +32,21 @@ public interface EnemyBoard extends Board {
     /**
      * Method for receiving an attack
      * @param coordinate The coordinates of the field that is getting attacked
-     * @return The status of the field after getting attacked
      * @throws FieldException If there is no field with the given coordinates
      */
-    void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException;
+    void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException,DisplayException;
 
     /**
      * Method for setting a game-status for the board
      * @param status The status the board should take on
      * @throws StatusException if it is attempted to set a null status
      */
-    void setStatus(GameStatus status) throws StatusException;
+    void setGameStatus(GameStatus status) throws StatusException, DisplayException;
 
     /**
      * Method for receiving the game-status of the board
      * @return Game-status of the board
      * @throws StatusException If an null status is attempted to be set
      */
-    GameStatus getStatus() throws StatusException;
+    GameStatus getGameStatus() throws StatusException;
 }

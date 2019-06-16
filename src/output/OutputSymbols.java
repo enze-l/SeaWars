@@ -16,7 +16,7 @@ public class OutputSymbols {
      * @param fieldStatus status of which the corresponding symbols is asked for
      * @return corresponding representation as a char
      */
-    public static char getSymbol(FieldStatus fieldStatus) {
+    static char getSymbol(FieldStatus fieldStatus) {
         char fieldSymbol;
         switch (fieldStatus) {
             case WATER:
@@ -41,7 +41,7 @@ public class OutputSymbols {
         return fieldSymbol;
     }
 
-    public static char getMiniSymbol(FieldStatus fieldStatus){
+    static char getMiniSymbol(FieldStatus fieldStatus){
         char fieldSymbol;
         switch (fieldStatus) {
             case SHIP:
@@ -67,7 +67,7 @@ public class OutputSymbols {
      * @param number of which the corresponding letter is asked for
      * @return char that corresponds with the given number
      */
-    public static char getAlphabet(int number)throws InputException {
+    static char getAlphabet(int number)throws InputException {
         if (number<0||number>25)throw new InputException("Not an Letter");
         return (char)(number+64);
     }
@@ -80,7 +80,7 @@ public class OutputSymbols {
         return character-64;
     }
 
-    public static char fieldBoarder(BoarderPiece piece, GameStatus status) {
+    static char fieldBoarder(BoarderPiece piece, GameStatus status) {
         char symbol = 'x';
         switch (status) {
             case ATTACK:

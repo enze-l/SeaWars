@@ -12,8 +12,6 @@ import boards.ships.ShipType;
 public class ThreadTest {
     public static void main(String[] args) {
         PlayerBoard playerBoard=GameInstance.getPlayerBoard();
-        DisplayInstance d = new DisplayInstance();
-        d.start();
         try {
             Thread.sleep(100);
             playerBoard.setShip(ShipType.DESTROYER, new CoordinateImpl(1, 1), Orientation.VERTICAL);
@@ -23,6 +21,5 @@ public class ThreadTest {
         }catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
-        d.close();
     }
 }

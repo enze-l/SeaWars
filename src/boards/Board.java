@@ -34,12 +34,12 @@ public interface Board {
      * @param status The status the board should take on
      * @throws StatusException if it is attempted to set a null status
      */
-    void setStatus(GameStatus status) throws StatusException;
+    void setGameStatus(GameStatus status) throws StatusException, DisplayException;
 
     /**
      * Method for receiving the game-status of the board
      * @return Game-status of the board
      * @throws StatusException If an null status is attempted to be set
      */
-    GameStatus getStatus() throws StatusException;
+    GameStatus getGameStatus() throws StatusException;
 }

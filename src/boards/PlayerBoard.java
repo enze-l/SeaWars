@@ -15,14 +15,14 @@ public interface PlayerBoard extends Board{
      * @return returns the Status of the Field
      * @throws StatusException when no Status has been set
      */
-    GameStatus getStatus() throws StatusException;
+    GameStatus getGameStatus() throws StatusException;
 
     /**
      * Sets the status of the Field
      *
      * @throws StatusException if an null Status is attempted to be set
      */
-    void setStatus(GameStatus status) throws StatusException;
+    void setGameStatus(GameStatus status) throws StatusException, DisplayException;
 
     /**
      * Player positions ship on board
@@ -34,7 +34,7 @@ public interface PlayerBoard extends Board{
      * @throws FieldException if it is attempted to set a ship on non-existent Field or other Ship
      * @throws ShipException  if ths ship has already been set
      */
-    void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException;
+    void setShip(ShipType shipType, Coordinate coordinate, Orientation orientation) throws FieldException, ShipException, DisplayException;
 
     /**
      * removes ship that was already placed
@@ -43,7 +43,7 @@ public interface PlayerBoard extends Board{
      * @throws ShipException  if no ship resides on the field of the coordinates
      * @throws FieldException if an attempt is made to remove an ship outside of the board
      */
-    void removeShip(Coordinate coordinates) throws FieldException, ShipException;
+    void removeShip(Coordinate coordinates) throws FieldException, ShipException, DisplayException;
 
     /**
      * longest (lenght 5) comes first and least long (length 2) last. At Start of game the amount of ships should be
@@ -65,7 +65,7 @@ public interface PlayerBoard extends Board{
      * @return Opponent Move is received and Result of shot is given back
      * @throws FieldException if Coordinate doesn't correspond to an actual field
      */
-    FieldStatus receiveAttack(Coordinate coordinate) throws FieldException;
+    FieldStatus receiveAttack(Coordinate coordinate) throws FieldException, DisplayException;
 
     /**
      * @param coordinate Coordinates of the field of which the status is requested

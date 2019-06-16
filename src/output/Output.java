@@ -3,25 +3,23 @@ package output;
 import boards.*;
 import boards.fields.*;
 import boards.ships.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Arrays;
 import exceptions.*;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class Output {
+public class Output implements Notifiable{
     private static int STANDARD_HALF_SIZE=28;
 
     public static void output(PlayerBoard ownBoard, EnemyBoard enemyBoard) throws StatusException,InputException, IOException {
         StringBuilder output=new StringBuilder();
         //Buffer
         BufferedReader ownBoardBuffer =
-                new BufferedReader(new StringReader(toStringBoard(ownBoard.getFields(), ownBoard.getStatus())));
+                new BufferedReader(new StringReader(toStringBoard(ownBoard.getFields(), ownBoard.getGameStatus())));
         BufferedReader enemyBoardBuffer=
-                new BufferedReader(new StringReader(toStringBoard(enemyBoard.getFields(), enemyBoard.getStatus())));
+                new BufferedReader(new StringReader(toStringBoard(enemyBoard.getFields(), enemyBoard.getGameStatus())));
         BufferedReader compassBuffer=
                 new BufferedReader(new StringReader(compass()));
         BufferedReader ownShipsBuffer =
@@ -54,7 +52,7 @@ public class Output {
             split = ownBoardBuffer.readLine();
         } while (split != null);
         output.append(lDivider())
-                .append(toStringCommands(ownBoard.getStatus(), ownBoard.shipsAvailable()))
+                .append(toStringCommands(ownBoard.getGameStatus(), ownBoard.shipsAvailable()))
                 .append(": ");
         System.out.print(output.toString());
     }
