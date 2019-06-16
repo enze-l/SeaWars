@@ -1,8 +1,6 @@
 import gameModules.*;
 import input.*;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 /**
  * @author s0568823 - Leon Enzenberger
  */

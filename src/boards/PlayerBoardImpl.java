@@ -166,7 +166,7 @@ public class PlayerBoardImpl implements PlayerBoard {
     }
 
     /**
-     * Methode for receiving a hit. Gives back the result
+     * Method for receiving a hit. Gives back the result
      *
      * @param coordinate array with the x and y coordinate of shot
      * @return result of ship (hitwater, hit, sunk)

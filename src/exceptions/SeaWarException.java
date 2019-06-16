@@ -1,15 +1,15 @@
 package exceptions;
 
 public class SeaWarException extends Exception {
-    public SeaWarException(){
+    SeaWarException(){
         super();
     }
 
-    public SeaWarException(String message){
+    SeaWarException(String message){
         super(message);
     }
 
-    public SeaWarException(String message, Exception e){
+    SeaWarException(String message, Exception e){
         super(message, e);
     }
 }
