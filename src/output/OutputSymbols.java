@@ -8,6 +8,8 @@ import exceptions.*;
  * @author s0568823 - Leon Enzenberger
  */
 public class OutputSymbols {
+    private OutputSymbols(){}
+
     static boolean even = false;
 
     /**
@@ -152,4 +154,11 @@ public class OutputSymbols {
         return symbol;
     }
 
+    public static boolean isOutputSymbol(int xCoordinate){
+        return xCoordinate<=10&&xCoordinate>0;
+    }
+
+    public static boolean isOutputSymbol(char yCoordinate)throws InputException{
+        return getNumber(yCoordinate)>0&&getNumber(yCoordinate)<=10;
+    }
 }

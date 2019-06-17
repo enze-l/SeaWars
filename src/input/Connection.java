@@ -1,5 +1,7 @@
 package input;
 
+import output.Display;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -47,7 +49,7 @@ public class Connection extends Thread {
                 this.socket = getClientSocket();
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            Display.displayMessage(e.getMessage());
             this.fatalError = true;
         }
     }
@@ -59,24 +61,6 @@ public class Connection extends Thread {
     public void close() throws IOException {
         if (this.socket != null) {
             this.socket.close();
-        }
-    }
-
-    public void waitForConnection() throws IOException {
-        if (!this.threadRunning) {
-            try {
-                Thread.sleep(WAIT_SECOND);
-            } catch (InterruptedException ignored) { }
-            if (!this.threadRunning) {
-                throw new IOException("Connection not initialized!");
-            }
-        }
-        while (!this.fatalError && this.socket == null) {
-            try {
-                Thread.sleep(WAIT_SECOND);
-            } catch (InterruptedException ex) {
-                // ignore
-            }
         }
     }
 

@@ -10,22 +10,54 @@ import exceptions.*;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class Output implements Notifiable{
-    private static int STANDARD_HALF_SIZE=28;
+public class Output{
+    private final PlayerBoard playerBoard;
+    private final EnemyBoard enemyBoard;
+    private int STANDARD_HALF_SIZE=28;
 
-    public static void output(PlayerBoard ownBoard, EnemyBoard enemyBoard) throws StatusException,InputException, IOException {
+    public Output(PlayerBoard playerBoard, EnemyBoard enemyBoard){
+        this.playerBoard=playerBoard;
+        this.enemyBoard=enemyBoard;
+    }
+
+    public void output() throws StatusException,InputException, IOException {
+        System.out.print(getOutputString());
+    }
+
+    public void output(String message) throws StatusException,InputException, IOException{
+        StringBuilder output=new StringBuilder();
+        BufferedReader game=new BufferedReader(new StringReader(getOutputString()));
+        for(int upperPart=11; upperPart>0;upperPart--) {
+            output.append(game.readLine()).append(System.lineSeparator());
+        }
+        output.append(doubleDivider()).append(System.lineSeparator());
+        output.append(message).append(System.lineSeparator()).append(System.lineSeparator());
+        output.append(doubleDivider());
+        game.readLine();
+        game.readLine();
+        game.readLine();
+        game.readLine();
+        game.readLine();
+        for(int lowerPart=10; lowerPart>0;lowerPart--) {
+            output.append(game.readLine()).append(System.lineSeparator());
+        }
+        output.append(game.readLine());
+        System.out.print(output.toString());
+    }
+
+    private String getOutputString()throws StatusException, InputException, IOException{
         StringBuilder output=new StringBuilder();
         //Buffer
-        BufferedReader ownBoardBuffer =
-                new BufferedReader(new StringReader(toStringBoard(ownBoard.getFields(), ownBoard.getGameStatus())));
+        BufferedReader playerBoardBuffer =
+                new BufferedReader(new StringReader(toStringBoard(playerBoard.getFields(), playerBoard.getGameStatus())));
         BufferedReader enemyBoardBuffer=
                 new BufferedReader(new StringReader(toStringBoard(enemyBoard.getFields(), enemyBoard.getGameStatus())));
         BufferedReader compassBuffer=
                 new BufferedReader(new StringReader(compass()));
         BufferedReader ownShipsBuffer =
-                new BufferedReader(new StringReader(toStringOwnShips(ownBoard)));
+                new BufferedReader(new StringReader(toStringOwnShips()));
         BufferedReader enemyShipsBuffer=
-                new BufferedReader(new StringReader(toStringEnemyShips(enemyBoard)));
+                new BufferedReader(new StringReader(toStringEnemyShips()));
         output.append(System.lineSeparator());
         //Headline
         output.append(toLeft(playerHeadline()))
@@ -43,21 +75,21 @@ public class Output implements Notifiable{
         //Divider
         output.append(tDivider());
         //Boards
-        String split = ownBoardBuffer.readLine();
+        String split = playerBoardBuffer.readLine();
         do { output.append(split)
                 .append(iDivider())
                 .append(" ")
                 .append(enemyBoardBuffer.readLine())
                 .append(System.lineSeparator());
-            split = ownBoardBuffer.readLine();
+            split = playerBoardBuffer.readLine();
         } while (split != null);
         output.append(lDivider())
-                .append(toStringCommands(ownBoard.getGameStatus(), ownBoard.shipsAvailable()))
+                .append(toStringCommands(playerBoard.getGameStatus(), playerBoard.shipsAvailable()))
                 .append(": ");
-        System.out.print(output.toString());
+        return output.toString();
     }
 
-    private static String toStringEnemyShips(EnemyBoard enemyBoard) {
+    private String toStringEnemyShips() {
         return  toStringBattleship(enemyBoard)+" B" +
                 System.lineSeparator() +
                 toStringCruiserRight(enemyBoard)+" C" +
@@ -68,15 +100,15 @@ public class Output implements Notifiable{
                 System.lineSeparator();
     }
 
-    private static String enemyHeadline() {
+    private String enemyHeadline() {
         return "─────────────── Enemy ─";
     }
 
-    private static String playerHeadline() {
+    private String playerHeadline() {
         return "─ Player ──────────────";
     }
 
-    private static String compass() {
+    private String compass() {
         return "N\n" +
                 "↑\n"+
                 "W ←   → E\n"+
@@ -87,7 +119,7 @@ public class Output implements Notifiable{
     /**
      * Displays given Board in the console-view
      */
-    private static String toStringBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException {
+    private String toStringBoard(FieldStatus[][] fields, GameStatus gameStatus) throws InputException {
         StringBuilder board = new StringBuilder();
         board.append(toMiddle(toStringNumbers(fields.length)))
                 .append(System.lineSeparator());
@@ -104,7 +136,7 @@ public class Output implements Notifiable{
         return board.toString();
     }
 
-    private static String toStringNumbers(int length){
+    private String toStringNumbers(int length){
         StringBuilder numbers=new StringBuilder();
         for (int number = 1; number <= length; number++) {
             numbers.append(" ").append(number);
@@ -112,7 +144,7 @@ public class Output implements Notifiable{
         return numbers.toString();
     }
 
-    private static String toStringRow(FieldStatus[][] fields, GameStatus gameStatus, int row)throws InputException{
+    private String toStringRow(FieldStatus[][] fields, GameStatus gameStatus, int row)throws InputException{
         StringBuilder rowString=new StringBuilder();
         rowString.append(OutputSymbols.getAlphabet(row + 1))
                 .append(" ")
@@ -131,7 +163,7 @@ public class Output implements Notifiable{
 
 
 
-    private static String verticalBoarder(int length, GameStatus gameStatus, boolean up){
+    private String verticalBoarder(int length, GameStatus gameStatus, boolean up){
         StringBuilder boarder=new StringBuilder();
         BoarderPiece left=BoarderPiece.UPPER_LEFT, right=BoarderPiece.UPPER_RIGHT;
         if (!up){
@@ -147,29 +179,29 @@ public class Output implements Notifiable{
         return boarder.toString();
     }
 
-    private static String toStringOwnShips(PlayerBoard board) {
-        return  "B " + toStringBattleship(board) +
+    private String toStringOwnShips() {
+        return  "B " + toStringBattleship(playerBoard) +
                 System.lineSeparator() +
-                "C " + toStringCruiserLeft(board) +
+                "C " + toStringCruiserLeft(playerBoard) +
                 System.lineSeparator() +
-                "S " + toStringSubmarineLeft(board) +
+                "S " + toStringSubmarineLeft(playerBoard) +
                 System.lineSeparator() +
-                "D " + toStringDestroyerLeft(board) +
+                "D " + toStringDestroyerLeft(playerBoard) +
                 System.lineSeparator();
     }
 
     /**
      * Displays the commands that are available at the moment
      */
-    private static String toStringCommands(GameStatus gameStatus, int[] shipsAvailable) {
+    private String toStringCommands(GameStatus gameStatus, int[] shipsAvailable) {
         StringBuilder commands=new StringBuilder();
         switch (gameStatus){
             case PREPARATION:
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
-                        .append("˅ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)")
+                        .append("▼ set (B/C/S/D) (A-J) (1-10) (N/E/S/W)")
                         .append(System.lineSeparator())
-                        .append("˄ remove (A-J) (1-10)")
+                        .append("∆ remove (A-J) (1-10)")
                         .append(System.lineSeparator());
                 if (Arrays.equals(shipsAvailable, new int[]{0, 0, 0, 0})) {
                     commands.append("► ready")
@@ -188,7 +220,7 @@ public class Output implements Notifiable{
             case ATTACK:
                 commands.append("≡ legend")
                         .append(System.lineSeparator())
-                        .append("☼ shoot (A-J) (1-10)")
+                        .append("● shoot (A-J) (1-10)")
                         .append(System.lineSeparator())
                         .append(System.lineSeparator())
                         .append(System.lineSeparator());
@@ -212,62 +244,62 @@ public class Output implements Notifiable{
        return commands.toString();
     }
 
-    private static String standardDivider(){
+    private String standardDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"─"+divider.toString()+System.lineSeparator();
     }
 
-    private static String xDivider(){
+    private String doubleDivider(){
         StringBuilder divider=new StringBuilder();
-        divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
-        return divider.toString()+"┼"+divider.toString()+System.lineSeparator();
+        divider.append("═".repeat(Math.max(0, STANDARD_HALF_SIZE)));
+        return divider.toString()+"═"+divider.toString()+System.lineSeparator();
     }
 
-    private static String tDivider(){
+    private String tDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"┬"+divider.toString()+System.lineSeparator();
     }
 
-    private static String lDivider(){
+    private String lDivider(){
         StringBuilder divider=new StringBuilder();
         divider.append("─".repeat(Math.max(0, STANDARD_HALF_SIZE)));
         return divider.toString()+"┴"+divider.toString()+System.lineSeparator();
     }
 
-    private static char iDivider(){
+    private char iDivider(){
         return '│';
     }
 
-    private static String toLeft(String inputString){
+    private String toLeft(String inputString){
         return inputString +
                 " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length()));
     }
 
-    private static String toLeft(String inputString, int plusWhitespace){
+    private String toLeft(String inputString, int plusWhitespace){
         return inputString +
                 " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length() + plusWhitespace));
     }
 
-    private static String toRight(String inputString){
+    private String toRight(String inputString){
         return " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length())) +
                 inputString;
     }
 
-    private static String toRight(String inputString, int plusWhitespace){
+    private String toRight(String inputString, int plusWhitespace){
         return " ".repeat(Math.max(0, STANDARD_HALF_SIZE - inputString.length() + plusWhitespace)) +
                 inputString;
     }
 
-    private static String toMiddle(String inputString){
+    private String toMiddle(String inputString){
         String half=(" ".repeat(Math.max(0, (STANDARD_HALF_SIZE - inputString.length()) / 2)));
         String unevenCorrection="";
         if (inputString.length()%2==1) unevenCorrection=" ";
         return half+inputString+half+unevenCorrection;
     }
 
-    private static String toStringBattleship(Board board){
+    private String toStringBattleship(Board board){
         StringBuilder battleshipString=new StringBuilder();
         Ship[] ships = board.getShips();
         //Battleship
@@ -281,7 +313,7 @@ public class Output implements Notifiable{
         return battleshipString.toString();
     }
 
-    private static String toStringCruiserLeft(Board board){
+    private String toStringCruiserLeft(Board board){
         StringBuilder cruiserString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer=ShipInfo.getAmount(ShipType.CRUISER); destroyer>0; destroyer--){
@@ -295,7 +327,7 @@ public class Output implements Notifiable{
         return cruiserString.toString();
     }
 
-    private static String toStringCruiserRight(Board board){
+    private String toStringCruiserRight(Board board){
         StringBuilder cruiserString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer=ShipInfo.getAmount(ShipType.CRUISER); destroyer>0; destroyer--){
@@ -309,7 +341,7 @@ public class Output implements Notifiable{
         return cruiserString.toString();
     }
 
-    private static String toStringSubmarineLeft(Board board){
+    private String toStringSubmarineLeft(Board board){
         StringBuilder submarineString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer=ShipInfo.getAmount(ShipType.SUBMARINE); destroyer>0; destroyer--){
@@ -323,7 +355,7 @@ public class Output implements Notifiable{
         return submarineString.toString();
     }
 
-    private static String toStringSubmarineRight(Board board){
+    private String toStringSubmarineRight(Board board){
         StringBuilder submarineString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer=ShipInfo.getAmount(ShipType.SUBMARINE); destroyer>0; destroyer--){
@@ -337,7 +369,7 @@ public class Output implements Notifiable{
         return submarineString.toString();
     }
 
-    private static String toStringDestroyerLeft(Board board){
+    private String toStringDestroyerLeft(Board board){
         StringBuilder destroyerString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer = ShipInfo.getAmount(ShipType.DESTROYER); destroyer>0; destroyer--){
@@ -351,7 +383,7 @@ public class Output implements Notifiable{
         return destroyerString.toString();
     }
 
-    private static String toStringDestroyerRight(Board board){
+    private String toStringDestroyerRight(Board board){
         StringBuilder destroyerString=new StringBuilder();
         Ship[] ships = board.getShips();
         for (int destroyer=ShipInfo.getAmount(ShipType.DESTROYER); destroyer>0; destroyer--){

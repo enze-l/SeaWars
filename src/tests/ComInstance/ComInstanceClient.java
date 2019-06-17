@@ -2,7 +2,7 @@ package tests.ComInstance;
 
 import gameModules.*;
 import input.Input;
-import output.Notifiable;
+import output.Display;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -14,18 +14,18 @@ public class ComInstanceClient {
             String serverIP="127.0.0.1";
             CommunicationInstance comInstance = new CommunicationInstance( serverIP,12345);
             comInstance.start();
-            Notifiable.update();
+            Display.update();
             Input i=new Input();
             //noinspection InfiniteLoopStatement
             for (; ; ) {
                 try {
                     i.command();
                 } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                    Display.displayMessage(e.getMessage());
                 }
             }
         }catch (Exception e){
-            System.err.println(e.getMessage());
+            Display.displayMessage(e.getMessage());
         }
     }
 }

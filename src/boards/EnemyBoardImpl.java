@@ -4,7 +4,7 @@ import boards.coordinates.*;
 import boards.fields.*;
 import exceptions.*;
 import boards.ships.*;
-import output.Notifiable;
+import output.Display;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -48,16 +48,24 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException, DisplayException {
+    public void setFieldStatus(Coordinate coordinate, FieldStatus fieldStatus) throws FieldException {
         if (!coordinate.validCoordinate()) throw new FieldException("There isn't a field with these coordinates!");
         else if(getFieldStatus(coordinate)!=FieldStatus.SUNK) {
             board[coordinate.getXCoordinate()][coordinate.getYCoordinate()] = fieldStatus;
             if (fieldStatus == FieldStatus.SUNK){
                 sinkShip(coordinate);
                 markShipSunk(coordinate);
+                if (allShipsSunk()) this.gameStatus=GameStatus.OVER;
             }
-            Notifiable.update();
+            Display.update();
         }
+    }
+
+    private boolean allShipsSunk(){
+        for (Ship ship : ships) {
+            if (ship.getSegmentStatus(1) != FieldStatus.SUNK) return false;
+        }
+        return true;
     }
 
     private void markShipSunk(Coordinate coordinate) {
@@ -125,10 +133,10 @@ public class EnemyBoardImpl implements EnemyBoard {
     }
 
     @Override
-    public void setGameStatus(GameStatus status) throws StatusException, DisplayException {
+    public void setGameStatus(GameStatus status) throws StatusException {
         if (this.gameStatus == GameStatus.OVER) throw new StatusException("Game is over!");
         this.gameStatus = status;
-        Notifiable.update();
+        Display.update();
     }
 
     @Override

@@ -2,6 +2,7 @@ package input;
 
 import boards.coordinates.*;
 import boards.*;
+import output.Output;
 import output.OutputSymbols;
 import boards.ships.*;
 import exceptions.*;
@@ -101,10 +102,13 @@ public class Input {
         if (playerBoard.getGameStatus() == GameStatus.ATTACK) {
             char yCoordinate = parameters[0].charAt(0);
             int xCoordinate = Integer.parseInt(parameters[1]);
-            CommunicationInstance.getOUTPUT().writeUTF("shoot");
-            CommunicationInstance.getOUTPUT().writeChar(yCoordinate);
-            CommunicationInstance.getOUTPUT().writeInt(xCoordinate);
-            CommunicationInstance.setLastShot(new CoordinateImpl(xCoordinate, OutputSymbols.getNumber(yCoordinate)));
+            if(OutputSymbols.isOutputSymbol(xCoordinate)&&
+            OutputSymbols.isOutputSymbol(yCoordinate)) {
+                CommunicationInstance.getOUTPUT().writeUTF("shoot");
+                CommunicationInstance.getOUTPUT().writeChar(yCoordinate);
+                CommunicationInstance.getOUTPUT().writeInt(xCoordinate);
+                CommunicationInstance.setLastShot(new CoordinateImpl(xCoordinate, OutputSymbols.getNumber(yCoordinate)));
+            }else throw new InputException("You have to shoot on a field inside the board!");
         } else throw new InputException("It is not your turn to shoot yet!");
     }
 

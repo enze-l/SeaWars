@@ -5,6 +5,7 @@ import boards.fields.*;
 import boards.coordinates.*;
 import exceptions.*;
 import input.*;
+import output.Display;
 import output.OutputSymbols;
 
 import java.io.*;
@@ -23,8 +24,7 @@ public class CommunicationInstance extends Thread implements Communication {
     private static Coordinate LAST_SHOT;
 
     @SuppressWarnings("unused")
-    private CommunicationInstance() {
-    }
+    private CommunicationInstance() { }
 
     public CommunicationInstance(int port) {
         IS_SERVER = true;
@@ -89,7 +89,7 @@ public class CommunicationInstance extends Thread implements Communication {
                 CONNECTION.close();
             } catch (IOException ignored) {
             }
-            System.out.println("Connection error!");
+            Display.displayMessage("Connection error!");
         }
     }
 

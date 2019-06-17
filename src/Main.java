@@ -1,5 +1,6 @@
 import gameModules.*;
 import input.*;
+import output.Display;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -13,7 +14,7 @@ public class Main {
             try {
                 input.command();
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                Display.displayMessage(e.getMessage());
             }
         }
     }
