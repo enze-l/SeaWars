@@ -59,7 +59,7 @@ class ShipSegment {
     /**
      * changes status of segment to "Sunk"
      */
-    void setSunk(){
+    void setSegmentSunk(){
         this.status=FieldStatus.SUNK;
     }
 }
