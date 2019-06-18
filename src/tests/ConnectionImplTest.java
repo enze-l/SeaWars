@@ -1,4 +1,4 @@
-package tests.ClientServerTest;
+package tests;
 
 import input.*;
 import org.junit.Assert;

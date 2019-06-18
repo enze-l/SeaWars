@@ -8,7 +8,7 @@ import gameModules.Display;
  */
 public class ServerPrototype {
     public static void main(String[] args) {
-        GameInstance.newGame();
+        Game.newGame();
         try {
             CommunicationInstance comInstance = new CommunicationInstance(12345);
             comInstance.start();

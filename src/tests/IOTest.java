@@ -21,7 +21,7 @@ public class IOTest {
 
     @Test
     public void setShip() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1 s\n".getBytes());
@@ -31,14 +31,14 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(FieldStatus.SETSHIP, GameInstance.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
+            Assert.assertEquals(FieldStatus.SETSHIP, Game.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
         } catch (FieldException ignored) {
         }
     }
 
     @Test
     public void setShipWithMoreWhiteSpace() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream(" set c a  1 s\n".getBytes());
@@ -48,7 +48,7 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(FieldStatus.SETSHIP, GameInstance.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
+            Assert.assertEquals(FieldStatus.SETSHIP, Game.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
         } catch (FieldException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void setShipTooMuchArguments() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream((" set c a 1 s n\n").getBytes());
@@ -69,7 +69,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void setShipNoSpacing() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("setca1s\n".getBytes());
@@ -82,7 +82,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void setShipToFewCommands() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1\n".getBytes());
@@ -95,7 +95,7 @@ public class IOTest {
 
     @Test(expected = FieldException.class)
     public void setShipOutside() throws FieldException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c i 1 s\n".getBytes());
@@ -111,7 +111,7 @@ public class IOTest {
      */
     @Test
     public void setBattleshipHorizontal() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         Coordinate coordinate0 = new CoordinateImpl(1, 2);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
@@ -128,13 +128,13 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertTrue(GameInstance.getPlayerBoard().getFieldStatus(coordinate0) == FieldStatus.WATER
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate1) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate2) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate3) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate4) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate5) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate6) == FieldStatus.WATER
+            Assert.assertTrue(Game.getPlayerBoard().getFieldStatus(coordinate0) == FieldStatus.WATER
+                            && Game.getPlayerBoard().getFieldStatus(coordinate1) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate2) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate3) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate4) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate5) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate6) == FieldStatus.WATER
             );
         } catch (FieldException e) {
             System.err.println(e.getMessage());
@@ -143,7 +143,7 @@ public class IOTest {
 
     @Test
     public void setDestroyerVertically() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         Coordinate coordinate0 = new CoordinateImpl(2, 1);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
@@ -157,10 +157,10 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertTrue(GameInstance.getPlayerBoard().getFieldStatus(coordinate0) == FieldStatus.WATER
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate1) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate2) == FieldStatus.SETSHIP
-                            && GameInstance.getPlayerBoard().getFieldStatus(coordinate3) == FieldStatus.WATER
+            Assert.assertTrue(Game.getPlayerBoard().getFieldStatus(coordinate0) == FieldStatus.WATER
+                            && Game.getPlayerBoard().getFieldStatus(coordinate1) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate2) == FieldStatus.SETSHIP
+                            && Game.getPlayerBoard().getFieldStatus(coordinate3) == FieldStatus.WATER
             );
         } catch (FieldException e) {
             System.err.println(e.getMessage());
@@ -169,7 +169,7 @@ public class IOTest {
 
     @Test
     public void allShipsSet() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
@@ -197,13 +197,13 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         int[] expected = {0, 0, 0, 0};
-        int[] actual = GameInstance.getPlayerBoard().shipsAvailable();
+        int[] actual = Game.getPlayerBoard().shipsAvailable();
         Assert.assertArrayEquals(expected, actual);
     }
 
     @Test(expected = ShipException.class)
     public void tooMuchShips() throws ShipException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
@@ -242,7 +242,7 @@ public class IOTest {
 
     @Test
     public void removeShip() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
@@ -262,14 +262,14 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(FieldStatus.WATER, GameInstance.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
+            Assert.assertEquals(FieldStatus.WATER, Game.getPlayerBoard().getFieldStatus(new CoordinateImpl(1, 1)));
         } catch (FieldException ignored) {
         }
     }
 
     @Test(expected = InputException.class)
     public void removeShipToFewArguments() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
@@ -287,7 +287,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void removeShipToMuchArguments() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
@@ -305,7 +305,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void removeShipWrongInformation() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
@@ -323,7 +323,7 @@ public class IOTest {
 
     @Test(expected = InputException.class)
     public void giberish() throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "asdf b a 1 e\n");
@@ -340,7 +340,7 @@ public class IOTest {
 
     @Test
     public void getReady() {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
@@ -369,13 +369,13 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.READY);
+            Assert.assertEquals(Game.getPlayerBoard().getGameStatus(), GameStatus.READY);
         }catch (StatusException ignored){}
     }
 
     @Test (expected = InputException.class)
     public void toEarlyReady()throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
@@ -403,14 +403,14 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.READY);
+            Assert.assertEquals(Game.getPlayerBoard().getGameStatus(), GameStatus.READY);
         }catch (StatusException ignored){}
     }
 
     //doesn't work without connected board anymore
 //    @Test
 //    public void revokeReady() {
-//        GameInstance.newGame();
+//        Game.newGame();
 //        InputImpl i=new InputImpl();
 //        try {
 //            StringReader input = new StringReader(
@@ -440,13 +440,13 @@ public class IOTest {
 //            System.out.println(e.getLocalizedMessage());
 //        }
 //        try {
-//            Assert.assertEquals(GameStatus.PREPARATION, GameInstance.getPlayerBoard().getGameStatus());
+//            Assert.assertEquals(GameStatus.PREPARATION, Game.getPlayerBoard().getGameStatus());
 //        }catch (StatusException ignored){}
 //    }
 
     @Test (expected = InputException.class)
     public void revokeWithoutReady()throws InputException {
-        GameInstance.newGame();
+        Game.newGame();
         InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
@@ -474,7 +474,7 @@ public class IOTest {
             System.out.println(e.getLocalizedMessage());
         }
         try {
-            Assert.assertEquals(GameInstance.getPlayerBoard().getGameStatus(), GameStatus.PREPARATION);
+            Assert.assertEquals(Game.getPlayerBoard().getGameStatus(), GameStatus.PREPARATION);
         }catch (StatusException ignored){}
     }
 

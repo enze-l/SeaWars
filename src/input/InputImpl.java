@@ -19,8 +19,8 @@ public class InputImpl implements Input{
     private EnemyBoard enemyBoard;
 
     public InputImpl() {
-        this.playerBoard = GameInstance.getPlayerBoard();
-        this.enemyBoard = GameInstance.getEnemyBoard();
+        this.playerBoard = Game.getPlayerBoard();
+        this.enemyBoard = Game.getEnemyBoard();
     }
 
     public void command()

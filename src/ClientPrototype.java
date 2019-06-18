@@ -8,7 +8,7 @@ import gameModules.Display;
  */
 public class ClientPrototype {
     public static void main(String[] args) {
-        GameInstance.newGame();
+        Game.newGame();
         try {
             String serverIP="127.0.0.1";
             CommunicationInstance comInstance = new CommunicationInstance( serverIP,12345);

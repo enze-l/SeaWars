@@ -6,11 +6,11 @@ import output.OutputImpl;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class GameInstance {
+public class Game {
     private static PlayerBoard PLAYER_BOARD = new PlayerBoardImpl();
     private static EnemyBoard ENEMY_BOARD = new EnemyBoardImpl();
 
-    private GameInstance(){}
+    private Game(){}
 
     /**
      * creates new game

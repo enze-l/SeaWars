@@ -2,33 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="866ed6bd-39f9-4ff8-965f-f4659481f608" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/input/ConnectionImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/input/InputImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/output/OutputImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/EnemyBoardImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/PlayerBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/PlayerBoardImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/PlayerBoardImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boards/coordinates/Coordinate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boards/coordinates/Coordinate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameModules/CommunicationInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/CommunicationInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameModules/GameInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameModules/GameInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input/Communication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Communication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/Input.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameModules/Display.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/Output.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/Output.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/OutputSymbols.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/OutputSymbols.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ClientServerTest/ConnectionImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ClientServerTest/ServerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ComInstance/ComInstanceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientPrototype.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ComInstance/ComInstanceServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerPrototype.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientPrototype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientPrototype.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerPrototype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerPrototype.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameModules/GameInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameModules/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/input/CommunicationInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/CommunicationInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/input/InputImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/input/InputImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testData/Notes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ConnectionImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ConnectionImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/ClientServerTest/ServerTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/IOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/IOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/PlayerBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/PlayerBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ThreadTest.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,121 +28,94 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.73433363">
-      <split-first>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/output/BoarderPiece.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="56">
-                  <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/gameModules/Display.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/output/OutputSymbols.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1030">
-                  <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/ClientPrototype.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="112">
-                  <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/tests/PlayerBoardTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="154">
-                  <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/ServerPrototype.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="112">
-                  <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/tests/IOTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-5986">
-                  <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/output/OutputImpl.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="89" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/output/Output.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="308">
-                  <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/IOTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/PlayerBoardTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="117" column="5" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gameModules/Display.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#293#294#0" expanded="true" />
+                <element signature="e#330#331#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/ConnectionImplTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding>
+                <element signature="e#250#296#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPrototype.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ServerPrototype.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/output/OutputImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="89" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -182,9 +139,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/boards/coordinates/CoordinateImpl.java" />
-        <option value="$PROJECT_DIR$/src/boards/ships/Submarine.java" />
-        <option value="$PROJECT_DIR$/src/boards/ships/ShipSegment.java" />
         <option value="$PROJECT_DIR$/src/boards/ships/ShipInfo.java" />
         <option value="$PROJECT_DIR$/src/boards/ships/Destroyer.java" />
         <option value="$PROJECT_DIR$/src/boards/ships/Battleship.java" />
@@ -229,10 +183,13 @@
         <option value="$PROJECT_DIR$/src/input/Input.java" />
         <option value="$PROJECT_DIR$/src/output/OutputImpl.java" />
         <option value="$PROJECT_DIR$/src/output/Output.java" />
-        <option value="$PROJECT_DIR$/src/gameModules/Display.java" />
         <option value="$PROJECT_DIR$/src/ComInstanceClient.java" />
         <option value="$PROJECT_DIR$/src/ClientPrototype.java" />
         <option value="$PROJECT_DIR$/src/tests/PlayerBoardTest.java" />
+        <option value="$PROJECT_DIR$/src/gameModules/Display.java" />
+        <option value="$PROJECT_DIR$/src/tests/ClientServerTest/ConnectionImplTest.java" />
+        <option value="$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java" />
+        <option value="$PROJECT_DIR$/src/tests/ConnectionImplTest.java" />
       </list>
     </option>
   </component>
@@ -263,12 +220,6 @@
               <item name="schiffeversenken" type="b2602c69:ProjectViewProjectNode" />
               <item name="SeaWars" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="schiffeversenken" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SeaWars" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -322,7 +273,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PlayerBoardTest">
+  <component name="RunManager" selected="Application.ServerPrototype">
     <configuration name="ClientPrototype" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ClientPrototype" />
       <module name="Programmieren" />
@@ -397,11 +348,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ServerPrototype" />
+        <item itemvalue="Application.ClientPrototype" />
         <item itemvalue="JUnit.PlayerBoardTest" />
         <item itemvalue="JUnit.PlayerBoardTest.registerHit" />
         <item itemvalue="JUnit.IOTest" />
-        <item itemvalue="Application.ServerPrototype" />
-        <item itemvalue="Application.ClientPrototype" />
       </list>
     </recent_temporary>
   </component>
@@ -415,13 +366,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1554990684819</updated>
-    </task>
-    <task id="LOCAL-00012" summary="jdoc and small bug-fixes">
-      <created>1557089368429</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1557089368429</updated>
     </task>
     <task id="LOCAL-00013" summary="added some test to got into the registerHit bug. Smaller ships are set and register as set as well. Added a test for edge case &quot;setShipNearBoarder&quot; that works as expected too.&#10;Bug seems to be in the way a hit is register since no ship is registered on the board anymore after a hit is received">
       <created>1557133573709</created>
@@ -759,13 +703,17 @@
       <option name="project" value="LOCAL" />
       <updated>1560803378041</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="added Interfaces, Comments and restructured a little bit">
+      <created>1560873533372</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1560873533372</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="IOTest - 2019.06.17 at 15h 47m 20s.xml">
-      <configuration name="IOTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="IOTest_revokeWithoutReady - 2019.06.17 at 20h 29m 11s.xml">
       <configuration name="IOTest.revokeWithoutReady" configurationId="JUnit" />
     </history-entry>
@@ -793,6 +741,9 @@
     <history-entry file="PlayerBoardTest - 2019.06.18 at 17h 54m 14s.xml">
       <configuration name="PlayerBoardTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="PlayerBoardTest - 2019.06.18 at 17h 56m 02s.xml">
+      <configuration name="PlayerBoardTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -805,9 +756,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="1013" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4966216" visible="true" weight="0.22130585" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4966216" visible="true" weight="0.22130585" />
       <window_info id="Structure" order="1" sideWeight="0.5033784" side_tool="true" weight="0.17594501" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -816,7 +766,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295583" />
-      <window_info active="true" anchor="bottom" x="112" y="179" width="711" height="521" id="Run" order="2" visible="true" weight="0.405436" />
+      <window_info anchor="bottom" x="112" y="179" width="711" height="521" id="Run" order="2" visible="true" weight="0.405436" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5243488" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -916,7 +866,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove with command implemented" />
     <MESSAGE value="added Exceptions&#10;implemented compass" />
     <MESSAGE value="trying to redo formating universally" />
     <MESSAGE value="output split into more methods" />
@@ -941,7 +890,8 @@
     <MESSAGE value="cleaned up the code a little" />
     <MESSAGE value="ships get registered as sunk" />
     <MESSAGE value="change error display" />
-    <option name="LAST_COMMIT_MESSAGE" value="change error display" />
+    <MESSAGE value="added Interfaces, Comments and restructured a little bit" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Interfaces, Comments and restructured a little bit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -992,7 +942,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/input/Commands.java" />
     <entry file="file://$PROJECT_DIR$/src/exceptions/FieldException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
@@ -1117,16 +1066,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="47" lean-forward="true" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/testData/Notes">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1156,13 +1095,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/ClientServerTest/ConnectionImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1247,7 +1179,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameModules/GameInstance.java">
+    <entry file="file://$PROJECT_DIR$/src/gameModules/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
@@ -1379,10 +1311,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/IOTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/PlayerBoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="117" column="5" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameModules/Display.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#293#294#0" expanded="true" />
+            <element signature="e#330#331#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/ClientServerTest/ServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/ClientServerTest/ClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/ConnectionImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="e#250#296#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientPrototype.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
-          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1392,37 +1383,7 @@
     <entry file="file://$PROJECT_DIR$/src/ServerPrototype.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/IOTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5986">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameModules/Display.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/PlayerBoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

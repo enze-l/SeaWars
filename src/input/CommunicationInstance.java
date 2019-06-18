@@ -4,7 +4,7 @@ import boards.*;
 import boards.fields.*;
 import boards.coordinates.*;
 import exceptions.*;
-import gameModules.GameInstance;
+import gameModules.Game;
 import gameModules.Display;
 import output.OutputSymbols;
 
@@ -18,8 +18,8 @@ public class CommunicationInstance extends Thread implements Communication {
     private static ConnectionImpl CONNECTIONImpl;
     private static DataOutputStream OUTPUT;
     private static DataInputStream INPUT;
-    private static PlayerBoard PLAYER_BOARD = GameInstance.getPlayerBoard();
-    private static EnemyBoard ENEMY_BOARD = GameInstance.getEnemyBoard();
+    private static PlayerBoard PLAYER_BOARD = Game.getPlayerBoard();
+    private static EnemyBoard ENEMY_BOARD = Game.getEnemyBoard();
     private static boolean IS_SERVER;
     private static Coordinate LAST_SHOT;
 
