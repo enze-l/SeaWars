@@ -1,8 +1,7 @@
 package gameModules;
 
 import boards.*;
-import output.Display;
-import output.Output;
+import output.OutputImpl;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -13,10 +12,13 @@ public class GameInstance {
 
     private GameInstance(){}
 
+    /**
+     * creates new game
+     */
     public static void newGame() {
         PLAYER_BOARD = new PlayerBoardImpl();
         ENEMY_BOARD = new EnemyBoardImpl();
-        Output OUTPUT = new Output(PLAYER_BOARD, ENEMY_BOARD);
+        OutputImpl OUTPUT = new OutputImpl(PLAYER_BOARD, ENEMY_BOARD);
         Display.initialize(OUTPUT);
     }
 

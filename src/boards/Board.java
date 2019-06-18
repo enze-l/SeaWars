@@ -42,4 +42,9 @@ public interface Board {
      * @throws StatusException If an null status is attempted to be set
      */
     GameStatus getGameStatus() throws StatusException;
+
+    /**
+     * @return true if all ships have been sunk
+     */
+    boolean allShipsSunk();
 }

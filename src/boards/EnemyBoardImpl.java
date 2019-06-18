@@ -4,7 +4,7 @@ import boards.coordinates.*;
 import boards.fields.*;
 import exceptions.*;
 import boards.ships.*;
-import output.Display;
+import gameModules.Display;
 
 /**
  * @author s0568823 - Leon Enzenberger
@@ -55,13 +55,13 @@ public class EnemyBoardImpl implements EnemyBoard {
             if (fieldStatus == FieldStatus.SUNK){
                 sinkShip(coordinate);
                 markShipSunk(coordinate);
-                if (allShipsSunk()) this.gameStatus=GameStatus.OVER;
+                if (allShipsSunk()) this.gameStatus=GameStatus.LOST;
             }
             Display.update();
         }
     }
 
-    private boolean allShipsSunk(){
+    public boolean allShipsSunk(){
         for (Ship ship : ships) {
             if (ship.getSegmentStatus(1) != FieldStatus.SUNK) return false;
         }
@@ -134,7 +134,7 @@ public class EnemyBoardImpl implements EnemyBoard {
 
     @Override
     public void setGameStatus(GameStatus status) throws StatusException {
-        if (this.gameStatus == GameStatus.OVER) throw new StatusException("Game is over!");
+        if (this.gameStatus == GameStatus.LOST) throw new StatusException("You have lost the battle!");
         this.gameStatus = status;
         Display.update();
     }

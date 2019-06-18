@@ -1,6 +1,6 @@
 package tests.ClientServerTest;
 
-import input.Connection;
+import input.ConnectionImpl;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class ClientTest {
     public static void main(String[] args) {
-        Connection client = new Connection(12345, "127.0.0.1");
+        ConnectionImpl client = new ConnectionImpl(12345, "127.0.0.1");
         try {
             client.start();
             Thread.sleep(10000);

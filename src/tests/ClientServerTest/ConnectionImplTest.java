@@ -10,14 +10,15 @@ import java.net.UnknownHostException;
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class ConnectionTest {
+public class ConnectionImplTest {
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void connect(){
         String serverIP="127.0.0.1";
         int port=12345;
         try {
-            Connection server=new Connection(port);
-            Connection client=new Connection(port, serverIP);
+            ConnectionImpl server=new ConnectionImpl(port);
+            ConnectionImpl client=new ConnectionImpl(port, serverIP);
             server.start();
             client.start();
             Thread.sleep(1000);

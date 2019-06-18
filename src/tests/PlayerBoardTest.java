@@ -4,6 +4,7 @@ import boards.*;
 import boards.coordinates.*;
 import boards.fields.*;
 import boards.ships.*;
+import gameModules.GameInstance;
 import org.junit.Assert;
 import exceptions.*;
 import org.junit.Test;
@@ -15,7 +16,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void createBoard() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinateLeftUpper = new CoordinateImpl(1, 1);
         Coordinate coordinateRightUpper = new CoordinateImpl(10, 1);
         Coordinate coordinateLeftLower = new CoordinateImpl(1, 10);
@@ -37,7 +39,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void getPreparationStatus() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             Assert.assertEquals(GameStatus.PREPARATION, board.getGameStatus());
         } catch (StatusException e) {
@@ -51,7 +54,8 @@ public class PlayerBoardTest {
     @Test(expected = StatusException.class)
     public void setNullStatus() throws StatusException {
         try {
-            PlayerBoard board = new PlayerBoardImpl();
+            GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
             board.setGameStatus(null);
         }catch (DisplayException ignored){}
     }
@@ -61,7 +65,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void getReadyStatus() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             board.setGameStatus(GameStatus.READY);
         } catch (StatusException|DisplayException e) {
@@ -79,7 +84,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void getAttackStatus() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             board.setGameStatus(GameStatus.ATTACK);
         } catch (StatusException|DisplayException e) {
@@ -97,7 +103,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void getReceiveStatus() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             board.setGameStatus(GameStatus.RECEIVE);
         } catch (StatusException|DisplayException e) {
@@ -111,29 +118,12 @@ public class PlayerBoardTest {
     }
 
     /**
-     * checks if GameStatus "OVER" can be set and retrieved
-     */
-    @Test
-    public void getOverStatus() {
-        PlayerBoard board = new PlayerBoardImpl();
-        try {
-            board.setGameStatus(GameStatus.OVER);
-        } catch (StatusException|DisplayException e) {
-            System.err.println(e.getMessage());
-        }
-        try {
-            Assert.assertEquals(GameStatus.OVER, board.getGameStatus());
-        } catch (StatusException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    /**
      * checks if a Field gets the Status "WATER" assigned automatically
      */
     @Test
     public void fieldStatusWater() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(1, 1);
         try {
             Assert.assertEquals(FieldStatus.WATER, board.getFieldStatus(coordinate));
@@ -144,7 +134,8 @@ public class PlayerBoardTest {
 
     @Test(expected = FieldException.class)
     public void noField() throws FieldException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(0, 0);
         board.getFieldStatus(coordinate);
     }
@@ -154,7 +145,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void setBattleshipHorizontal() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate0 = new CoordinateImpl(1, 2);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(3, 2);
@@ -187,7 +179,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void setBattleshipVertically() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate0 = new CoordinateImpl(2, 1);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(2, 3);
@@ -217,7 +210,8 @@ public class PlayerBoardTest {
 
     @Test
     public void setDestroyerVertically() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate0 = new CoordinateImpl(2, 1);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(2, 3);
@@ -244,7 +238,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void allShipsAvailable() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         int[] expected = {1, 2, 3, 4};
         int[] actual = board.shipsAvailable();
         Assert.assertArrayEquals(expected, actual);
@@ -255,7 +250,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void allShipsSet() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             board.setShip(ShipType.BATTLESHIP, new CoordinateImpl(1, 1), Orientation.HORIZONTAL);
             board.setShip(ShipType.CRUISER, new CoordinateImpl(1, 3), Orientation.HORIZONTAL);
@@ -280,7 +276,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = ShipException.class)
     public void tooMuchShips() throws ShipException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             board.setShip(ShipType.BATTLESHIP, new CoordinateImpl(1, 1), Orientation.HORIZONTAL);
             board.setShip(ShipType.CRUISER, new CoordinateImpl(1, 3), Orientation.HORIZONTAL);
@@ -303,7 +300,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = FieldException.class)
     public void setShipOutside() throws FieldException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(0, 0);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
@@ -317,7 +315,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = ShipException.class)
     public void setShipOnShip() throws ShipException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(4, 2);
         try {
@@ -333,7 +332,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = ShipException.class)
     public void setShipNextToShip() throws ShipException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(3, 3);
         try {
@@ -349,7 +349,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = FieldException.class)
     public void setShipOnBoarder() throws FieldException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(9, 1);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate, Orientation.HORIZONTAL);
@@ -363,7 +364,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void setShipNearBoarder() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(9, 1);
         try {
             board.setShip(ShipType.DESTROYER, coordinate, Orientation.HORIZONTAL);
@@ -387,7 +389,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = ShipException.class)
     public void removeNoShip() throws ShipException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(1, 1);
         try {
             board.removeShip(coordinate);
@@ -401,7 +404,8 @@ public class PlayerBoardTest {
      */
     @Test(expected = FieldException.class)
     public void removeShipOutsideBoard() throws FieldException {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate = new CoordinateImpl(0, 0);
         try {
             board.removeShip(coordinate);
@@ -415,7 +419,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void removeShip() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(1, 2);
         try {
             board.setShip(ShipType.SUBMARINE, coordinate1, Orientation.HORIZONTAL);
@@ -436,7 +441,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void registerHit() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(3, 2);
         try {
@@ -456,7 +462,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void registerSunk() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(1, 1);
         try {
             board.setShip(ShipType.DESTROYER, coordinate1, Orientation.HORIZONTAL);
@@ -484,7 +491,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void registerHitWater() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         try {
             Assert.assertEquals(board.receiveAttack(new CoordinateImpl(5, 5)), FieldStatus.SHOTWATER);
         } catch (FieldException|DisplayException e) {
@@ -497,7 +505,8 @@ public class PlayerBoardTest {
      */
     @Test
     public void getShipField() {
-        PlayerBoard board = new PlayerBoardImpl();
+        GameInstance.newGame();
+        PlayerBoard board = GameInstance.getPlayerBoard();
         Coordinate coordinate1 = new CoordinateImpl(1, 1);
         Coordinate coordinate2 = new CoordinateImpl(2, 1);
         try {

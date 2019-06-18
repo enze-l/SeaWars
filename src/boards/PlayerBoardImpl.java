@@ -4,7 +4,7 @@ import boards.coordinates.*;
 import boards.fields.*;
 import boards.ships.*;
 import exceptions.*;
-import output.Display;
+import gameModules.Display;
 
 import java.util.Arrays;
 
@@ -175,8 +175,16 @@ public class PlayerBoardImpl implements PlayerBoard {
     public FieldStatus receiveAttack(Coordinate coordinate) throws FieldException {
         if (!coordinate.validCoordinate()) throw new FieldException("There isn't a place with these coordinates!");
         board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].receiveHit();
+        if (allShipsSunk()) this.gameStatus=GameStatus.LOST;
         Display.update();
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
+    }
+
+    public boolean allShipsSunk(){
+        for (Ship ship : ships) {
+            if (ship.getSegmentStatus(1) != FieldStatus.SUNK) return false;
+        }
+        return true;
     }
 
     /**

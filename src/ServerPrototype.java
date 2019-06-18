@@ -1,20 +1,19 @@
-package tests.ComInstance;
-
 import gameModules.*;
-import input.Input;
-import output.Display;
+import input.CommunicationInstance;
+import input.InputImpl;
+import gameModules.Display;
 
 /**
  * @author s0568823 - Leon Enzenberger
  */
-public class ComInstanceServer {
+public class ServerPrototype {
     public static void main(String[] args) {
         GameInstance.newGame();
         try {
             CommunicationInstance comInstance = new CommunicationInstance(12345);
             comInstance.start();
             Display.update();
-            Input input = new Input();
+            InputImpl input = new InputImpl();
             //noinspection InfiniteLoopStatement
             for (; ; ) {
                 try {

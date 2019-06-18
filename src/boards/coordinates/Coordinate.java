@@ -6,12 +6,12 @@ package boards.coordinates;
 public interface Coordinate {
 
     /**
-     * @return the x-coordinate of the coordinate
+     * @return the x-coordinate of the coordinate in data-representative Form (means -1 smaller then original InputImpl)
      */
     int getXCoordinate();
 
     /**
-     * @return the y-coordinate of the coordinate
+     * @return the y-coordinate of the coordinate in data-representative Form (means -1 smaller then original InputImpl)
      */
     int getYCoordinate();
 

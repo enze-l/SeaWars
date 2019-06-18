@@ -1,11 +1,11 @@
-package gameModules;
+package input;
 
 import boards.*;
 import boards.fields.*;
 import boards.coordinates.*;
 import exceptions.*;
-import input.*;
-import output.Display;
+import gameModules.GameInstance;
+import gameModules.Display;
 import output.OutputSymbols;
 
 import java.io.*;
@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author s0568823 - Leon Enzenberger
  */
 public class CommunicationInstance extends Thread implements Communication {
-    private static Connection CONNECTION;
+    private static ConnectionImpl CONNECTIONImpl;
     private static DataOutputStream OUTPUT;
     private static DataInputStream INPUT;
     private static PlayerBoard PLAYER_BOARD = GameInstance.getPlayerBoard();
@@ -23,28 +23,34 @@ public class CommunicationInstance extends Thread implements Communication {
     private static boolean IS_SERVER;
     private static Coordinate LAST_SHOT;
 
-    @SuppressWarnings("unused")
-    private CommunicationInstance() { }
-
+    /**
+     * creates ServerInstance
+     * @param port is the port that should be opened
+     */
     public CommunicationInstance(int port) {
         IS_SERVER = true;
-        CONNECTION = new Connection(port);
-        CONNECTION.start();
-        CommunicationInstanceInitialization(CONNECTION);
+        CONNECTIONImpl = new ConnectionImpl(port);
+        CONNECTIONImpl.start();
+        CommunicationInstanceInitialization(CONNECTIONImpl);
     }
 
+    /**
+     * creates clientInstance
+     * @param ip of the server that should be connected to
+     * @param port the port of the server
+     */
     public CommunicationInstance(String ip, int port) {
         IS_SERVER = false;
-        CONNECTION = new Connection(port, ip);
-        CONNECTION.start();
-        CommunicationInstanceInitialization(CONNECTION);
+        CONNECTIONImpl = new ConnectionImpl(port, ip);
+        CONNECTIONImpl.start();
+        CommunicationInstanceInitialization(CONNECTIONImpl);
     }
 
-    private void CommunicationInstanceInitialization(Connection connection) {
+    private void CommunicationInstanceInitialization(ConnectionImpl connectionImpl) {
         while (true) {
             try {
-                OUTPUT = new DataOutputStream(connection.getOutputStream());
-                INPUT = new DataInputStream(connection.getInputStream());
+                OUTPUT = new DataOutputStream(connectionImpl.getOutputStream());
+                INPUT = new DataInputStream(connectionImpl.getInputStream());
                 break;
             } catch (IOException e) {
                 try {
@@ -55,10 +61,14 @@ public class CommunicationInstance extends Thread implements Communication {
         }
     }
 
+    /**
+     * Starts own thread that is responsible for handling incoming data
+     */
     @Override
     public synchronized void run() {
         try {
-            while (PLAYER_BOARD.getGameStatus() != GameStatus.OVER) {
+            while (PLAYER_BOARD.getGameStatus() != GameStatus.LOST
+                    &&PLAYER_BOARD.getGameStatus()!=GameStatus.WON) {
                 String command = INPUT.readUTF();
                 switch (command) {
                     case "ready":
@@ -69,9 +79,6 @@ public class CommunicationInstance extends Thread implements Communication {
                         break;
                     case "shoot":
                         shoot();
-                        break;
-                    case "giveup":
-                        giveUp();
                         break;
                     case "attack":
                         attack();
@@ -86,10 +93,9 @@ public class CommunicationInstance extends Thread implements Communication {
             }
         } catch (Exception e) {
             try {
-                CONNECTION.close();
-            } catch (IOException ignored) {
-            }
-            Display.displayMessage("Connection error!");
+                CONNECTIONImpl.close();
+            } catch (IOException ignored) { }
+            Display.displayMessage("ConnectionImpl error!");
         }
     }
 
@@ -107,6 +113,9 @@ public class CommunicationInstance extends Thread implements Communication {
                     break;
                 case "SUNK":
                     ENEMY_BOARD.setFieldStatus(LAST_SHOT, FieldStatus.SUNK);
+                    if (ENEMY_BOARD.allShipsSunk()){
+                        PLAYER_BOARD.setGameStatus(GameStatus.WON);
+                    }
                     break;
                 default:
                     throw new CommunicationException();
@@ -116,11 +125,11 @@ public class CommunicationInstance extends Thread implements Communication {
         }
     }
 
-    public static void setLastShot(Coordinate lastShot) {
+    static void setLastShot(Coordinate lastShot) {
         LAST_SHOT = lastShot;
     }
 
-    public static DataOutputStream getOUTPUT() {
+    static DataOutputStream getOUTPUT() {
         return OUTPUT;
     }
 
@@ -143,12 +152,6 @@ public class CommunicationInstance extends Thread implements Communication {
     }
 
     @Override
-    public void giveUp() {
-
-    }
-
-
-    @Override
     public void ready() throws CommunicationException {
         try {
             if (ENEMY_BOARD.getGameStatus() == GameStatus.PREPARATION) {
@@ -156,7 +159,7 @@ public class CommunicationInstance extends Thread implements Communication {
             } else throw new CommunicationException();
             if (ENEMY_BOARD.getGameStatus() == GameStatus.READY
                     && PLAYER_BOARD.getGameStatus() == GameStatus.READY
-                    && CONNECTION.isServer()) {
+                    && CONNECTIONImpl.isServer()) {
                 int randomStart = ThreadLocalRandom.current().nextInt(0, 1 + 1);
                 if (randomStart == 0) {
                     ENEMY_BOARD.setGameStatus(GameStatus.ATTACK);
@@ -211,7 +214,7 @@ public class CommunicationInstance extends Thread implements Communication {
         }
     }
 
-    public static boolean isIsServer() {
+    static boolean isIsServer() {
         return IS_SERVER;
     }
 }

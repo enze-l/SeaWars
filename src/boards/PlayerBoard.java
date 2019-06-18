@@ -53,6 +53,9 @@ public interface PlayerBoard extends Board{
      */
     int[] shipsAvailable();
 
+    /**
+     * @return true if all ships have a been assigned a position on the board
+     */
     boolean allShipsSet();
     /**
      * gives back all ships saved for the board

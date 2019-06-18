@@ -8,5 +8,6 @@ public enum GameStatus {
     READY,
     ATTACK,
     RECEIVE,
-    OVER,
+    LOST,
+    WON
 }

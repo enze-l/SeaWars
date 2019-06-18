@@ -4,7 +4,7 @@ import boards.*;
 import boards.coordinates.*;
 import boards.fields.*;
 import exceptions.*;
-import input.Input;
+import input.InputImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import gameModules.*;
@@ -22,7 +22,7 @@ public class IOTest {
     @Test
     public void setShip() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1 s\n".getBytes());
             System.setIn(input);
@@ -39,7 +39,7 @@ public class IOTest {
     @Test
     public void setShipWithMoreWhiteSpace() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream(" set c a  1 s\n".getBytes());
             System.setIn(input);
@@ -57,7 +57,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void setShipTooMuchArguments() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream((" set c a 1 s n\n").getBytes());
             System.setIn(input);
@@ -70,7 +70,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void setShipNoSpacing() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("setca1s\n".getBytes());
             System.setIn(input);
@@ -83,7 +83,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void setShipToFewCommands() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c a 1\n".getBytes());
             System.setIn(input);
@@ -96,7 +96,7 @@ public class IOTest {
     @Test(expected = FieldException.class)
     public void setShipOutside() throws FieldException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             ByteArrayInputStream input = new ByteArrayInputStream("set c i 1 s\n".getBytes());
             System.setIn(input);
@@ -112,7 +112,7 @@ public class IOTest {
     @Test
     public void setBattleshipHorizontal() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         Coordinate coordinate0 = new CoordinateImpl(1, 2);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(3, 2);
@@ -144,7 +144,7 @@ public class IOTest {
     @Test
     public void setDestroyerVertically() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         Coordinate coordinate0 = new CoordinateImpl(2, 1);
         Coordinate coordinate1 = new CoordinateImpl(2, 2);
         Coordinate coordinate2 = new CoordinateImpl(2, 3);
@@ -170,7 +170,7 @@ public class IOTest {
     @Test
     public void allShipsSet() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
                     "set b a 1 e\n" +
@@ -204,7 +204,7 @@ public class IOTest {
     @Test(expected = ShipException.class)
     public void tooMuchShips() throws ShipException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
                         "set c c 1 e\n" +
@@ -243,7 +243,7 @@ public class IOTest {
     @Test
     public void removeShip() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
                     "set b a 1 e\n" +
@@ -270,7 +270,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void removeShipToFewArguments() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
                         "remove a\n");
@@ -288,7 +288,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void removeShipToMuchArguments() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
                         "remove a 1 b\n");
@@ -306,7 +306,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void removeShipWrongInformation() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "set b a 1 e\n" +
                         "remove 1 1 \n");
@@ -324,7 +324,7 @@ public class IOTest {
     @Test(expected = InputException.class)
     public void giberish() throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         StringReader input = new StringReader(
                 "asdf b a 1 e\n");
         BufferedReader reader = new BufferedReader(input);
@@ -341,7 +341,7 @@ public class IOTest {
     @Test
     public void getReady() {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
                     "set b a 1 e\n" +
@@ -376,7 +376,7 @@ public class IOTest {
     @Test (expected = InputException.class)
     public void toEarlyReady()throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
                     "set b a 1 e\n" +
@@ -411,7 +411,7 @@ public class IOTest {
 //    @Test
 //    public void revokeReady() {
 //        GameInstance.newGame();
-//        Input i=new Input();
+//        InputImpl i=new InputImpl();
 //        try {
 //            StringReader input = new StringReader(
 //                    "set b a 1 e\n" +
@@ -447,7 +447,7 @@ public class IOTest {
     @Test (expected = InputException.class)
     public void revokeWithoutReady()throws InputException {
         GameInstance.newGame();
-        Input i=new Input();
+        InputImpl i=new InputImpl();
         try {
             StringReader input = new StringReader(
                     "set b a 1 e\n" +

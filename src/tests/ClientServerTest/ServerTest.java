@@ -1,6 +1,6 @@
 package tests.ClientServerTest;
 
-import input.Connection;
+import input.ConnectionImpl;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class ServerTest {
     public static void main(String[] args) {
-        Connection server = new Connection(12345);
+        ConnectionImpl server = new ConnectionImpl(12345);
         try {
             server.start();
             Thread.sleep(10000);

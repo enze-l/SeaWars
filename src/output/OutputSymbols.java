@@ -85,6 +85,7 @@ public class OutputSymbols {
     static char fieldBoarder(BoarderPiece piece, GameStatus status) {
         char symbol = 'x';
         switch (status) {
+            case WON:
             case ATTACK:
                 switch (piece) {
                     case VERTICAL:
@@ -108,6 +109,7 @@ public class OutputSymbols {
                 }
                 break;
             case RECEIVE:
+            case LOST:
             case READY:
                 switch (piece) {
                     case VERTICAL:
@@ -130,7 +132,6 @@ public class OutputSymbols {
                         break;
                 }
                 break;
-            case OVER:
             case PREPARATION:
                 switch (piece) {
                     case VERTICAL:
