@@ -13,10 +13,17 @@ public class Display {
 
     private Display(){}
 
+    /**
+     * assignees the Display the output for the field
+     * @param output the Output that should be used
+     */
     static void initialize(OutputImpl output){
         outputInstance=output;
     }
 
+    /**
+     * Notification Method for changes on the board
+     */
     public static void update(){
         try {
             whiteSpace();
@@ -24,6 +31,10 @@ public class Display {
         }catch (StatusException|InputException|IOException ignored){}
     }
 
+    /**
+     * Method for delivering an message as overlay to the user. Vanishes after 2 seconds agein
+     * @param message the message that should be delivered
+     */
     public static void displayMessage(String message){
         try {
             whiteSpace();

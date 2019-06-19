@@ -23,6 +23,7 @@ public class InputImpl implements Input{
         this.enemyBoard = Game.getEnemyBoard();
     }
 
+    @Override
     public void command()
             throws IOException, StatusException, InputException, FieldException, ShipException, DisplayException {
         InputStreamReader userInput = new InputStreamReader(System.in);
@@ -32,10 +33,6 @@ public class InputImpl implements Input{
         String[] parameters = Arrays.copyOfRange(commandString, 1, commandString.length);
         if (commandString[0].equals("")) System.err.println("You have to give me some command!");
         switch (command) {
-            case "LEGEND":
-                //legend needs to get implemented
-                System.out.println("legend");
-                break;
             case "SET":
                 set(parameters);
                 break;

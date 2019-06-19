@@ -23,8 +23,21 @@ public class CommunicationInstance extends Thread implements Communication {
     private static boolean IS_SERVER;
     private static Coordinate LAST_SHOT;
 
+    static void setLastShot(Coordinate lastShot) {
+        LAST_SHOT = lastShot;
+    }
+
+    static DataOutputStream getOUTPUT() {
+        return OUTPUT;
+    }
+
+    static boolean isIsServer() {
+        return IS_SERVER;
+    }
+
     /**
      * creates ServerInstance
+     *
      * @param port is the port that should be opened
      */
     public CommunicationInstance(int port) {
@@ -36,7 +49,8 @@ public class CommunicationInstance extends Thread implements Communication {
 
     /**
      * creates clientInstance
-     * @param ip of the server that should be connected to
+     *
+     * @param ip   of the server that should be connected to
      * @param port the port of the server
      */
     public CommunicationInstance(String ip, int port) {
@@ -68,7 +82,7 @@ public class CommunicationInstance extends Thread implements Communication {
     public synchronized void run() {
         try {
             while (PLAYER_BOARD.getGameStatus() != GameStatus.LOST
-                    &&PLAYER_BOARD.getGameStatus()!=GameStatus.WON) {
+                    && PLAYER_BOARD.getGameStatus() != GameStatus.WON) {
                 String command = INPUT.readUTF();
                 switch (command) {
                     case "ready":
@@ -94,12 +108,14 @@ public class CommunicationInstance extends Thread implements Communication {
         } catch (Exception e) {
             try {
                 CONNECTIONImpl.close();
-            } catch (IOException ignored) { }
+            } catch (IOException ignored) {
+            }
             Display.displayMessage("ConnectionImpl error!");
         }
     }
 
-    private void result() throws CommunicationException {
+    @Override
+    public void result() throws CommunicationException {
         try {
             String result = INPUT.readUTF().toUpperCase();
             switch (result) {
@@ -113,24 +129,16 @@ public class CommunicationInstance extends Thread implements Communication {
                     break;
                 case "SUNK":
                     ENEMY_BOARD.setFieldStatus(LAST_SHOT, FieldStatus.SUNK);
-                    if (ENEMY_BOARD.allShipsSunk()){
+                    if (ENEMY_BOARD.allShipsSunk()) {
                         PLAYER_BOARD.setGameStatus(GameStatus.WON);
                     }
                     break;
                 default:
                     throw new CommunicationException();
             }
-        } catch (IOException | FieldException | StatusException|DisplayException e) {
+        } catch (IOException | FieldException | StatusException | DisplayException e) {
             throw new CommunicationException();
         }
-    }
-
-    static void setLastShot(Coordinate lastShot) {
-        LAST_SHOT = lastShot;
-    }
-
-    static DataOutputStream getOUTPUT() {
-        return OUTPUT;
     }
 
     @Override
@@ -146,7 +154,7 @@ public class CommunicationInstance extends Thread implements Communication {
                 PLAYER_BOARD.setGameStatus(GameStatus.ATTACK);
                 ENEMY_BOARD.setGameStatus(GameStatus.RECEIVE);
             }
-        } catch (IOException | InputException | FieldException | StatusException|DisplayException e) {
+        } catch (IOException | InputException | FieldException | StatusException | DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -171,7 +179,7 @@ public class CommunicationInstance extends Thread implements Communication {
                     OUTPUT.writeUTF("receive");
                 }
             }
-        } catch (StatusException | IOException|DisplayException e) {
+        } catch (StatusException | IOException | DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -183,7 +191,7 @@ public class CommunicationInstance extends Thread implements Communication {
                     && ENEMY_BOARD.getGameStatus() == GameStatus.READY) {
                 ENEMY_BOARD.setGameStatus(GameStatus.PREPARATION);
             } else throw new CommunicationException();
-        } catch (StatusException|DisplayException e) {
+        } catch (StatusException | DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -196,7 +204,7 @@ public class CommunicationInstance extends Thread implements Communication {
                 PLAYER_BOARD.setGameStatus(GameStatus.RECEIVE);
                 ENEMY_BOARD.setGameStatus(GameStatus.ATTACK);
             } else throw new CommunicationException();
-        } catch (StatusException |DisplayException e) {
+        } catch (StatusException | DisplayException e) {
             throw new CommunicationException();
         }
     }
@@ -209,12 +217,8 @@ public class CommunicationInstance extends Thread implements Communication {
                 PLAYER_BOARD.setGameStatus(GameStatus.ATTACK);
                 ENEMY_BOARD.setGameStatus(GameStatus.RECEIVE);
             } else throw new CommunicationException();
-        } catch (StatusException|DisplayException e) {
+        } catch (StatusException | DisplayException e) {
             throw new CommunicationException();
         }
-    }
-
-    static boolean isIsServer() {
-        return IS_SERVER;
     }
 }

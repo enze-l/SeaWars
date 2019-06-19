@@ -29,8 +29,4 @@ public class Game {
     public static PlayerBoard getPlayerBoard() {
         return PLAYER_BOARD;
     }
-
-
-
-
 }

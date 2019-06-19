@@ -19,7 +19,6 @@ public class ConnectionImpl extends Thread implements Connection {
 
     private final boolean asServer;
     private Socket socket;
-
     private boolean threadRunning = false;
 
     public ConnectionImpl(int port) {
@@ -48,27 +47,32 @@ public class ConnectionImpl extends Thread implements Connection {
         }
     }
 
+    @Override
     public boolean isRunning(){
         return this.threadRunning;
     }
 
+    @Override
     public void close() throws IOException {
         if (this.socket != null) {
             this.socket.close();
         }
     }
 
+    @Override
     public void checkConnected() throws IOException {
         if (this.socket == null) {
             throw new IOException("No ConnectionImpl found");
         }
     }
 
+    @Override
     public InputStream getInputStream() throws IOException {
         this.checkConnected();
         return this.socket.getInputStream();
     }
 
+    @Override
     public OutputStream getOutputStream() throws IOException {
         this.checkConnected();
         return this.socket.getOutputStream();

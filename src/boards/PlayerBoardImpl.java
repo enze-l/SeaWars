@@ -131,6 +131,24 @@ public class PlayerBoardImpl implements PlayerBoard {
     }
 
     /**
+     * Returns status of the field with the given coordinates
+     *
+     * @param coordinate Coordinates of the field of which the status is requested
+     * @return status of the field
+     * @throws FieldException if there is no field with the given coordinates
+     */
+    @Override
+    public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
+        if (coordinate.getXCoordinate() < 0
+                || coordinate.getXCoordinate() > 9
+                || coordinate.getYCoordinate() < 0
+                || coordinate.getYCoordinate() > 9) {
+            throw new FieldException("Field outside of the playing board");
+        }
+        return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
+    }
+
+    /**
      * Method for removing a ship from a field with the given coordinate
      *
      * @param coordinate coordinate where part of the ship resides
@@ -145,20 +163,21 @@ public class PlayerBoardImpl implements PlayerBoard {
         if (board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus() == FieldStatus.WATER) {
             throw new ShipException("There isn't an ship at the coordinate!");
         }
-        Coordinate shipAnchor = board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getPosition();
-        int shipLength = board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().getLength();
-        Orientation orientation;
+        Ship ship=board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip();
+        Coordinate shipAnchor = ship.getPosition();
+        int shipLength = ship.getLength();
+        Orientation shipOrientation;
         if (board[shipAnchor.getXCoordinate() + 1][shipAnchor.getYCoordinate()].getFieldStatus() == FieldStatus.SETSHIP) {
-            orientation = Orientation.HORIZONTAL;
+            shipOrientation = Orientation.HORIZONTAL;
         } else {
-            orientation = Orientation.VERTICAL;
+            shipOrientation = Orientation.VERTICAL;
         }
-        board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getShip().removeShip();
+        ship.removeShip();
         for (int shipSegment = 0; shipSegment < shipLength; shipSegment++) {
-            if (orientation == Orientation.HORIZONTAL) {
+            if (shipOrientation == Orientation.HORIZONTAL) {
                 board[shipAnchor.getXCoordinate() + shipSegment][shipAnchor.getYCoordinate()].removeShip();
             }
-            if (orientation == Orientation.VERTICAL) {
+            if (shipOrientation == Orientation.VERTICAL) {
                 board[shipAnchor.getXCoordinate()][shipAnchor.getYCoordinate()+ shipSegment].removeShip();
             }
         }
@@ -180,29 +199,12 @@ public class PlayerBoardImpl implements PlayerBoard {
         return board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 
+    @Override
     public boolean allShipsSunk(){
         for (Ship ship : ships) {
             if (ship.getSegmentStatus(1) != FieldStatus.SUNK) return false;
         }
         return true;
-    }
-
-    /**
-     * Returns status of the field with the given coordinates
-     *
-     * @param coordinate Coordinates of the field of which the status is requested
-     * @return status of the field
-     * @throws FieldException if there is no field with the given coordinates
-     */
-    @Override
-    public FieldStatus getFieldStatus(Coordinate coordinate) throws FieldException {
-        if (coordinate.getXCoordinate() < 0
-                || coordinate.getXCoordinate() > 9
-                || coordinate.getYCoordinate() < 0
-                || coordinate.getYCoordinate() > 9) {
-            throw new FieldException("Field outside of the playing board");
-        }
-        return this.board[coordinate.getXCoordinate()][coordinate.getYCoordinate()].getFieldStatus();
     }
 
     /**

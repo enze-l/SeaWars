@@ -26,7 +26,7 @@ public abstract class Ship {
      * @param coordinate upper left segment of the ship (anchor-point)
      * @param orientation the direction in witch the ship is pointed
      */
-    public void setShip(Coordinate coordinate, Orientation orientation){
+    final public void setShip(Coordinate coordinate, Orientation orientation){
         for(int segment=0; segment<segments.length; segment++){
             if (orientation==Orientation.HORIZONTAL) {
                 segments[segment].segmentAssignment(new CoordinateImpl(coordinate.getXCoordinate()+segment+1, coordinate.getYCoordinate()+1));
@@ -38,26 +38,26 @@ public abstract class Ship {
     }
 
     /**
-     * @return anchor point of ship on board
+     * resets the status of the Ship
      */
-    public Coordinate getPosition(){
-        return segments[0].getCoordinate();
-    }
-
-    /**
-     * resets the status of
-     */
-    public void removeShip(){
+    final public void removeShip(){
         for (ShipSegment segment:segments){
             segment.removeAssignment();
         }
     }
 
     /**
+     * @return anchor point of ship on board
+     */
+    final public Coordinate getPosition(){
+        return segments[0].getCoordinate();
+    }
+
+    /**
      * Getter-method for the length of the ship
      * @return length of ship
      */
-    public int getLength(){
+    final public int getLength(){
         return segments.length;
     }
 
@@ -68,7 +68,7 @@ public abstract class Ship {
      * status "sunk"
      * @param coordinate the coordinate that is getting attacked
      */
-    public void setHit(Coordinate coordinate){
+    final public void setHit(Coordinate coordinate){
         for (ShipSegment segment : segments) {
             if (segment.getCoordinate().equals(coordinate)) {
                 segment.setHit();
@@ -91,6 +91,9 @@ public abstract class Ship {
         return allHit;
     }
 
+    /**
+     * Assignees every ship-segment the status "SUNK"
+     */
     public void setShipSunk(){
         for (ShipSegment segment: segments){
             segment.setSegmentSunk();
@@ -113,6 +116,11 @@ public abstract class Ship {
         return fieldStatus;
     }
 
+    /**
+     * returns the status of the segment
+     * @param segment the number of the segment (non Data Format)
+     * @return Status of the Segment
+     */
     public FieldStatus getSegmentStatus(int segment){
         return this.segments[segment-1].getStatus();
     }

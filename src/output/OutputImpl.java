@@ -20,10 +20,12 @@ public class OutputImpl implements Output{
         this.enemyBoard=enemyBoard;
     }
 
+    @Override
     public void output() throws StatusException,InputException, IOException {
         System.out.print(getOutputString());
     }
 
+    @Override
     public void output(String message) throws StatusException,InputException, IOException{
         StringBuilder output=new StringBuilder();
         BufferedReader game=new BufferedReader(new StringReader(getOutputString()));

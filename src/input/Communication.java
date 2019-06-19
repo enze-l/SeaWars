@@ -36,4 +36,10 @@ public interface Communication {
      * @throws CommunicationException if not both player were in the ready-phase before
      */
     void attack() throws CommunicationException;
+
+    /**
+     * declares, that a result as to be announced
+     * @throws CommunicationException if an unknown result is given back
+     */
+    void result() throws CommunicationException;
 }
